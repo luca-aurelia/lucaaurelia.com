@@ -1,0 +1,7 @@
+[package]
+name = "paths"
+version = "0.1.0"
+edition = "2021"
+description = "Paths."
+license = "unlicensed"
+repository = "https://github.com/rainsound-ai/rainsound.ai/"
