@@ -14,6 +14,9 @@ pub struct Assets {
     pub google_touch_icon: FileAsset,
     pub manifest_json: FileAsset,
     pub hero_image: LightDarkImageAsset,
+    pub not_found_image_one: ImageAsset,
+    pub not_found_image_two: ImageAsset,
+    pub not_found_image_three: ImageAsset,
 }
 
 impl Assets {
@@ -91,6 +94,24 @@ impl Assets {
 
         let hero_image = LightDarkImageAsset::new(hero_image_light, hero_image_dark);
 
+        let not_found_image_one = assets::include_image!(
+            path_to_image: "../attachments/fuji river - kawase hasui - 1933.jpeg",
+            alt: "",
+            placeholder: automatic_color,
+        );
+
+        let not_found_image_two = assets::include_image!(
+            path_to_image: "../attachments/kominato, boshu - kawase hasui.jpeg",
+            alt: "",
+            placeholder: automatic_color,
+        );
+
+        let not_found_image_three = assets::include_image!(
+            path_to_image: "../attachments/izu dogashima - kawase hasui.jpeg",
+            alt: "",
+            placeholder: automatic_color,
+        );
+
         Self {
             css,
             browser_crate,
@@ -100,6 +121,9 @@ impl Assets {
             google_touch_icon,
             manifest_json,
             hero_image,
+            not_found_image_one,
+            not_found_image_two,
+            not_found_image_three,
         }
     }
 }

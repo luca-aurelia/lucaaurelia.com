@@ -135,7 +135,8 @@ fn nav() -> Markup {
                 li class="hidden sm:list-item" {
                     "Hi, my name is Luca Aurelia"
                 }
-                li class="spacer" {}
+                // Add this back when I have a "work" link.
+                // li class="spacer" {}
                 // li {
                 //     (Link::new()
                 //         .href(Route::Work)

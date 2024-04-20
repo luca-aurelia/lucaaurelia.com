@@ -19,7 +19,7 @@ pub fn page() -> Markup {
         html! {
             // (floating_nav())
             main
-                class="relative p-8 lg:p-16 !pb-40 flex flex-col gap-0 lg:gap-16 w-full" {
+                class="relative p-8 lg:p-16 !pb-40 !pt-0 flex flex-col gap-0 lg:gap-16 w-full" {
                 (hero_section())
                 (poetry_section())
             }
@@ -104,7 +104,7 @@ pub fn nav_links() -> Markup {
 fn hero_section() -> Markup {
     html! {
         section
-            class="lg:h-[calc(100vh-8rem)] flex flex-col justify-center items-center" {
+            class="h-dvh flex flex-col justify-center items-center" {
             div
                 id="hero"
                 class="
@@ -113,7 +113,7 @@ fn hero_section() -> Markup {
                         overflow-hidden
                         rounded
                         relative
-                        w-full lg:w-[80vw] h-[384px] lg:h-[80vh] max-h-[calc(100vh-8rem)]
+                        w-[80vw] h-[80dvh]
                         selection:bg-neutral-700/75 dark:selection:bg-neutral-500/75
                         text-neutral-100 dark:text-neutral-300 tracking-wider
                         z-20" {
@@ -134,17 +134,17 @@ fn hero_section() -> Markup {
                         bg-gradient-to-t dark:bg-none from-neutral-950/30 " {
                     span
                         id="name-in-kanji"
-                        class="text-4xl lg:text-7xl font-semibold tracking-wide whitespace-nowrap" {
+                        class="text-5xl sm:text-7xl font-semibold tracking-wide whitespace-nowrap" {
                         "種田山頭火"
                     }
                     span
                         id="name-in-romaji"
-                        class="text-xl lg:text-4xl font-normal tracking-wide whitespace-nowrap" {
+                        class="text-2xl sm:text-4xl font-normal tracking-wide whitespace-nowrap" {
                         "Taneda Santōka"
                     }
                     span
                         id="birth-and-death"
-                        class="text-base lg:text-3xl font-normal tracking-wide whitespace-nowrap" {
+                        class="text-base sm:text-3xl font-normal tracking-wide whitespace-nowrap" {
                         "1882 – 1940"
                     }
                 }
@@ -154,8 +154,22 @@ fn hero_section() -> Markup {
 }
 
 fn poetry_section() -> Markup {
+    // The idea behind this padding-top calculation is:
+    //
+    // The desired space between the hero image and this
+    // element is 10rem, since that's how much space is
+    // between each individual publication.
+    //
+    // The hero image is 80dvh, centered in the viewport,
+    // meaning there will be 10dvh of space at the bottom.
+    //
+    // Our goal is:
+    // padding-top + 10dvh = 10rem
+    //
+    // With a little algebra, this gives us:
+    // padding-top = 10rem - 10dvh
     html!(
-        section id="poems" class="flex flex-col tracking-wide items-center gap-40 pt-20" {
+        section id="poems" class="flex flex-col tracking-wide items-center gap-40 pt-[calc(10rem-10dvh)]" {
             @for publication in DATABASE.publications_sorted_by_luca_ranking() {
                 (poems_and_publication(publication))
             }
@@ -362,10 +376,9 @@ fn hero_image() -> Markup {
         transform dark:-scale-x-100
     ";
 
-    html!(
-        (LightDarkImage::new(&ASSETS.hero_image)
-            .class(class)
-            .above_the_fold(true)
-            .is_largest_contentful_paint(true))
-    )
+    LightDarkImage::new(&ASSETS.hero_image)
+        .class(class)
+        .above_the_fold(true)
+        .is_largest_contentful_paint(true)
+        .render()
 }

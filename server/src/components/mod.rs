@@ -1,3 +1,9 @@
+pub mod hero_content;
+pub use self::hero_content::*;
+
+pub mod hero_section;
+pub use self::hero_section::*;
+
 mod image;
 pub use self::image::*;
 

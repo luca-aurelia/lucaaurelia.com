@@ -136,11 +136,11 @@ pub fn light_dark_image_with_color_placeholder<'a>(
 
             div
                 class="absolute top-0 left-0 shrink-0 w-full min-h-full"
-                background_color=(dark_mode_css_string) {}
+                style={"background-color: " (dark_mode_css_string)} {}
 
             div
                 class="absolute top-0 left-0 shrink-0 w-full min-h-full dark:hidden"
-                background_color=(light_mode_css_string) {}
+                style={"background-color: " (light_mode_css_string)} {}
 
             picture
                 class="absolute top-0 left-0 w-full min-h-full object-cover" {

@@ -43,7 +43,7 @@ impl BuildTimeResizedImage {
 
         let height = original_image.height_if_resized_to_width(width);
 
-        let bytes = Self::generate_bytes(width, &absolute_path_with_width, original_image);
+        let bytes = Self::generate_and_save_bytes(width, &absolute_path_with_width, original_image);
 
         Self {
             absolute_path: absolute_path_with_width,
@@ -72,14 +72,22 @@ impl BuildTimeResizedImage {
             .join(file_name_with_width)
     }
 
+    /// If you want to transform the file name, this is the place to do it.
     fn file_name_with_width(file_name: &Path, width: u32, mime_type: &Mime) -> PathBuf {
         let old_file_stem = file_name.file_stem().unwrap().to_str().unwrap();
         let new_file_extension = mime_type.subtype().as_str();
-        let new_file_name_string = format!("{}_{}w.{}", old_file_stem, width, new_file_extension);
+
+        let mut alphanumeric =
+            old_file_stem.replace(|character: char| !character.is_alphanumeric(), "-");
+        while alphanumeric.contains("--") {
+            alphanumeric = alphanumeric.replace("--", "-");
+        }
+
+        let new_file_name_string = format!("{}-{}w.{}", alphanumeric, width, new_file_extension);
         PathBuf::from_str(&new_file_name_string).unwrap()
     }
 
-    fn generate_bytes(width: u32, path: &Path, original_image: &DynamicImage) -> Vec<u8> {
+    fn generate_and_save_bytes(width: u32, path: &Path, original_image: &DynamicImage) -> Vec<u8> {
         fs::read(path).unwrap_or_else(|error| {
             println!(
                 "Couldn't read resized image file {:?} so regenerating the resized image. Original error message: {}",
