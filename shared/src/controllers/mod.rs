@@ -33,7 +33,7 @@ pub fn controller_name_to_selector(controller_name: &str) -> String {
     //
     // controller:show-hide
     format!(
-        "[class^='{}'], [class*=' {}']",
-        controller_name, controller_name
+        "[class^='{} '], [class*=' {} '], [class$=' {}'], [class='{}']",
+        controller_name, controller_name, controller_name, controller_name
     )
 }
