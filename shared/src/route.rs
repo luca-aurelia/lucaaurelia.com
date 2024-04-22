@@ -7,7 +7,7 @@ use std::fmt::Display;
 pub enum Route {
     BuildTime,
     Home,
-    ImageGarden,
+    // ImageGarden,
     NotFound,
     NonPreviewPoems { publication_id: PublicationId },
     Santoka,
@@ -31,7 +31,7 @@ impl Display for Route {
         let route_str = match self {
             Route::BuildTime => "/build-time".to_string(),
             Route::Home => "/".to_string(),
-            Route::ImageGarden => "/image-garden".to_string(),
+            // Route::ImageGarden => "/image-garden".to_string(),
             Route::NonPreviewPoems { publication_id } => {
                 format!("/non-preview-poems/{}", publication_id)
             }

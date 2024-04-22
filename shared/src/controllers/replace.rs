@@ -1,7 +1,7 @@
 use crate::route::Route;
 use serde::{Deserialize, Serialize};
 
-pub static NAME: &str = "controller:replace";
+pub static NAME: &str = "replace";
 
 #[cfg(feature = "browser")]
 pub use self::browser::*;
@@ -31,6 +31,8 @@ pub mod browser {
 
         let load_html_from = props.load_html_from;
 
+        let dbg_load_html_from = format!("{:?}", load_html_from);
+
         // We use `once` since we replace this element and we don't
         // want to leak event listeners.
         EventListener::once(&outer_target_element, "click", move |_| {
@@ -59,11 +61,11 @@ pub mod browser {
 
 #[cfg(feature = "server")]
 pub mod server {
-    use super::super::get_class;
+    use super::super::get_class_with_props;
     use super::*;
     use crate::route::Route;
 
     pub fn replace(load_html_from: Route) -> String {
-        get_class(NAME, Props { load_html_from })
+        get_class_with_props(NAME, Props { load_html_from })
     }
 }

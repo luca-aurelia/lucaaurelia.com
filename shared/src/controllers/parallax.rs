@@ -1,4 +1,4 @@
-pub static NAME: &str = "controller:parallax";
+pub static NAME: &str = "parallax";
 
 #[cfg(feature = "browser")]
 pub use self::browser::mount_parallax;
@@ -44,9 +44,12 @@ pub mod browser {
 
 #[cfg(feature = "server")]
 pub mod server {
+    use crate::controllers::get_class_without_props;
+
     use super::*;
 
     pub fn parallax() -> String {
-        format!("{NAME} -translate-y-[16px] scale-105")
+        let class = get_class_without_props(NAME);
+        format!("{class} -translate-y-[16px] scale-105")
     }
 }

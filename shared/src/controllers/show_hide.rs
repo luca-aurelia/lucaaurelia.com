@@ -1,7 +1,7 @@
-pub static NAME: &str = "controller:show-hide";
-static SHOW_BY_DEFAULT_NAME: &str = "controller:show-hide:show-by-default";
-static HIDE_BY_DEFAULT_NAME: &str = "controller:show-hide:hide-by-default";
-static TOGGLE_NAME: &str = "controller:show-hide:toggle";
+pub static NAME: &str = "show-hide";
+static SHOW_BY_DEFAULT_NAME: &str = "show-hide:show-by-default";
+static HIDE_BY_DEFAULT_NAME: &str = "show-hide:hide-by-default";
+static TOGGLE_NAME: &str = "show-hide:toggle";
 
 #[cfg(feature = "browser")]
 pub use self::browser::*;
@@ -13,12 +13,13 @@ pub use self::server::*;
 pub mod browser {
     use super::super::controller_name_to_selector;
     use super::*;
+    use crate::controllers::HasProps;
     use crate::extensions::*;
     use gloo::console;
     use gloo::events::EventListener;
     use std::cell::Cell;
     use std::rc::Rc;
-    use wasm_bindgen::JsCast;
+    // use wasm_bindgen::JsCast;
     // use wasm_bindgen_futures::spawn_local;
     use web_sys::HtmlElement;
     // use web_sys::ScrollBehavior;
@@ -27,18 +28,20 @@ pub mod browser {
     pub fn mount_show_hide(target_element: HtmlElement) {
         let container = target_element;
 
-        let elements_to_show_by_default =
-            container.find_controllers(SHOW_BY_DEFAULT_NAME).into_rc();
+        let elements_to_show_by_default = container
+            .find_controllers(SHOW_BY_DEFAULT_NAME, HasProps::No)
+            .into_rc();
 
-        let elements_to_hide_by_default =
-            container.find_controllers(HIDE_BY_DEFAULT_NAME).into_rc();
+        let elements_to_hide_by_default = container
+            .find_controllers(HIDE_BY_DEFAULT_NAME, HasProps::No)
+            .into_rc();
 
         // let maybe_scroll_anchor = get_scroll_anchor(&container).into_rc();
 
         let toggles = {
-            let toggles = container.find_controllers(TOGGLE_NAME);
+            let toggles = container.find_controllers(TOGGLE_NAME, HasProps::No);
             if toggles.is_empty() {
-                let selector = controller_name_to_selector(TOGGLE_NAME);
+                let selector = controller_name_to_selector(TOGGLE_NAME, HasProps::No);
                 console::warn!(
                     "Expected at least one child element inside of",
                     container,
@@ -89,17 +92,19 @@ pub mod browser {
         }
     }
 
-    fn get_scroll_anchor(container: &HtmlElement) -> Option<HtmlElement> {
-        let previous_container = container.previous_element_sibling()?;
-        let maybe_anchor = previous_container
-            .query_selector(".scroll-anchor-when-hiding-publication")
-            .ok()?;
-        maybe_anchor.map(|element| element.dyn_into::<HtmlElement>().expect("HtmlElement"))
-    }
+    // fn get_scroll_anchor(container: &HtmlElement) -> Option<HtmlElement> {
+    //     let previous_container = container.previous_element_sibling()?;
+    //     let maybe_anchor = previous_container
+    //         .query_selector(".scroll-anchor-when-hiding-publication")
+    //         .ok()?;
+    //     maybe_anchor.map(|element| element.dyn_into::<HtmlElement>().expect("HtmlElement"))
+    // }
 }
 
 #[cfg(feature = "server")]
 pub mod server {
+    use crate::controllers::get_class_without_props;
+
     use super::*;
 
     #[derive(PartialEq, Clone)]
@@ -110,20 +115,21 @@ pub mod server {
             ShowHide {}
         }
 
-        pub fn container(&self) -> &'static str {
-            NAME
+        pub fn container(&self) -> String {
+            get_class_without_props(NAME)
         }
 
-        pub fn toggle(&self) -> &'static str {
-            TOGGLE_NAME
+        pub fn toggle(&self) -> String {
+            get_class_without_props(TOGGLE_NAME)
         }
 
-        pub fn show_by_default(&self) -> &'static str {
-            SHOW_BY_DEFAULT_NAME
+        pub fn show_by_default(&self) -> String {
+            get_class_without_props(SHOW_BY_DEFAULT_NAME)
         }
 
         pub fn hide_by_default(&self) -> String {
-            format!("{HIDE_BY_DEFAULT_NAME} hidden")
+            let class = get_class_without_props(HIDE_BY_DEFAULT_NAME);
+            format!("{class} hidden")
         }
     }
 

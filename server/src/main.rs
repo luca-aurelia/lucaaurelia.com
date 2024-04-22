@@ -64,7 +64,7 @@ async fn handle_request(req: Request) -> axum::response::Html<String> {
 async fn health_check() {}
 
 fn save_obsidian_html_views() {
-    routes::image_garden::save_to_obsidian_page();
+    // routes::image_garden::save_to_obsidian_page();
 }
 
 fn parse_task_from_cli_args() -> Task {

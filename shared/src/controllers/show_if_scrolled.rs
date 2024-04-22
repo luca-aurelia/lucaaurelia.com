@@ -1,4 +1,4 @@
-pub static NAME: &str = "controller:show-if-scrolled";
+pub static NAME: &str = "show-if-scrolled";
 
 #[cfg(feature = "browser")]
 pub use self::browser::mount_show_if_scrolled;
@@ -48,14 +48,9 @@ pub mod browser {
 #[cfg(feature = "server")]
 pub mod server {
     use super::*;
-    // use crate::prelude::*;
+    use crate::controllers::get_class_without_props;
 
-    // pub fn show_if_scrolled() -> BrowserComponent<Props> {
-    //     BrowserComponent { name, props: () }
-    // }
-
-    pub fn show_if_scrolled() -> &'static str {
-        NAME
-        // BrowserComponent { name, props: () }
+    pub fn show_if_scrolled() -> String {
+        get_class_without_props(NAME)
     }
 }
