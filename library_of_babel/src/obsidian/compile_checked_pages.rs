@@ -9,7 +9,7 @@ pub struct CompileCheckedPages {
 impl CompileCheckedPages {
     pub fn new(vault_path: &str, files_for_link_resolution: &[&File]) -> CompileCheckedPages {
         // Use include_str! to guarantee that the file exists at the expected path.
-        let public_contents = include_str!("/Users/photon-garden/library-of-babel/Public.md");
+        let public_contents = ""; // include_str!("/Users/photon-garden/library-of-babel/Public.md");
         let public_absolute_path = "/Users/photon-garden/library-of-babel/Public.md";
         let public_page = Page::from_path(
             vault_path,
@@ -18,8 +18,7 @@ impl CompileCheckedPages {
             public_contents.to_string(),
         );
 
-        let image_garden_contents =
-            include_str!("/Users/photon-garden/library-of-babel/Image garden.md");
+        let image_garden_contents = ""; // include_str!("/Users/photon-garden/library-of-babel/Image garden.md");
         let image_garden_absolute_path = "/Users/photon-garden/library-of-babel/Image garden.md";
         let image_garden_page = Page::from_path(
             vault_path,
