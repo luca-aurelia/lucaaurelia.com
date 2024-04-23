@@ -95,19 +95,19 @@ impl Assets {
         let hero_image = LightDarkImageAsset::new(hero_image_light, hero_image_dark);
 
         let not_found_image_one = assets::include_image!(
-            path_to_image: "../attachments/fuji river - kawase hasui - 1933.jpeg",
+            path_to_image: "server/src/assets/images/fuji river - kawase hasui - 1933.jpeg",
             alt: "",
             placeholder: automatic_color,
         );
 
         let not_found_image_two = assets::include_image!(
-            path_to_image: "../attachments/kominato, boshu - kawase hasui.jpeg",
+            path_to_image: "server/src/assets/images/kominato, boshu - kawase hasui.jpeg",
             alt: "",
             placeholder: automatic_color,
         );
 
         let not_found_image_three = assets::include_image!(
-            path_to_image: "../attachments/izu dogashima - kawase hasui.jpeg",
+            path_to_image: "server/src/assets/images/izu dogashima - kawase hasui.jpeg",
             alt: "",
             placeholder: automatic_color,
         );
