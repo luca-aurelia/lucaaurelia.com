@@ -71,13 +71,13 @@ pub fn include(input: TokenStream) -> TokenStream {
     let built_css = std::fs::read_to_string(output_file).expect("Error reading built.css file.");
 
     // Also save the output to the Obsidian snippets folder.
-    let output_file_name = input
-        .url_path
-        .file_name()
-        .expect("The url path should have a file name.");
-    let snippet_path = paths::css_snippets_dir().join(output_file_name);
-    std::fs::write(snippet_path, &built_css)
-        .expect("Error saving Tailwind output to the CSS snippets directory.");
+    // let output_file_name = input
+    //     .url_path
+    //     .file_name()
+    //     .expect("The url path should have a file name.");
+    // let snippet_path = paths::css_snippets_dir().join(output_file_name);
+    // std::fs::write(snippet_path, &built_css)
+    //     .expect("Error saving Tailwind output to the CSS snippets directory.");
 
     let css_asset = CssAsset::new(input.url_path, built_css, input.performance_budget);
 
