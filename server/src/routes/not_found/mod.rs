@@ -6,6 +6,7 @@ pub fn page() -> Markup {
     Layout::new(
         "Luca Aurelia | Not found",
         "Not found.",
+        &ASSETS.not_found_image_two,
         IncludeBodyClasses::Yes,
         html! {
             main class="w-full" {

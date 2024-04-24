@@ -15,6 +15,9 @@ impl ImageAssetExtension for ImageAsset {
             height: build_time_image.height,
             srcset: generate_srcset(&build_time_image.resized_copies),
             src: generate_src(build_time_image),
+            medium_sized_full_url: generate_medium_sized_full_url(
+                &build_time_image.resized_copies,
+            ),
             mime_type: build_time_image.mime_type.clone(),
         }
     }
@@ -47,4 +50,19 @@ fn generate_srcset(resized_copies: &[BuildTimeResizedImage]) -> String {
         })
         .collect::<Vec<String>>()
         .join(", ")
+}
+
+fn generate_medium_sized_full_url(resized_copies: &[BuildTimeResizedImage]) -> String {
+    let medium_sized = resized_copies
+        .iter()
+        .min_by_key(|resized_copy| {
+            // We want the image that's closest to 1000px wide.
+            let difference = 1000 - resized_copy.width as i32;
+            difference.abs()
+        })
+        .expect("Received a built image with no resized copies.");
+
+    paths::full_asset_url(&medium_sized.path_starting_from_images_dir)
+        .to_string_lossy()
+        .to_string()
 }

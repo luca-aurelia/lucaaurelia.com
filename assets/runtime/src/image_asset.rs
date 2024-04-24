@@ -15,6 +15,9 @@ pub struct ImageAsset {
     pub srcset: String,
     pub src: String,
 
+    /// Used for Open Graph and Twitter Card.
+    pub medium_sized_full_url: String,
+
     pub mime_type: Mime,
 }
 
@@ -57,6 +60,7 @@ if #[cfg(feature = "build_time")] {
 
             let srcset = &self.srcset;
             let src = &self.src;
+            let medium_sized_full_url = &self.medium_sized_full_url;
 
             let mime_type = &self.mime_type.to_string();
 
@@ -70,6 +74,7 @@ if #[cfg(feature = "build_time")] {
 
                     srcset: #srcset.to_string(),
                     src: #src.to_string(),
+                    medium_sized_full_url: #medium_sized_full_url.to_string(),
 
                     mime_type: #mime_type.parse().unwrap(),
                 }

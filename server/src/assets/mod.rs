@@ -17,6 +17,7 @@ pub struct Assets {
     pub not_found_image_one: ImageAsset,
     pub not_found_image_two: ImageAsset,
     pub not_found_image_three: ImageAsset,
+    pub open_graph_image: ImageAsset,
 }
 
 impl Assets {
@@ -112,6 +113,12 @@ impl Assets {
             placeholder: automatic_color,
         );
 
+        let open_graph_image = assets::include_image!(
+            path_to_image: "server/src/assets/images/a_knife_for_stars.png",
+            alt: "a knife for stars",
+            placeholder: automatic_color,
+        );
+
         Self {
             css,
             browser_crate,
@@ -124,6 +131,7 @@ impl Assets {
             not_found_image_one,
             not_found_image_two,
             not_found_image_three,
+            open_graph_image,
         }
     }
 }

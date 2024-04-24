@@ -25,10 +25,10 @@ pub enum InitiallyLoad {
 pub fn page_with_options(initial_poems_loaded: InitiallyLoad) -> Markup {
     Layout::new(
         "Taneda Santōka",
-        "Taneda Santōka | 種田山頭火",
+        "The free-verse haiku of Taneda Santōka, a drunken Zen priest who wandered Japan until he died in 1940.",
+        &ASSETS.hero_image.light_mode,
         IncludeBodyClasses::Yes,
         html! {
-            // (floating_nav())
             main
                 class="relative p-8 lg:p-16 !pb-40 !pt-0 flex flex-col gap-0 lg:gap-16 w-full" {
                 (hero_section())

@@ -46,8 +46,24 @@ pub fn built_assets_browser_prefix() -> PathBuf {
     PathBuf::from("/built-assets")
 }
 
+/// For example, /built-assets/built.css
 pub fn asset_url_path(sub_url_path: &Path) -> PathBuf {
     built_assets_browser_prefix().join(sub_url_path)
+}
+
+/// For example, https://lucaaurelia.com/built-assets/built.css
+pub fn full_asset_url(sub_url_path: &Path) -> PathBuf {
+    host()
+        .join(built_assets_browser_prefix())
+        .join(sub_url_path)
+}
+
+pub fn host() -> PathBuf {
+    let is_production = std::env::var("RENDER").is_ok_and(|var| var == "true");
+    if is_production {
+        return PathBuf::from("https://lucaaurelia.com");
+    }
+    PathBuf::from("http://localhost:3000")
 }
 
 pub fn built_image_path(path_starting_from_images_dir: &Path) -> PathBuf {

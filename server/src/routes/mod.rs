@@ -1,4 +1,4 @@
-use crate::assets::processed_2023_haiku;
+use crate::assets::{processed_2023_haiku, ASSETS};
 use crate::components::{IncludeBodyClasses, Layout, Link, NavLogo};
 use crate::extensions::VecExtension;
 use crate::library::seasons::{get_closest_upcoming_solstice_or_equinox, SunStationKind};
@@ -16,8 +16,9 @@ mod work;
 
 pub fn page() -> Markup {
     Layout::new(
-        "Luca Aurelia",
-        "Luca Aurelia",
+        "Luca Aurelia — Writer + Generative Artist",
+        "The home page of artist and writer Luca Aurelia — creative coding, music, and scraps of poems like little verbal polaroids.",
+        &ASSETS.open_graph_image,
         IncludeBodyClasses::Yes,
         html! {
             main
