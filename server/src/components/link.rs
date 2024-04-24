@@ -1,4 +1,5 @@
 use crate::css_class_groups::link_classes;
+use crate::extensions::StrExtension;
 use maud::{html, Markup, Render};
 use shared::route::Route;
 
@@ -20,7 +21,8 @@ impl Link {
     }
 
     pub fn class(mut self, class: impl Into<String>) -> Self {
-        self.class = class.into();
+        let class = class.into();
+        self.class = self.class.join_class(class);
         self
     }
 
@@ -42,17 +44,26 @@ impl Link {
 
 impl Render for Link {
     fn render(&self) -> Markup {
-        let href = match self.href {
-            Some(ref href) => href.to_string(),
-            None => "javascript:void(0);".to_string(),
-        };
+        let class = format!(
+            "{class} {default_classes}",
+            class = self.class,
+            default_classes = self.default_classes
+        );
 
-        html! {
-            a
-                class={(self.class) " " (self.default_classes)}
-                href=(href) {
-                (self.slot)
-            }
+        match self.href {
+            Some(href) => html! {
+                a
+                    class=(class)
+                    href=(href) {
+                    (self.slot)
+                }
+            },
+            None => html! {
+                button
+                    class=(class) {
+                    (self.slot)
+                }
+            },
         }
     }
 }

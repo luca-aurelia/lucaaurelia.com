@@ -236,6 +236,7 @@ fn publication_container(publication: &'static Publication, show_hide: &ShowHide
                 " • "
                 (Link::new()
                     .class(show_hide.toggle())
+                    .class("transition hover:text-neutral-800 dark:hover:text-neutral-100")
                     .slot(html! {
                         span class=(show_hide.show_by_default()) { "hide" }
                         span class=(show_hide.hide_by_default()) { "show" }
@@ -315,9 +316,10 @@ fn load_more_poems(publication: &'static Publication) -> Markup {
 
     html!(
         // bg-neutral-200 dark:bg-neutral-600
-        span
+        div
             class={"
                 text-neutral-400 dark:text-neutral-400
+                transition hover:text-neutral-600 dark:hover:text-neutral-200
                 flex flex-row gap-2 "
                 (replace_class)} {
 

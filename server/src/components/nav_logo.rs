@@ -26,18 +26,26 @@ impl Render for NavLogo {
         Link::new()
             .href(Route::Home)
             .without_default_classes()
-            .class("
+            .class(
+                "
                 logo
                 flex rounded-full
                 items-center justify-center
                 w-10 lg:w-12 h-10 lg:h-12
                 cursor-pointer
+
+                transition
+                text-neutral-300
+                hover:text-neutral-500
+                dark:text-neutral-600
+                dark:hover:text-neutral-400 
+
                 translate-x-px translate-y-px"
-                .join_class(bg_background())
-                .join_class(&self.class),
+                    .join_class(bg_background())
+                    .join_class(&self.class),
             )
             .slot(html! {
-                p class="text-neutral-300 dark:text-neutral-600 font-normal lg:font-normal tracking-[0.15em] text-sm font-mono" {
+                p class="font-normal lg:font-normal tracking-[0.15em] text-sm font-mono" {
                     "LA"
                 }
             })

@@ -10,6 +10,10 @@ impl StrExtension for str {
         format!("{}{}", self, other)
     }
     fn join_class(&self, other: impl Display) -> String {
+        if self.is_empty() {
+            return other.to_string();
+        }
+
         format!("{} {}", self, other)
     }
 }
