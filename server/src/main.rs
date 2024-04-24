@@ -71,6 +71,7 @@ async fn start_server() {
         .route("/", get(handle_request)) // The wildcard "/*anthing" syntax doesn't match the root route, so we have to register that one separately.
         .route("/*anything", get(handle_request))
         .route("/health-check", get(health_check))
+        .route("/robots.txt", get(routes::robots_txt::page)) // We can't make this a normal route because it's not HTML.
         .nest_service(
             &built_assets_browser_prefix,
             ServeDir::new(built_assets_dir),

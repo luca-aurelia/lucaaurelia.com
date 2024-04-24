@@ -9,6 +9,7 @@ use shared::route::Route;
 mod build_time;
 pub mod image_garden;
 mod not_found;
+pub mod robots_txt;
 pub mod route;
 mod santoka;
 mod work;
