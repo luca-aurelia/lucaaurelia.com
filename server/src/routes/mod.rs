@@ -46,13 +46,22 @@ fn centerpiece() -> Markup {
 
             bg-gradient-to-b
             lg:bg-gradient-to-br
+
             from-amber-300/20
             lg:from-amber-300/50
             to-20%
             md:to-30%
-            dark:to-bg-neutral-900
 
-            border border-amber-300/40
+            dark:from-midnight
+            //-lg:from-indigo-950
+            to-20%
+            md:to-30%
+
+            border
+
+            border-amber-300/40
+            dark:border-midnight
+
             rounded" {
             // nav class="absolute top-0 left-0 p-4 lg:p-8" {
             //     (NavLogo::new().class("border border-amber-300 md:border-none"))
