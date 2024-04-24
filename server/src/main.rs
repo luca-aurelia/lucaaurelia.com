@@ -12,16 +12,50 @@ mod extensions;
 mod library;
 mod routes;
 
-#[tokio::main]
-async fn main() {
-    let task = parse_task_from_cli_args();
+#[shuttle_runtime::main]
+async fn main() -> shuttle_axum::ShuttleAxum {
+    let built_assets_browser_prefix = {
+        let browser_prefix = paths::built_assets_browser_prefix();
+        format!("/{}", browser_prefix.to_string_lossy())
+    };
+    let built_assets_dir = paths::built_assets_dir();
 
-    match task {
-        Task::StartServer => start_server().await,
-        Task::SaveObsidianHtmlViews => save_obsidian_html_views(),
-        Task::TestLeaflet => library_of_babel::test_leaflet(),
-    }
+    let compression_layer = CompressionLayer::new()
+        .br(true)
+        .deflate(true)
+        .gzip(true)
+        .zstd(true);
+
+    let app = Router::new()
+        .route("/", get(handle_request)) // The wildcard "/*anthing" syntax doesn't match the root route, so we have to register that one separately.
+        .route("/*anything", get(handle_request))
+        .route("/healthz", get(health_check))
+        .nest_service(
+            &built_assets_browser_prefix,
+            ServeDir::new(built_assets_dir),
+        )
+        .layer(compression_layer);
+
+    // let port = std::env::var("PORT").unwrap_or_else(|_| "3000".to_string());
+    // let host_and_port = format!("0.0.0.0:{}", port);
+    // // Run our app with hyper, listening globally on the specified port.
+    // let listener = tokio::net::TcpListener::bind(&host_and_port).await.unwrap();
+    // axum::serve(listener, app).await.unwrap();
+
+    // println!("Listening on {}", host_and_port);
+    Ok(app.into())
 }
+
+// #[tokio::main]
+// async fn main() {
+//     let task = parse_task_from_cli_args();
+
+//     match task {
+//         Task::StartServer => start_server().await,
+//         Task::SaveObsidianHtmlViews => save_obsidian_html_views(),
+//         Task::TestLeaflet => library_of_babel::test_leaflet(),
+//     }
+// }
 
 async fn start_server() {
     let built_assets_browser_prefix = {
