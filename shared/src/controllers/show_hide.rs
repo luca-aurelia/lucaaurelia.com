@@ -26,6 +26,7 @@ pub mod browser {
     // use web_sys::ScrollIntoViewOptions;
 
     pub fn mount_show_hide(target_element: HtmlElement) {
+        // gloo::console::debug!("mount_show_hide", &target_element);
         let container = target_element;
 
         let elements_to_show_by_default = container
@@ -40,6 +41,9 @@ pub mod browser {
 
         let toggles = {
             let toggles = container.find_controllers(TOGGLE_NAME, HasProps::No);
+            // for toggle in &toggles {
+            //     gloo::console::debug!("toggle", toggle);
+            // }
             if toggles.is_empty() {
                 let selector = controller_name_to_selector(TOGGLE_NAME, HasProps::No);
                 console::warn!(

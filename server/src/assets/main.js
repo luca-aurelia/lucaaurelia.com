@@ -5,12 +5,13 @@
 // import init, { greet } from './browser.js'
 //
 // The `from` part of this import gets replaced with the actual filename
-// when we include this file in the HTML.
-import wasmMain from './{browser_js_filename}'
+// when we include this file in the HTML. It ends up being an import
+// like '/browser.js'.
+import wasmMain from "{browser_js_filename}";
 
-async function main () {
+async function main() {
   // Run our wasm code's main function.
-  await wasmMain()
+  await wasmMain();
 }
 
-main()
+main();

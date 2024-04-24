@@ -41,6 +41,7 @@ fn mount_controller(controller_name: &'static str, mount: fn(HtmlElement)) {
     let document = window.document().expect("window.document() failed.");
 
     let elements = document.find_controllers(controller_name, HasProps::No);
+    gloo::console::log!("Found elements:", elements.len());
 
     for element in elements {
         mount(element);
@@ -57,6 +58,7 @@ fn mount_controller_with_props<Props: serde::de::DeserializeOwned>(
     let document = window.document().expect("window.document() failed.");
 
     let elements = document.find_controllers(controller_name, HasProps::Yes);
+    gloo::console::log!("Found elements:", elements.len());
 
     for element in elements {
         let maybe_props = element.parse_props::<Props>(controller_name);
