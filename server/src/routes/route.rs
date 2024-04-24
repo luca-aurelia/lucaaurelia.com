@@ -28,6 +28,7 @@ impl ServerSideRouteExtension for Route {
                 santoka::non_preview_poems::page(*publication_id)
             }
             Route::Santoka => santoka::page(),
+            Route::AllSantokaPoems => santoka::all::page(),
             Route::Work => work::page(),
         }
     }

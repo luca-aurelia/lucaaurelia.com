@@ -5,6 +5,7 @@ use shared::controllers::show_if_scrolled::show_if_scrolled;
 use shared::route::Route;
 use shared::santoka_haiku_2023_06_26::*;
 
+pub mod all;
 pub mod non_preview_poems;
 
 use crate::assets::ASSETS;
@@ -12,6 +13,16 @@ use crate::components::*;
 use crate::css_class_groups::*;
 
 pub fn page() -> Markup {
+    page_with_options(InitiallyLoad::PreviewPoems)
+}
+
+#[derive(Clone, Copy)]
+pub enum InitiallyLoad {
+    AllPoems,
+    PreviewPoems,
+}
+
+pub fn page_with_options(initial_poems_loaded: InitiallyLoad) -> Markup {
     Layout::new(
         "Taneda Santōka",
         "Taneda Santōka | 種田山頭火",
@@ -21,7 +32,7 @@ pub fn page() -> Markup {
             main
                 class="relative p-8 lg:p-16 !pb-40 !pt-0 flex flex-col gap-0 lg:gap-16 w-full" {
                 (hero_section())
-                (poetry_section())
+                (poetry_section(initial_poems_loaded))
             }
         },
     )
@@ -153,7 +164,7 @@ fn hero_section() -> Markup {
     }
 }
 
-fn poetry_section() -> Markup {
+fn poetry_section(initial_poems_loaded: InitiallyLoad) -> Markup {
     // The idea behind this padding-top calculation is:
     //
     // The desired space between the hero image and this
@@ -171,20 +182,23 @@ fn poetry_section() -> Markup {
     html!(
         section id="poems" class="flex flex-col tracking-wide items-center gap-40 pt-[calc(10rem-10dvh)]" {
             @for publication in DATABASE.publications_sorted_by_luca_ranking() {
-                (poems_and_publication(publication))
+                (poems_and_publication(publication, initial_poems_loaded))
             }
         }
     )
 }
 
-fn poems_and_publication(publication: &'static Publication) -> Markup {
+fn poems_and_publication(
+    publication: &'static Publication,
+    initial_poems_loaded: InitiallyLoad,
+) -> Markup {
     let show_hide = ShowHide::new();
 
     html!(
         div
             class={ "poems-and-publication flex flex-col gap-10 lg:gap-8 w-[48rem] max-w-full " (show_hide.container())} {
             (publication_container(publication, &show_hide))
-            (poems_in_publication(publication, &show_hide))
+            (poems_in_publication(publication, &show_hide, initial_poems_loaded))
         }
     )
 }
@@ -236,17 +250,25 @@ fn body_text() -> &'static str {
     "lg:text-xl"
 }
 
-fn poems_in_publication(publication: &'static Publication, show_hide: &ShowHide) -> Markup {
+fn poems_in_publication(
+    publication: &'static Publication,
+    show_hide: &ShowHide,
+    initial_poems_loaded: InitiallyLoad,
+) -> Markup {
     html! {
         div
             class="poems-in-publication" {
-            (visible_poems_in_publication(publication, show_hide))
+            (visible_poems_in_publication(publication, show_hide, initial_poems_loaded))
             (hidden_poems_in_publication(show_hide))
         }
     }
 }
 
-fn visible_poems_in_publication(publication: &'static Publication, show_hide: &ShowHide) -> Markup {
+fn visible_poems_in_publication(
+    publication: &'static Publication,
+    show_hide: &ShowHide,
+    initial_poems_loaded: InitiallyLoad,
+) -> Markup {
     let show_by_default_class = show_hide.show_by_default();
 
     let gap = if publication.has_japanese_text() {
@@ -255,6 +277,11 @@ fn visible_poems_in_publication(publication: &'static Publication, show_hide: &S
     } else {
         // "gap-8 lg:gap-16"
         "gap-9 lg:gap-16"
+    };
+
+    let poems: Vec<_> = match initial_poems_loaded {
+        InitiallyLoad::AllPoems => publication.poems().collect(),
+        InitiallyLoad::PreviewPoems => publication.preview_poems().collect(),
     };
 
     html! {
@@ -268,7 +295,7 @@ fn visible_poems_in_publication(publication: &'static Publication, show_hide: &S
                 (body_text())
                 " "
                 (show_by_default_class)} {
-            @for preview_poem in publication.preview_poems() {
+            @for preview_poem in poems {
                 (poem(preview_poem))
             }
 

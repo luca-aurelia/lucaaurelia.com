@@ -11,6 +11,7 @@ pub enum Route {
     NotFound,
     NonPreviewPoems { publication_id: PublicationId },
     Santoka,
+    AllSantokaPoems,
     Work,
 }
 
@@ -37,6 +38,7 @@ impl Display for Route {
             }
             Route::NotFound => "/not-found".to_string(),
             Route::Santoka => "/santoka".to_string(),
+            Route::AllSantokaPoems => "/santoka/all".to_string(),
             Route::Work => "/work".to_string(),
         };
 

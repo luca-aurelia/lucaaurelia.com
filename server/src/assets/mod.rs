@@ -35,46 +35,46 @@ impl Assets {
         // Obsidian → Settings → Appearance → CSS snippets (at the bottom)
         let css = assets::include_tailwind!(
             path_to_input_file: "server/src/assets/main.css",
-            url_path: "built-assets/built.css",
+            url_path: "/built-assets/built.css",
             performance_budget_millis: 150,
         );
 
         let browser_crate = assets::include_browser_crate!(
             path_to_browser_crate: "browser",
-            js_url_path: "built-assets/browser.js",
+            js_url_path: "/built-assets/browser.js",
             js_performance_budget_millis: 150,
-            wasm_url_path: "built-assets/browser_bg.wasm",
+            wasm_url_path: "/built-assets/browser_bg.wasm",
             wasm_performance_budget_millis: 310,
             production: true,
         );
 
         let favicon = assets::include_file!(
             path_to_input_file: "server/src/assets/images/favicon.svg",
-            url_path: "built-assets/favicon.svg",
+            url_path: "/built-assets/favicon.svg",
             performance_budget_millis: 150,
         );
 
         let mask_favicon = assets::include_file!(
             path_to_input_file: "server/src/assets/images/mask_favicon.svg",
-            url_path: "built-assets/mask-favicon.svg",
+            url_path: "/built-assets/mask-favicon.svg",
             performance_budget_millis: 150,
         );
 
         let apple_touch_icon = assets::include_file!(
             path_to_input_file: "server/src/assets/images/apple_touch_icon.png",
-            url_path: "built-assets/apple-touch-icon.png",
+            url_path: "/built-assets/apple-touch-icon.png",
             performance_budget_millis: 150,
         );
 
         let google_touch_icon = assets::include_file!(
             path_to_input_file: "server/src/assets/images/google_touch_icon.png",
-            url_path: "built-assets/google-touch-icon.png",
+            url_path: "/built-assets/google-touch-icon.png",
             performance_budget_millis: 150,
         );
 
         let manifest_json = assets::include_file!(
             path_to_input_file: "server/src/assets/manifest.json",
-            url_path: "built-assets/manifest.json",
+            url_path: "/built-assets/manifest.json",
             performance_budget_millis: 150,
         );
 

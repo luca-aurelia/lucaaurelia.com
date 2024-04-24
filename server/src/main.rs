@@ -58,10 +58,7 @@ async fn main() {
 }
 
 async fn start_server() {
-    let built_assets_browser_prefix = {
-        let browser_prefix = paths::built_assets_browser_prefix();
-        format!("/{}", browser_prefix.to_string_lossy())
-    };
+    let built_assets_browser_prefix = paths::built_assets_browser_prefix().to_string();
     let built_assets_dir = paths::built_assets_dir();
 
     let compression_layer = CompressionLayer::new()

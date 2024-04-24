@@ -43,7 +43,7 @@ pub fn target_dir() -> PathBuf {
 /// then the URL path to that asset in the browser should be
 /// `/built-assets/built.css`.
 pub fn built_assets_browser_prefix() -> PathBuf {
-    PathBuf::from("built-assets")
+    PathBuf::from("/built-assets")
 }
 
 pub fn asset_url_path(sub_url_path: &Path) -> PathBuf {
