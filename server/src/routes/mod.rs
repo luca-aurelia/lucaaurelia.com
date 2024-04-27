@@ -1,5 +1,5 @@
 use crate::assets::{processed_2023_haiku, ASSETS};
-use crate::components::{IncludeBodyClasses, Layout, Link, NavLogo};
+use crate::components::{IncludeBodyClasses, Layout, Link, Logo};
 use crate::extensions::VecExtension;
 use crate::library::seasons::{get_closest_upcoming_solstice_or_equinox, SunStationKind};
 use maud::{html, Markup, Render};

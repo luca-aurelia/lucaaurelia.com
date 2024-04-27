@@ -6,6 +6,7 @@ members = [
     "assets/runtime",
     "assets/macro",
     "library_of_babel",
+    "santoka",
 ]
 exclude = [
     # If we add the browser crate to the workspace, building causes

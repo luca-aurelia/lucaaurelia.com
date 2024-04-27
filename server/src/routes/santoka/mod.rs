@@ -1,4 +1,4 @@
-use crate::components::NavLogo;
+use crate::components::Logo;
 use maud::{html, Markup, Render};
 use shared::controllers::show_hide::ShowHide;
 use shared::controllers::show_if_scrolled::show_if_scrolled;
@@ -84,7 +84,7 @@ fn floating_nav() -> Markup {
                         flex flex-row gap-4 justify-between 
                         pointer-events-auto
                         select-none" {
-                    (NavLogo::new())
+                    (Logo::new())
                     // (nav_links())
                 }
             }
@@ -134,7 +134,7 @@ fn hero_section() -> Markup {
                             flex flex-row gap-4 justify-between 
                             text-base lg:text-2xl tracking-wider text-neutral-100 dark:text-neutral-200
                             z-10" {
-                    (NavLogo::new())
+                    (Logo::new())
                 }
 
                 (hero_image())

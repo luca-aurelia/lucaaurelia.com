@@ -4639,7 +4639,8 @@
       "translatorId": 0,
       "year": 1964,
       "description": "\"Santoka\" by R. H. Blyth, in A History of Haiku. Tokyo: The Hokuseido Press, 1964. Volume 2: From Issa to the Present. pp. 173-88.",
-      "lucaRanking": 10
+      "lucaRanking": 10,
+      "url": "https://thehaikufoundation.org/omeka/items/show/216"
     },
     {
       "id": 1,
@@ -4647,7 +4648,8 @@
       "translatorId": 1,
       "year": 1977,
       "description": "Abrams, James. Hail in the Begging Bowl: The Odyssey and Poetry of Santoka.\nMonumenta Nipponica, Volume 32, No. 3. (Autumn, 1977), pp. 269-302.",
-      "lucaRanking": 11
+      "lucaRanking": 11,
+      "url": "https://www.thehaikufoundation.org/omeka/items/show/1337"
     },
     {
       "id": 2,
@@ -4655,7 +4657,8 @@
       "translatorId": 2,
       "year": 1973,
       "description": "Thistle brilliant morning: Shiki, Hekigodô, Santôka, Hôsai, [translations from the Japanese William J. Higginson]. Byways Press, England, 1973; From Here Press, Paterson, N.J. 1975. 20 p.",
-      "lucaRanking": 12
+      "lucaRanking": 12,
+      "url": "https://en.wikipedia.org/wiki/William_J._Higginson"
     },
     {
       "id": 3,
@@ -4663,7 +4666,8 @@
       "translatorId": 3,
       "year": 2002,
       "description": "Santoka: Grass and Tree Cairn by Taneda Santôka. Translations by Hiroaki Sato; illustrations by Stephen Addiss, Winchester, Va.: Red Moon Press, 2002, xxii + 74 pages,",
-      "lucaRanking": 0
+      "lucaRanking": 0,
+      "url": "https://www.thehaikufoundation.org/omeka/items/show/85"
     },
     {
       "id": 4,
@@ -4671,7 +4675,8 @@
       "translatorId": 5,
       "year": 1997,
       "description": "Walking Into the Wind: A Sweep of Poems by Santoka, versions of Cid Corman",
-      "lucaRanking": 4
+      "lucaRanking": 4,
+      "url": "http://www.cadmuseditions.com/walking-into-the-wind.html"
     },
     {
       "id": 5,
@@ -4679,7 +4684,8 @@
       "translatorId": 6,
       "year": null,
       "description": "GRASS TREE STUPA (SOMOKUTOH)\nSelected and translated by Takashi Nonin, Matsuyama University, Matsuyama City, Ehime Prefecture, Japan",
-      "lucaRanking": 13
+      "lucaRanking": 13,
+      "url": "https://www.thehaikufoundation.org/omeka/items/show/2049"
     },
     {
       "id": 6,
@@ -4695,7 +4701,8 @@
       "translatorId": 8,
       "year": null,
       "description": "WEEDS, FALLING RAIN: a selection of Zen Haikai by Santoka Taneda\nnew versions by Okami",
-      "lucaRanking": 7
+      "lucaRanking": 7,
+      "url": "https://www.beyond-the-pale.uk/santoka.htm"
     },
     {
       "id": 8,
@@ -4703,15 +4710,17 @@
       "translatorId": 9,
       "year": 1980,
       "description": "Santôka by Kametaro\nhttp://web.archive.org/web/20091027124627/http://www.geocities.com/meister_z/SANTOKA.htm\nhttp://www.cc.matsuyama-u.ac.jp/~kametaro/santoka1.html",
-      "lucaRanking": 15
+      "lucaRanking": 15,
+      "url": "https://web.archive.org/web/20091027124627/http://www.geocities.com:80/meister_z/SANTOKA.htm"
     },
     {
       "id": 9,
-      "name": "The Santoka versions",
+      "name": "The Santoka: Versions",
       "translatorId": 10,
       "year": 2005,
       "description": "The Santoka versions by Scott Watson\nPublished in Japan by Bookgirl Press / 3-13-16 Tsurugaya-higashi Miyagino-ku, Sendai / 983-0826. Manufactured in Sendai, Japan by Sasaki Printing &amp; Publishing Co., Ltd. / 8-45 Nishimachi Rokuchonome / Wakabayashi-ku, Sendai / 984-0011. ISBN: 4-915948-41-2 C0098. Cover and other illustrations by Ed Baker, Cover design by P.B RAPHICS. 2005, 42 pages,",
-      "lucaRanking": 1
+      "lucaRanking": 1,
+      "url": "https://www.amazon.com/Santoka-Versions-Scott-Watson/dp/4915948412"
     },
     {
       "id": 11,

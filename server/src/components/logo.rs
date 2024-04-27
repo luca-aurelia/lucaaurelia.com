@@ -4,11 +4,11 @@ use crate::extensions::StrExtension;
 use maud::{html, Markup, Render};
 use shared::route::Route;
 
-pub struct NavLogo {
+pub struct Logo {
     class: String,
 }
 
-impl NavLogo {
+impl Logo {
     pub fn new() -> Self {
         Self {
             class: "".to_string(),
@@ -21,7 +21,7 @@ impl NavLogo {
     }
 }
 
-impl Render for NavLogo {
+impl Render for Logo {
     fn render(&self) -> Markup {
         Link::new()
             .href(Route::Home)
