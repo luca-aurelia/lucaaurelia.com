@@ -1,6 +1,6 @@
 [package]
 name = "santoka"
-version = "1.0.1"
+version = "1.0.2"
 edition = "2021"
 description = "Translations of 668 of Taneda Santoka's free-verse haiku"
 readme = "readme.md"
