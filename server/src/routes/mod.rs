@@ -23,13 +23,32 @@ pub fn page() -> Markup {
         html! {
             main
                 class="px-8 flex flex-col items-center justify-between h-dvh w-full" {
-                div class="spacer w-full grow basis-0" {}
+                (first_reader_invitation())
                 (centerpiece())
                 (nav())
             }
         },
     )
     .render()
+}
+
+fn first_reader_invitation() -> Markup {
+    html! {
+        div class="invitation-container w-full grow basis-0 flex flex-row justify-center items-center text-neutral-400 max-w-[80vw]" {
+            div class="invitation flex flex-row items-center" {
+                span class="md:hidden" { "Want your first audience member?" }
+                span class="hidden md:inline" { "Made something and want your first reader, listener, or collector?" }
+                span class="px-1" {}
+                (Link::new()
+                    .class("whitespace-nowrap")
+                    .href(Route::Email)
+                    .slot(html! {
+                        span class="sm:hidden" { "Say hi!" }
+                        span class="hidden sm:inline" { "I'd be delighted" }
+                    }))
+            }
+        }
+    }
 }
 
 fn centerpiece() -> Markup {

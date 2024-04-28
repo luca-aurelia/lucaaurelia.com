@@ -6,6 +6,7 @@ use std::fmt::Display;
 #[derive(Clone, Copy, enum_iterator::Sequence, Serialize, Deserialize, Debug)]
 pub enum Route {
     BuildTime,
+    Email,
     Home,
     // ImageGarden,
     NotFound,
@@ -31,6 +32,7 @@ impl Display for Route {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let route_str = match self {
             Route::BuildTime => "/build-time".to_string(),
+            Route::Email => "mailto:luca@lucaaurelia.com".to_string(),
             Route::Home => "/".to_string(),
             // Route::ImageGarden => "/image-garden".to_string(),
             Route::NonPreviewPoems { publication_id } => {

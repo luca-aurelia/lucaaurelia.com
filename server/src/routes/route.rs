@@ -21,6 +21,7 @@ impl ServerSideRouteExtension for Route {
     fn html(&self) -> Markup {
         match self {
             Route::BuildTime => build_time::page(), // Should be a 404.
+            Route::Email => not_found::page(),
             Route::Home => crate::routes::page(),
             // Route::ImageGarden => image_garden::page(),
             Route::NotFound => not_found::page(),
