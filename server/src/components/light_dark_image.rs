@@ -28,6 +28,7 @@ impl<'a> LightDarkImage<'a> {
         self
     }
 
+    #[allow(clippy::wrong_self_convention)]
     pub fn is_largest_contentful_paint(mut self, is_largest_contentful_paint: bool) -> Self {
         self.is_largest_contentful_paint = is_largest_contentful_paint;
         self
