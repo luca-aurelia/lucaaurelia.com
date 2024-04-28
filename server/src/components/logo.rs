@@ -15,6 +15,7 @@ impl Logo {
         }
     }
 
+    #[allow(unused)]
     pub fn class(mut self, class: impl Into<String>) -> Self {
         self.class = class.into();
         self
