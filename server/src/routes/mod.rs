@@ -14,6 +14,8 @@ pub mod route;
 mod santoka;
 mod work;
 
+// Re-deploy.
+
 pub fn page() -> Markup {
     Layout::new(
         "Luca Aurelia — Writer + Generative Artist",
