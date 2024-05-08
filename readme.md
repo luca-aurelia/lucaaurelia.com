@@ -35,3 +35,7 @@ let image = assets::include_image!(
 ```
 
 Other macros are `include_file!` for including arbitrary files with no further processing, useful for things like fonts, and `include_browser_crate!` which will compile the `browser` folder to WASM so you can write client-side Rust instead of client-side JavaScript.
+
+### Santoka
+
+This repo also includes a [dataset of translations](./santoka) of poems by the itinerant Zen poet Taneda Santōka, formatted in JSON for easy manipulation and analysis. This is the dataset that powers [lucaaurelia.com/santoka](https://lucaaurelia.com/santoka).
