@@ -7,6 +7,9 @@ members = [
     "assets/macro",
     "library_of_babel",
     "santoka",
+    "wasm_pack_cli",
+    "tailwind_cli",
+    "run_binary",
 ]
 exclude = [
     # If we add the browser crate to the workspace, building causes

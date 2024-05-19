@@ -1,0 +1,24 @@
+[package]
+name = "tailwind_cli"
+version = "3.4.1-0.1.0"
+edition = "2021"
+license = "MIT"
+description = "Invoke the Tailwind CSS CLI directly from Rust code."
+homepage = "https://github.com/rainsound-ai/tailwind-cli"
+repository = "https://github.com/rainsound-ai/tailwind-cli"
+readme = "readme.md"
+keywords = ["tailwind", "css", "cli"]
+categories = [
+    "api-bindings",
+    "development-tools",
+    "development-tools::build-utils",
+    "web-programming",
+]
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+duct = "0.13.7"
+include-cargo-toml = "0.1.0"
+uuid = { version = "1.6.1", features = ["v4"] }
+run_binary = { path = "../run_binary" }

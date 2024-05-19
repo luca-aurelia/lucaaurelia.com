@@ -143,7 +143,7 @@ fn run_wasm_pack(input: &IncludeBrowserCrateInput) -> Result<WasmPackOutput, Tok
         &wasm_pack_args
     );
 
-    lib_wasm_pack::run(wasm_pack_args)
+    wasm_pack_cli::run(wasm_pack_args)
         .map(|_| {
             log::info!("Successfully built browser crate.");
 
