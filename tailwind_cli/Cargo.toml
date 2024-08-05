@@ -18,7 +18,4 @@ categories = [
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-duct = "0.13.7"
-include-cargo-toml = "0.1.0"
-uuid = { version = "1.6.1", features = ["v4"] }
 run_binary = { path = "../run_binary" }

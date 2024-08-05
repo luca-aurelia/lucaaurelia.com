@@ -2573,10 +2573,7 @@ checksum = "2047c6ded9c721764247e62cd3b03c09ffc529b2ba5b10ec482ae507a4a70160"
 name = "tailwind_cli"
 version = "3.4.1-0.1.0"
 dependencies = [
- "duct",
- "include-cargo-toml",
  "run_binary",
- "uuid",
 ]
 
 [[package]]
@@ -3163,8 +3160,6 @@ checksum = "af190c94f2773fdb3729c55b007a722abb5384da03bc0986df4c289bf5567e96"
 name = "wasm_pack_cli"
 version = "0.12.1-0.1.0"
 dependencies = [
- "duct",
- "include-cargo-toml",
  "run_binary",
 ]
 

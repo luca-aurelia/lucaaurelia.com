@@ -1,4 +1,5 @@
 use crate::extensions::*;
+use crate::middleware::redirect_trailing_slash;
 use axum::{extract::Request, routing::get, Router};
 use routes::route::ServerSideRouteExtension;
 use shared::route::Route;
@@ -10,41 +11,8 @@ mod components;
 mod css_class_groups;
 mod extensions;
 mod library;
+mod middleware;
 mod routes;
-
-// #[shuttle_runtime::main]
-// async fn main() -> shuttle_axum::ShuttleAxum {
-//     let built_assets_browser_prefix = {
-//         let browser_prefix = paths::built_assets_browser_prefix();
-//         format!("/{}", browser_prefix.to_string_lossy())
-//     };
-//     let built_assets_dir = paths::built_assets_dir();
-
-//     let compression_layer = CompressionLayer::new()
-//         .br(true)
-//         .deflate(true)
-//         .gzip(true)
-//         .zstd(true);
-
-//     let app = Router::new()
-//         .route("/", get(handle_request)) // The wildcard "/*anthing" syntax doesn't match the root route, so we have to register that one separately.
-//         .route("/*anything", get(handle_request))
-//         .route("/healthz", get(health_check))
-//         .nest_service(
-//             &built_assets_browser_prefix,
-//             ServeDir::new(built_assets_dir),
-//         )
-//         .layer(compression_layer);
-
-//     // let port = std::env::var("PORT").unwrap_or_else(|_| "3000".to_string());
-//     // let host_and_port = format!("0.0.0.0:{}", port);
-//     // // Run our app with hyper, listening globally on the specified port.
-//     // let listener = tokio::net::TcpListener::bind(&host_and_port).await.unwrap();
-//     // axum::serve(listener, app).await.unwrap();
-
-//     // println!("Listening on {}", host_and_port);
-//     Ok(app.into())
-// }
 
 #[tokio::main]
 async fn main() {
@@ -68,7 +36,7 @@ async fn start_server() {
         .zstd(true);
 
     let app = Router::new()
-        .route("/", get(handle_request)) // The wildcard "/*anthing" syntax doesn't match the root route, so we have to register that one separately.
+        .route("/", get(handle_request)) // The wildcard "/*anything" syntax doesn't match the root route, so we have to register that one separately.
         .route("/*anything", get(handle_request))
         .route("/health-check", get(health_check))
         .route("/robots.txt", get(routes::robots_txt::page)) // We can't make this a normal route because it's not HTML.
@@ -76,7 +44,8 @@ async fn start_server() {
             &built_assets_browser_prefix,
             ServeDir::new(built_assets_dir),
         )
-        .layer(compression_layer);
+        .layer(compression_layer)
+        .layer(axum::middleware::from_fn(redirect_trailing_slash));
 
     let port = std::env::var("PORT").unwrap_or_else(|_| "3000".to_string());
     let host_and_port = format!("0.0.0.0:{}", port);
