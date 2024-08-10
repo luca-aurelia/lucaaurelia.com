@@ -1,13 +1,38 @@
-use crate::assets::ASSETS;
-use crate::components::{HeroContent, HeroSection, Image, IncludeBodyClasses, Layout};
+use crate::components::{HeroContent, HeroSection, Image, Layout};
 use maud::{html, Markup, Render};
+use once_cell::sync::Lazy;
+use assets::ImageAsset;
+
+struct AssetIndex {
+    image_one: ImageAsset,
+    image_two: ImageAsset,
+    image_three: ImageAsset,
+}
+
+static ASSET_INDEX: Lazy<AssetIndex> = Lazy::new(|| {
+    AssetIndex {
+        image_one: assets::include_image!(
+            path_to_image: "server/src/assets/images/fuji river - kawase hasui - 1933.jpeg",
+            alt: "",
+            placeholder: automatic_color,
+        ),
+        image_two: assets::include_image!(
+            path_to_image: "server/src/assets/images/kominato, boshu - kawase hasui.jpeg",
+            alt: "",
+            placeholder: automatic_color,
+        ),
+        image_three: assets::include_image!(
+            path_to_image: "server/src/assets/images/izu dogashima - kawase hasui.jpeg",
+            alt: "",
+            placeholder: automatic_color,
+        ),
+    }
+});
 
 pub fn page() -> Markup {
     Layout::new(
         "Luca Aurelia | Not found",
         "Not found.",
-        &ASSETS.not_found_image_two,
-        IncludeBodyClasses::Yes,
         html! {
             main class="w-full" {
                 (HeroSection::new()
@@ -16,6 +41,7 @@ pub fn page() -> Markup {
             }
         },
     )
+    .open_graph_image(&ASSET_INDEX.image_two)
     .render()
 }
 
@@ -23,7 +49,7 @@ fn content() -> Markup {
     HeroContent::new()
         .class("relative")
         .slot(html! {
-            (Image::new(&ASSETS.not_found_image_two)
+            (Image::new(&ASSET_INDEX.image_two)
                 .class("w-full h-full object-cover rounded overflow-hidden"))
             div
                 class="

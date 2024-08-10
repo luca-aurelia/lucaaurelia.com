@@ -70,6 +70,10 @@ pub fn built_image_path(path_starting_from_images_dir: &Path) -> PathBuf {
     built_assets_dir().join(path_starting_from_images_dir)
 }
 
+pub fn path_to_detect_file_changes_db(file_name: &str) -> PathBuf {
+    target_dir().join(file_name)
+}
+
 pub fn production_vault_path() -> PathBuf {
     PathBuf::from_str("/Users/photon-garden/library-of-babel").unwrap()
 }

@@ -1,6 +1,7 @@
 use proc_macro::TokenStream;
 
 mod browser_crate;
+mod detect_file_changes;
 mod file;
 mod font;
 mod images;

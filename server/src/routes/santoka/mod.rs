@@ -1,16 +1,38 @@
 use crate::components::Logo;
+use crate::components::*;
+use crate::css_class_groups::*;
+use crate::library::work_index::WORK_INDEX;
 use maud::{html, Markup, Render};
 use shared::controllers::show_hide::ShowHide;
 use shared::controllers::show_if_scrolled::show_if_scrolled;
 use shared::route::Route;
 use shared::santoka_haiku_2023_06_26::*;
+use assets::LightDarkImageAsset;
+use once_cell::sync::Lazy;
 
 pub mod all;
 pub mod non_preview_poems;
 
-use crate::assets::ASSETS;
-use crate::components::*;
-use crate::css_class_groups::*;
+struct AssetIndex {
+    hero_image: LightDarkImageAsset,
+}
+
+static ASSET_INDEX: Lazy<AssetIndex> = Lazy::new(|| {
+    AssetIndex {
+        hero_image: LightDarkImageAsset::new(
+            assets::include_image!(
+                path_to_image: "server/src/assets/images/hasui light.jpeg",
+                alt: "",
+                placeholder: automatic_color,
+            ),
+            assets::include_image!(
+                path_to_image: "server/src/assets/images/hasui dark.jpeg",
+                alt: "",
+                placeholder: automatic_color,
+            ),
+        ),
+    }
+});
 
 pub fn page() -> Markup {
     page_with_options(InitiallyLoad::PreviewPoems)
@@ -25,9 +47,7 @@ pub enum InitiallyLoad {
 pub fn page_with_options(initial_poems_loaded: InitiallyLoad) -> Markup {
     Layout::new(
         "Taneda Santōka",
-        "The free-verse haiku of Taneda Santōka, a drunken Zen priest who wandered Japan until he died in 1940.",
-        &ASSETS.hero_image.light_mode,
-        IncludeBodyClasses::Yes,
+        "The free-verse haiku of Taneda Santōka, a Zen priest who wandered Japan until he died in 1940.",
         html! {
             main
                 class="relative p-8 lg:p-16 !pb-40 !pt-0 flex flex-col gap-0 lg:gap-16 w-full" {
@@ -36,6 +56,7 @@ pub fn page_with_options(initial_poems_loaded: InitiallyLoad) -> Markup {
             }
         },
     )
+    .open_graph_image(&ASSET_INDEX.hero_image.light_mode)
     .render()
 }
 
@@ -54,7 +75,7 @@ fn floating_nav() -> Markup {
             class={"
                 fixed top-0 z-10
                 {horizontal_center_fixed()}
-                w-full max-w-screen-2xl 
+                w-full max-w-screen-2xl
                 pointer-events-none
                 px-8 lg:px-8
                 text-base lg:text-2xl tracking-wide "
@@ -75,13 +96,13 @@ fn floating_nav() -> Markup {
 
                 div
                     class="
-                        logo-and-links 
+                        logo-and-links
                         bg-[linear-gradient(90deg,_#e6edee,_#98b7ca)]
                         dark:bg-[linear-gradient(90deg,#5b6f76,#212123)]
-                        overflow-hidden rounded-3xl 
+                        overflow-hidden rounded-3xl
                         p-4
                         w-full
-                        flex flex-row gap-4 justify-between 
+                        flex flex-row gap-4 justify-between
                         pointer-events-auto
                         select-none" {
                     (Logo::new())
@@ -130,8 +151,8 @@ fn hero_section() -> Markup {
                         z-20" {
                 nav
                     class="
-                            logo-and-links absolute p-4 lg:p-8 top-0 left-0 w-full 
-                            flex flex-row gap-4 justify-between 
+                            logo-and-links absolute p-4 lg:p-8 top-0 left-0 w-full
+                            flex flex-row gap-4 justify-between
                             text-base lg:text-2xl tracking-wider text-neutral-100 dark:text-neutral-200
                             z-10" {
                     (Logo::new())
@@ -214,11 +235,11 @@ fn publication_container(publication: &'static Publication, show_hide: &ShowHide
                 self-start
                 top-0
                 py-4 lg:py-8
-                flex flex-col 
+                flex flex-col
                 gap-0 lg:gap-2
                 items-start
                 w-full
-                text-neutral-500 dark:text-neutral-300 
+                text-neutral-500 dark:text-neutral-300
                 border-b border-neutral-200 dark:border-neutral-700 "
                 (bg_background())
                 " "
@@ -344,7 +365,7 @@ fn hidden_poems_in_publication(show_hide: &ShowHide) -> Markup {
             class={"
                 hidden-poems
                 font-light lg:font-extralight
-                text-sm lg:text-base 
+                text-sm lg:text-base
                 text-neutral-400 dark:text-neutral-500
                 p-8
                 w-full
@@ -401,11 +422,11 @@ pub fn poem(poem: &'static Poem) -> Markup {
 
 fn hero_image() -> Markup {
     let class = "
-        shrink-0 min-w-full min-h-full 
+        shrink-0 min-w-full min-h-full
         transform dark:-scale-x-100
     ";
 
-    LightDarkImage::new(&ASSETS.hero_image)
+    LightDarkImage::new(&ASSET_INDEX.hero_image)
         .class(class)
         .above_the_fold(true)
         .is_largest_contentful_paint(true)

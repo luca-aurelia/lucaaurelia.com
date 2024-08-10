@@ -3,7 +3,7 @@
 use date::*;
 use obsidian::*;
 
-mod date;
+pub mod date;
 pub mod extensions;
 pub mod leaflet;
 pub mod obsidian;

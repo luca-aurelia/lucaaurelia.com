@@ -82,6 +82,12 @@ pub fn include(input: TokenStream) -> TokenStream {
     output.into()
 }
 
+// pub fn browser_crate_files_have_changed(path_to_browser_crate: &Path) -> bool {
+//     let database_name = "track_browser_crate_file_changes.json";
+//     let path_to_database = paths::path_to_detect_file_changes_db(database_name);
+//     crate::detect_file_changes::has_any_file_changed(path_to_browser_crate, path_to_database)
+// }
+
 fn run_wasm_pack(input: &IncludeBrowserCrateInput) -> Result<WasmPackOutput, TokenStream> {
     log::info!("Including browser crate.");
 
