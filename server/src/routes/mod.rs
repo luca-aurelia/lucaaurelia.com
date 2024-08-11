@@ -21,8 +21,8 @@ pub fn page() -> Markup {
         "The home page of artist and writer Luca Aurelia — creative coding, music, and scraps of poems like little polaroids made of words.",
         html! {
             main
-                class="w-full p-4 lg:p-8 flex flex-col" {
-                div class="about-container w-2/5 h-full flex flex-col fixed left-0 top-0 p-4 lg:p-8 z-10" {
+                class="w-full p-4 lg:p-8 flex flex-row" {
+                div class="about-container md:w-[460px] lg:w-[512px] xl:w-[680px] shrink-0 flex flex-col fixed left-4 md:left-8 top-4 md:top-8 bottom-4 md:bottom-8 pr-4 md:pr-8 z-10" {
                     div class="about w-full h-full flex flex-col gap-10 justify-center items-center" {
                         div class="about-text flex flex-col" {
                             div class="name" {
@@ -50,12 +50,14 @@ pub fn page() -> Markup {
                         }
                     }
                 }
+                div class="about-placeholder md:w-[460px] lg:w-[512px] xl:w-[680px] shrink-0 h-full" {}
                 ol class="works
                     group/ol
-                    self-end
-                    w-3/5 flex flex-col
-                    text-base/[1.25] lg:text-2xl/[1.25]
-                    tracking-wide font-light" {
+                    w-3/5 shrink
+                    flex flex-col
+                    text-2xl/[1.25]
+                    tracking-wide font-light
+                    " {
                     @for work in WORK_INDEX.works() {
                         li class="work-link
                             external:show-preview-on-hover
@@ -65,6 +67,7 @@ pub fn page() -> Markup {
                             -mb-px
                             external:container-for-delay-z-index-transition-on-unhover
                             select-none
+                            xl:pr-10
                             " {
                             // Fake border top and bottom that, unlike border, don't actually affect layout.
                             span class="fake-border-top
@@ -83,18 +86,18 @@ pub fn page() -> Markup {
                                 "
                                 {}
 
-                            a href="https://google.com" class="py-3 lg:py-4 block w-full flex flex-row items-center" {
+                            a href="https://google.com" class="py-4 block w-full flex flex-row gap-6 items-center" {
                                 span class="work-date
+                                    hidden xl:block
                                     text-neutral-400 group-hover/li:!text-neutral-500 group-hover/ol:text-neutral-200
                                     dark:text-neutral-400 group-hover/li:dark:!text-neutral-300 group-hover/ol:dark:text-neutral-700
-                                    block
-                                    tabular-nums text-sm lg:text-base
+                                    tabular-nums text-base
                                     translate-y-[0.175rem]
                                     transition-colors duration-200 ease-out
+                                    whitespace-nowrap
                                     " {
                                     (work.year) " · " (work.month)
                                 }
-                                div class="spacer w-6" {}
                                 span class="work-name block
                                     text-neutral-600 group-hover/li:!text-neutral-700 group-hover/ol:text-neutral-300
                                     dark:text-neutral-200 group-hover/li:dark:!text-neutral-100 group-hover/ol:dark:text-neutral-500
@@ -103,6 +106,7 @@ pub fn page() -> Markup {
                                     (work.name)
                                 }
                                 div class="hover-indicator
+                                    hidden xl:block
                                     absolute right-2
                                     rounded-[0.125rem]
                                     h-6 w-6
@@ -113,10 +117,10 @@ pub fn page() -> Markup {
                                     style={"background-color: " (work.accent_color) ";" } {}
                             }
                         }
-                        div class="external:preview-container fixed left-0 bottom-0 w-2/5 h-full p-4 lg:p-8 overflow-hidden flex flex-col items-center justify-center" {
+                        div class="external:preview-container fixed left-4 lg:left-8 top-4 lg:top-8 bottom-4 lg:bottom-8 md:w-[460px] lg:w-[512px] xl:w-[680px] pr-4 lg:pr-8 overflow-hidden flex flex-col items-center justify-center" {
                             div class={ "external:preview-backdrop opacity-0 absolute left-0 top-0 w-full h-full " (bg_background()) } {}
                             (Image::new(&work.preview_image)
-                                .class("external:preview-image opacity-0 transition-opacity duration-0 h-full block object-cover object-center rounded-md z-10"))
+                                .class("external:preview-image opacity-0 transition-opacity duration-0 w-full h-full block object-cover object-center rounded-md z-10"))
                         }
                     }
                 }
@@ -125,156 +129,4 @@ pub fn page() -> Markup {
     );
 
     layout.render()
-}
-
-fn first_reader_invitation() -> Markup {
-    html! {
-        div class="invitation-container w-full grow basis-0 flex flex-row justify-center items-center text-neutral-400 max-w-[80vw]" {
-            div class="invitation flex flex-row items-center" {
-                span class="md:hidden" { "Want your first audience member?" }
-                span class="hidden md:inline" { "Made something and want your first reader, listener, or collector?" }
-                span class="px-1" {}
-                (Link::new()
-                    .class("whitespace-nowrap")
-                    .href(Route::Email)
-                    .slot(html! {
-                        span class="sm:hidden" { "Say hi!" }
-                        span class="hidden sm:inline" { "I'd be delighted" }
-                    }))
-            }
-        }
-    }
-}
-
-fn centerpiece() -> Markup {
-    html! {
-        div class="
-            centerpiece
-            relative
-
-            flex flex-col
-            gap-16 md:gap-2
-            md:flex-row-reverse
-            items-center justify-center
-
-            p-8
-            w-[80vw] h-[80vh]
-
-            bg-gradient-to-b
-            lg:bg-gradient-to-br
-
-            from-amber-300/20
-            lg:from-amber-300/50
-            to-20%
-            md:to-30%
-
-            dark:from-midnight
-            //-lg:from-indigo-950
-            to-20%
-            md:to-30%
-
-            border
-
-            border-amber-300/40
-            dark:border-midnight
-
-            rounded" {
-            // nav class="absolute top-0 left-0 p-4 lg:p-8" {
-            //     (NavLogo::new().class("border border-amber-300 md:border-none"))
-            // }
-            // div class="spacer md:hidden" {}
-            (glass())
-            (poem())
-        }
-    }
-}
-
-fn poem() -> Markup {
-    let today = chrono::Local::now().date_naive();
-    let closest_poems = processed_2023_haiku::find_closest_poems(&today);
-    let poem = closest_poems.random_element();
-    let closest_sun_station = get_closest_upcoming_solstice_or_equinox();
-    let days_until_next_sun_station = closest_sun_station.distance_in_days_from(today);
-
-    let num_days = number_to_words(days_until_next_sun_station as i32, false);
-
-    let season = match closest_sun_station.kind {
-        SunStationKind::MarchEquinox => "spring / fall",
-        SunStationKind::JuneSolstice => "summer / winter",
-        SunStationKind::SeptemberEquinox => "spring / fall",
-        SunStationKind::DecemberSolstice => "summer / winter",
-    };
-    let equinox_or_solstice = match closest_sun_station.kind {
-        SunStationKind::MarchEquinox => "equinox",
-        SunStationKind::JuneSolstice => "solstice",
-        SunStationKind::SeptemberEquinox => "equinox",
-        SunStationKind::DecemberSolstice => "solstice",
-    };
-
-    let name_of_sun_station = html! {
-        span class="hidden xl:inline" {
-            (season)
-        }
-        " "
-        (equinox_or_solstice)
-    };
-
-    html! {
-        // We force the .poem-text to line-wrap to the width
-        // of the .sun-station by:
-        // - Setting whitespace-nowrap on the .sun-station paragraph.
-        // - Setting .w-min on the .poem div, shrinking it to the width
-        //   of .sun-station.
-        // - Setting .w-full on the .poem-text paragraph.
-        div class="poem w-min text-xl sm:text-3xl lg:text-4xl text-left flex flex-col gap-1 md:gap-2" {
-            p class="sun-station whitespace-nowrap font-extralight text-neutral-500 dark:text-neutral-300" {
-                @if days_until_next_sun_station == 0 {
-                    "today is the " (name_of_sun_station)
-                } @else {
-                    (num_days) " days to the " (name_of_sun_station)
-                }
-            }
-
-            p class="poem-text md:text-right w-full font-thin italic text-neutral-400 dark:text-neutral-400" {
-                (poem.text)
-            }
-        }
-    }
-}
-
-fn glass() -> Markup {
-    html! {
-        div
-            class={"rounded-full md:-ml-32 w-80 max-w-full aspect-square shadow-[0_4px_4px_rgb(10_10_10_/_0.25)] dark:shadow-[0_4px_4px_rgb(10_10_10_/_0.5)] shrink-0 backdrop-blur-[2px] bg-gradient-to-br from-cerulean to-cloud dark:from-twilight dark:to-neutral-900/5" } {
-        }
-    }
-}
-
-fn nav() -> Markup {
-    html! {
-        nav class="desktop-nav flex flex-row grow basis-0 text-base font-light text-neutral-400 translate-y-[3px]" {
-            ul class="flex flex-row gap-4 h-full items-center" {
-                li class="sm:hidden" {
-                    "Hi, my name's Luca"
-                }
-                li class="hidden sm:list-item" {
-                    "Hi, my name is Luca Aurelia"
-                }
-                // Add this back when I have a "work" link.
-                // li class="spacer" {}
-                // li {
-                //     (Link::new()
-                //         .href(Route::Work)
-                //         .slot("work")
-                //     )
-                // }
-                li {
-                    (Link::new()
-                        .href(Route::Santoka)
-                        .slot("santōka")
-                    )
-                }
-            }
-        }
-    }
 }
