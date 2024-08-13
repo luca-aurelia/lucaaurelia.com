@@ -22,7 +22,14 @@ pub fn page() -> Markup {
         html! {
             main
                 class="w-full p-4 lg:p-8 flex flex-row" {
-                div class="about-container md:w-[460px] lg:w-[512px] xl:w-[680px] shrink-0 flex flex-col fixed left-4 md:left-8 top-4 md:top-8 bottom-4 md:bottom-8 pr-4 md:pr-8 z-10" {
+                div class="
+                    about-container
+                    w-full md:w-[460px] lg:w-[512px] xl:w-[680px]
+                    shrink-0
+                    flex flex-col
+                    md:fixed md:left-8 md:top-8 md:bottom-8 md:pr-8
+                    z-10
+                    " {
                     div class="about w-full h-full flex flex-col gap-10 justify-center items-center" {
                         div class="about-text flex flex-col" {
                             div class="name" {

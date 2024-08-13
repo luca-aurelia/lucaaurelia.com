@@ -12,12 +12,12 @@
 @tailwind components;
 @tailwind utilities;
 
-.external\:preview-container {
-    @apply transition -translate-y-2;
-}
+/* .external\:preview-container {
+    @apply transition -translate-y-1;
+} */
 
 .external\:show-preview-on-hover:hover + .external\:preview-container {
-    @apply z-20 translate-y-0;
+    @apply z-20 /* translate-y-0 delay-75 duration-200 ease-in */;
 }
 
 .external\:show-preview-on-hover:hover
@@ -28,7 +28,7 @@
 
 .external\:preview-image {
     opacity: 1;
-    @apply transition opacity-0 duration-0 -translate-y-2;
+    @apply transition opacity-0 duration-0;
 }
 
 .external\:show-preview-on-hover:hover
