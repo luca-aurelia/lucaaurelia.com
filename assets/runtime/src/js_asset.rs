@@ -1,9 +1,10 @@
 use cfg_if::cfg_if;
 use paths::built_assets_browser_prefix;
+use serde::{Deserialize, Serialize};
 use std::path::PathBuf;
 use std::time::Duration;
 
-#[derive(PartialEq)]
+#[derive(PartialEq, Serialize, Deserialize)]
 pub struct JsAsset {
     pub url_path: PathBuf, // Used for loading the asset in the browser.
     pub url_path_starting_from_built_assets_dir: PathBuf, // Used for saving the asset to disk.

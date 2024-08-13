@@ -1,10 +1,11 @@
 use cfg_if::cfg_if;
 use mime::Mime;
+use serde::{Deserialize, Serialize};
 
 pub const LQIP_MIME_TYPE: Mime = mime::IMAGE_JPEG;
 pub const RESIZED_IMAGE_MIME_TYPE: Mime = mime::IMAGE_JPEG;
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)]
 pub struct ImageAsset {
     pub alt: String,
     pub placeholder: Placeholder,
@@ -18,10 +19,10 @@ pub struct ImageAsset {
     /// Used for Open Graph and Twitter Card.
     pub medium_sized_full_url: String,
 
-    pub mime_type: Mime,
+    pub mime_type: String,
 }
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)]
 pub enum Placeholder {
     Lqip { data_uri: String },
     Color { css_string: String },
@@ -62,7 +63,7 @@ if #[cfg(feature = "build_time")] {
             let src = &self.src;
             let medium_sized_full_url = &self.medium_sized_full_url;
 
-            let mime_type = &self.mime_type.to_string();
+            let mime_type = &self.mime_type;
 
             let quoted = quote! {
                 assets::ImageAsset {
@@ -76,7 +77,7 @@ if #[cfg(feature = "build_time")] {
                     src: #src.to_string(),
                     medium_sized_full_url: #medium_sized_full_url.to_string(),
 
-                    mime_type: #mime_type.parse().unwrap(),
+                    mime_type: #mime_type.to_string(),
                 }
             };
 

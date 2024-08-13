@@ -17,6 +17,7 @@ log = "0.4.20"
 proc-macro2 = { version = "1.0.69", optional = true }
 quote = { version = "1.0.33", optional = true }
 mime = "0.3.17"
+serde = "1.0.205"
 
 [dev-dependencies]
 # For parsing spin.toml in tests.

@@ -7,14 +7,21 @@ const anyHtmlRustOrCssFileInTheWorkspace = path.resolve(
   "..",
   "..",
   "**",
-  "*.{html,rs,css}"
+  "*.{html,rs,css}",
 );
 
-console.log(`Using ${anyHtmlRustOrCssFileInTheWorkspace} as the content path.`);
+const content = [
+  anyHtmlRustOrCssFileInTheWorkspace,
+
+  // Exclude any files in a `target` directory
+  "!**/target/**/*",
+];
+
+console.log(`Using ${content} as the content path.`);
 
 /** @type {import('tailwindcss').Config}*/
 const config = {
-  content: [anyHtmlRustOrCssFileInTheWorkspace],
+  content,
 
   theme: {
     extend: {

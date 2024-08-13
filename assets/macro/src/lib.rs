@@ -1,6 +1,7 @@
 use proc_macro::TokenStream;
 
 mod browser_crate;
+mod caching;
 mod detect_file_changes;
 mod file;
 mod font;
@@ -22,7 +23,7 @@ pub fn include_browser_crate(input: TokenStream) -> TokenStream {
 
 #[proc_macro]
 pub fn include_image(input: TokenStream) -> TokenStream {
-    images::include_image(input)
+    images::include(input)
 }
 
 #[proc_macro]

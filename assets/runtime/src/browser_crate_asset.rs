@@ -1,6 +1,8 @@
 use crate::{JsAsset, WasmAsset};
 use cfg_if::cfg_if;
+use serde::{Deserialize, Serialize};
 
+#[derive(Serialize, Deserialize)]
 pub struct BrowserCrateAsset {
     pub wasm: WasmAsset,
     pub js: JsAsset,

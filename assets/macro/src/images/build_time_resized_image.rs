@@ -88,22 +88,18 @@ impl BuildTimeResizedImage {
     }
 
     fn generate_and_save_bytes(width: u32, path: &Path, original_image: &DynamicImage) -> Vec<u8> {
-        fs::read(path).unwrap_or_else(|error| {
-            println!(
-                "Couldn't read resized image file {:?} so regenerating the resized image. Original error message: {}",
-                &path, error
-            );
+        println!("Generating resized image for {:?}.", &path);
 
-            let format = image::ImageFormat::from_mime_type(assets_runtime::RESIZED_IMAGE_MIME_TYPE).expect("Error getting image format from mime type.");
+        let format = image::ImageFormat::from_mime_type(assets_runtime::RESIZED_IMAGE_MIME_TYPE)
+            .expect("Error getting image format from mime type.");
 
-            let bytes = original_image
-                .resize_to_width(width)
-                .to_bytes_with_format(format);
+        let bytes = original_image
+            .resize_to_width(width)
+            .to_bytes_with_format(format);
 
-            fs::create_dir_all(path.parent().unwrap()).expect("Error creating built images dir.");
-            fs::write(path, &bytes).expect("Error writing resized image to disk.");
+        fs::create_dir_all(path.parent().unwrap()).expect("Error creating built images dir.");
+        fs::write(path, &bytes).expect("Error writing resized image to disk.");
 
-            bytes
-        })
+        bytes
     }
 }

@@ -1,3 +1,4 @@
+use crate::caching::cache_macro_output;
 use assets_runtime::ImageAsset;
 use build_time_image::*;
 use image::DynamicImage;
@@ -6,12 +7,6 @@ use include_image_input::*;
 use proc_macro::TokenStream;
 use quote::quote;
 use std::path::Path;
-// use rayon::prelude::*;
-// use include_images_in_folder_input::*;
-// use walkdir::WalkDir;
-// use quote::format_ident;
-// use rayon::prelude::*;
-// use walkdir::WalkDir;
 
 mod build_time_image;
 mod build_time_resized_image;
@@ -20,10 +15,31 @@ mod image_asset_extension;
 mod include_image_input;
 mod include_images_in_folder_input;
 
-pub fn include_image(input: TokenStream) -> TokenStream {
+pub fn include(input: TokenStream) -> TokenStream {
     let input = syn::parse_macro_input!(input as IncludeImageInput);
     crate::logger::init_logger(input.debug);
 
+    let file_has_changed = crate::detect_file_changes::has_file_changed(
+        &input.absolute_path_to_image,
+        "include_image",
+    );
+
+    let cache_name = {
+        let path_to_image_starting_at_workspace_root = input
+            .path_to_image_starting_at_workspace_root
+            .to_str()
+            .expect("Error converting path to string.")
+            .replace(std::path::MAIN_SEPARATOR, "_");
+        format!("include_image_{}", path_to_image_starting_at_workspace_root)
+    };
+
+    cache_macro_output(&cache_name, file_has_changed, move || {
+        println!("Rebuilding image.");
+        uncached_include(input)
+    })
+}
+
+pub fn uncached_include(input: IncludeImageInput) -> Result<ImageAsset, TokenStream> {
     let absolute_path_to_image = &input.absolute_path_to_image;
 
     log::info!(
@@ -52,14 +68,7 @@ pub fn include_image(input: TokenStream) -> TokenStream {
     );
 
     let image_asset = ImageAsset::from_build_time_image(&build_time_image);
-
-    let code = quote! {
-        #image_asset
-    };
-
-    // print_code_for_debugging(&code);
-
-    code.into()
+    Ok(image_asset)
 }
 
 fn try_get_image_file_from_path(path: &Path) -> Option<ImageFile> {

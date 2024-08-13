@@ -11,6 +11,7 @@ use super::build_time_image::PlaceholderToGenerate;
 pub struct IncludeImageInput {
     pub absolute_path_to_image: PathBuf,
     pub placeholder_to_generate: PlaceholderToGenerate,
+    pub path_to_image_starting_at_workspace_root: PathBuf,
     pub alt: Alt,
     pub debug: bool,
 }
@@ -39,6 +40,8 @@ include_image!(
         // convert None to an error and return early.
         let string_path_to_image_starting_at_workspace_root =
             parse_named_string_argument("path_to_image", &input).ok_or(error.clone())?;
+        let path_to_image_starting_at_workspace_root =
+            PathBuf::from(string_path_to_image_starting_at_workspace_root.clone());
 
         let absolute_path_to_image =
             paths::workspace_root_dir().join(string_path_to_image_starting_at_workspace_root);
@@ -52,6 +55,7 @@ include_image!(
 
         Ok(IncludeImageInput {
             absolute_path_to_image,
+            path_to_image_starting_at_workspace_root,
             alt,
             placeholder_to_generate,
             debug,

@@ -86,6 +86,7 @@ pub fn page() -> Markup {
                                 "
                                 {}
 
+
                             a href="https://google.com" class="py-4 block w-full flex flex-row gap-6 items-center" {
                                 span class="work-date
                                     hidden xl:block
@@ -120,7 +121,7 @@ pub fn page() -> Markup {
                         div class="external:preview-container fixed left-4 lg:left-8 top-4 lg:top-8 bottom-4 lg:bottom-8 md:w-[460px] lg:w-[512px] xl:w-[680px] pr-4 lg:pr-8 overflow-hidden flex flex-col items-center justify-center" {
                             div class={ "external:preview-backdrop opacity-0 absolute left-0 top-0 w-full h-full " (bg_background()) } {}
                             (Image::new(&work.preview_image)
-                                .class("external:preview-image opacity-0 transition-opacity duration-0 w-full h-full block object-cover object-center rounded-md z-10"))
+                                .class("external:preview-image w-full h-full block object-cover object-center rounded-md z-10"))
                         }
                     }
                 }

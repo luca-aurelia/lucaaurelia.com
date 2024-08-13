@@ -14,7 +14,7 @@ pub struct BuildTimeImage {
     pub height: u32,
     pub name_in_source_code: String,
     pub alt: String,
-    pub mime_type: mime::Mime,
+    pub mime_type: String,
 }
 
 impl BuildTimeImage {
@@ -60,7 +60,7 @@ impl BuildTimeImage {
             height,
             name_in_source_code,
             alt,
-            mime_type: assets_runtime::RESIZED_IMAGE_MIME_TYPE,
+            mime_type: assets_runtime::RESIZED_IMAGE_MIME_TYPE.to_string(),
         }
     }
 

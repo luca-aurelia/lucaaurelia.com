@@ -1,3 +1,4 @@
+use crate::caching::cache_macro_output;
 use crate::parse_macro_arguments::*;
 use assets_runtime::{BrowserCrateAsset, JsAsset, WasmAsset};
 use paths::*;
@@ -14,13 +15,25 @@ pub fn include(input: TokenStream) -> TokenStream {
     let input = syn::parse_macro_input!(input as IncludeBrowserCrateInput);
     crate::logger::init_logger(input.debug);
 
+    let files_have_changed = crate::detect_file_changes::has_any_file_changed(
+        &input.path_to_browser_crate,
+        "include_browser_crate",
+    );
+
+    cache_macro_output("include_browser_crate", files_have_changed, move || {
+        println!("Rebuilding the browser crate.");
+        uncached_include(input)
+    })
+}
+
+fn uncached_include(input: IncludeBrowserCrateInput) -> Result<BrowserCrateAsset, TokenStream> {
     let final_path_to_built_wasm = output_file_path(&input.wasm_url_path);
     let final_path_to_built_js = output_file_path(&input.js_url_path);
 
     let maybe_wasm_pack_output = run_wasm_pack(&input);
     let wasm_pack_output = match maybe_wasm_pack_output {
         Ok(wasm_pack_output) => wasm_pack_output,
-        Err(error) => return error,
+        Err(error) => return Err(error),
     };
 
     std::fs::create_dir_all(built_assets_dir()).expect("Error creating built assets dir.");
@@ -45,7 +58,7 @@ pub fn include(input: TokenStream) -> TokenStream {
         let error: TokenStream = syn::Error::new(input.span, error_message)
             .to_compile_error()
             .into();
-        return error;
+        return Err(error);
     }
     std::fs::rename(&wasm_pack_output.path_to_built_js, &final_path_to_built_js)
         .expect("Error moving the built JS file to the final location.");
@@ -75,18 +88,8 @@ pub fn include(input: TokenStream) -> TokenStream {
     // Clean up the temporary directory where wasm-pack saved the built files.
     std::fs::remove_dir_all(wasm_pack_output.out_dir).expect("Error deleting out_dir.");
 
-    let output = quote! {
-        #browser_crate_asset
-    };
-
-    output.into()
+    Ok(browser_crate_asset)
 }
-
-// pub fn browser_crate_files_have_changed(path_to_browser_crate: &Path) -> bool {
-//     let database_name = "track_browser_crate_file_changes.json";
-//     let path_to_database = paths::path_to_detect_file_changes_db(database_name);
-//     crate::detect_file_changes::has_any_file_changed(path_to_browser_crate, path_to_database)
-// }
 
 fn run_wasm_pack(input: &IncludeBrowserCrateInput) -> Result<WasmPackOutput, TokenStream> {
     log::info!("Including browser crate.");

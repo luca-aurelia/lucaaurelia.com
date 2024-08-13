@@ -34,3 +34,7 @@ base64 = "0.21.5"
 uuid = { version = "1.6.1", features = ["v4"] }
 tailwind_cli = { path = "../../tailwind_cli" }
 wasm_pack_cli = { path = "../../wasm_pack_cli" }
+serde = "1.0.205"
+tokio = { version = "1.39.2", features = ["full"] }
+sha2 = "0.10.8"
+serde_json = "1.0.122"
