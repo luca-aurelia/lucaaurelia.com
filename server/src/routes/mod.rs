@@ -20,36 +20,38 @@ pub fn page() -> Markup {
         "Luca Aurelia — Writer + Generative Artist",
         "The home page of artist and writer Luca Aurelia — creative coding, music, and scraps of poems like little polaroids made of words.",
         html! {
+            //
             main
-                class="w-full p-4 lg:p-8 flex flex-row" {
+                class="w-full p-4 lg:p-8 flex flex-col md:flex-row" {
                 div class="
                     about-container
-                    w-full md:w-[460px] lg:w-[512px] xl:w-[680px]
+                    w-full md:w-[512px] lg:w-[680px]
                     shrink-0
                     flex flex-col
                     md:fixed md:left-8 md:top-8 md:bottom-8 md:pr-8
+                    pb-16 md:py-0
                     z-10
                     " {
-                    div class="about w-full h-full flex flex-col gap-10 justify-center items-center" {
+                    div class="about w-full h-full flex flex-col gap-10 justify-center items-start md:items-center" {
                         div class="about-text flex flex-col" {
-                            div class="name" {
+                            div class="name flex flex-row items-center md:flex-col md:items-start" {
                                 div class="colors flex flex-row overflow-hidden rounded-[0.0625rem]" {
                                     div class="w-4 h-4" style="background-color: rgb(243, 133, 138);" {}
                                     div class="w-4 h-4" style="background-color: rgb(245, 161, 183);" {}
                                     div class="w-4 h-4" style="background-color: rgb(255, 206, 189);" {}
                                 }
-                                div class="spacer w-full h-4" {}
-                                h1 class="text-4xl uppercase font-extralight text-neutral-700 dark:text-neutral-100 tracking-widest" {
+                                div class="spacer w-4 h-full md:w-full md:h-4" {}
+                                h1 class="text-2xl md:text-4xl uppercase font-extralight text-neutral-700 dark:text-neutral-100 tracking-widest" {
                                     "Luca Aurelia"
                                 }
                             }
-                            div class="spacer w-full h-10" {}
-                            div class="details" {
-                                p class="text-2xl font-extralight text-neutral-600 dark:text-neutral-300 tracking-wide" {
+                            div class="spacer hidden md:block w-full h-4 md:h-10" {}
+                            div class="details hidden md:block" {
+                                p class="text-base/[1.25] md:text-2xl font-extralight text-neutral-600 dark:text-neutral-300 tracking-wide" {
                                     "1990 — 20XX"
                                 }
-                                div class="spacer w-full h-4" {}
-                                p class="text-2xl italic lowercase font-extralight -translate-y-[0.25rem] text-neutral-600 dark:text-neutral-300 tracking-wide" {
+                                div class="spacer w-full h-1 md:h-4" {}
+                                p class="text-base/[1.25] md:text-2xl italic lowercase font-extralight -translate-y-[0.25rem] text-neutral-600 dark:text-neutral-300 tracking-wide" {
                                     "trees tongue the sunny morning"
                                 }
 
@@ -57,12 +59,12 @@ pub fn page() -> Markup {
                         }
                     }
                 }
-                div class="about-placeholder md:w-[460px] lg:w-[512px] xl:w-[680px] shrink-0 h-full" {}
+                div class="about-placeholder hidden md:block md:w-[512px] lg:w-[680px] shrink-0 h-full" {}
                 ol class="works
                     group/ol
-                    w-3/5 shrink
+                    w-full md:w-3/5 md:shrink
                     flex flex-col
-                    text-2xl/[1.25]
+                    text-lg/[1.25] lg:text-2xl/[1.25]
                     tracking-wide font-light
                     " {
                     @for work in WORK_INDEX.works() {
@@ -96,7 +98,7 @@ pub fn page() -> Markup {
 
                             a href="https://google.com" class="py-4 block w-full flex flex-row gap-6 items-center" {
                                 span class="work-date
-                                    hidden xl:block
+                                    block md:hidden xl:!block
                                     text-neutral-400 group-hover/li:!text-neutral-500 group-hover/ol:text-neutral-200
                                     dark:text-neutral-400 group-hover/li:dark:!text-neutral-300 group-hover/ol:dark:text-neutral-700
                                     tabular-nums text-base
@@ -125,7 +127,7 @@ pub fn page() -> Markup {
                                     style={"background-color: " (work.accent_color) ";" } {}
                             }
                         }
-                        div class="external:preview-container fixed left-4 lg:left-8 top-4 lg:top-8 bottom-4 lg:bottom-8 md:w-[460px] lg:w-[512px] xl:w-[680px] pr-4 lg:pr-8 overflow-hidden flex flex-col items-center justify-center" {
+                        div class="external:preview-container hidden md:flex fixed left-4 lg:left-8 top-4 lg:top-8 bottom-4 lg:bottom-8 md:w-[512px] lg:w-[680px] pr-4 lg:pr-8 overflow-hidden flex-col items-center justify-center" {
                             div class={ "external:preview-backdrop opacity-0 absolute left-0 top-0 w-full h-full " (bg_background()) } {}
                             (Image::new(&work.preview_image)
                                 .class("external:preview-image w-full h-full block object-cover object-center rounded-md z-10"))

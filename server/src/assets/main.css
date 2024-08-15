@@ -17,28 +17,27 @@
 } */
 
 .external\:show-preview-on-hover:hover + .external\:preview-container {
-    @apply z-20 /* translate-y-0 delay-75 duration-200 ease-in */;
+    @apply md:z-20;
 }
 
 .external\:show-preview-on-hover:hover
     + .external\:preview-container
     .external\:preview-backdrop {
-    opacity: 1;
+    @apply md:opacity-100;
 }
 
 .external\:preview-image {
-    opacity: 1;
-    @apply transition opacity-0 duration-0;
+    @apply md:transition md:opacity-0 md:duration-0;
 }
 
 .external\:show-preview-on-hover:hover
     + .external\:preview-container
     .external\:preview-image {
-    @apply delay-75 duration-200 ease-in opacity-100;
+    @apply md:delay-75 md:duration-200 md:ease-in md:opacity-100;
 }
 
 .external\:delay-z-index-transition-on-unhover {
-    z-index: 10;
+    @apply md:z-10;
     transition:
         background-color 200ms cubic-bezier(0, 0, 0.2, 1),
         z-index 0ms linear 200ms;
