@@ -25,7 +25,7 @@ pub fn page() -> Markup {
                 class="w-full p-4 lg:p-8 flex flex-col md:flex-row" {
                 div class="
                     about-container
-                    w-full md:w-[512px] lg:w-[680px]
+                    w-full md:w-[576px] lg:w-[680px]
                     shrink-0
                     flex flex-col
                     md:fixed md:left-8 md:top-8 md:bottom-8 md:pr-8
@@ -36,22 +36,22 @@ pub fn page() -> Markup {
                         div class="about-text flex flex-col" {
                             div class="name flex flex-row items-center md:flex-col md:items-start" {
                                 div class="colors flex flex-row overflow-hidden rounded-[0.0625rem]" {
-                                    div class="w-4 h-4" style="background-color: rgb(243, 133, 138);" {}
-                                    div class="w-4 h-4" style="background-color: rgb(245, 161, 183);" {}
-                                    div class="w-4 h-4" style="background-color: rgb(255, 206, 189);" {}
+                                    div class="w-3 h-3 lg:w-4 lg:h-4" style="background-color: rgb(243, 133, 138);" {}
+                                    div class="w-3 h-3 lg:w-4 lg:h-4" style="background-color: rgb(245, 161, 183);" {}
+                                    div class="w-3 h-3 lg:w-4 lg:h-4" style="background-color: rgb(255, 206, 189);" {}
                                 }
-                                div class="spacer w-4 h-full md:w-full md:h-4" {}
-                                h1 class="text-2xl md:text-4xl uppercase font-extralight text-neutral-700 dark:text-neutral-100 tracking-widest" {
+                                div class="spacer w-4 h-full md:w-full md:h-2 lg:h-4" {}
+                                h1 class="text-2xl lg:text-4xl uppercase font-extralight text-neutral-700 dark:text-neutral-100 tracking-widest" {
                                     "Luca Aurelia"
                                 }
                             }
-                            div class="spacer hidden md:block w-full h-4 md:h-10" {}
+                            div class="spacer hidden md:block w-full h-6 lg:h-10" {}
                             div class="details hidden md:block" {
-                                p class="text-base/[1.25] md:text-2xl font-extralight text-neutral-600 dark:text-neutral-300 tracking-wide" {
+                                p class="text-base/[1.25] lg:text-2xl font-extralight text-neutral-600 dark:text-neutral-300 tracking-wide" {
                                     "1990 — 20XX"
                                 }
                                 div class="spacer w-full h-1 md:h-4" {}
-                                p class="text-base/[1.25] md:text-2xl italic lowercase font-extralight -translate-y-[0.25rem] text-neutral-600 dark:text-neutral-300 tracking-wide" {
+                                p class="text-base/[1.25] lg:text-2xl italic lowercase font-extralight -translate-y-[0.25rem] text-neutral-600 dark:text-neutral-300 tracking-wide" {
                                     "trees tongue the sunny morning"
                                 }
 
@@ -63,12 +63,12 @@ pub fn page() -> Markup {
                         }
                     }
                 }
-                div class="about-placeholder hidden md:block md:w-[512px] lg:w-[680px] shrink-0 h-full" {}
+                div class="about-placeholder hidden md:block md:w-[576px] lg:w-[680px] shrink-0 h-full" {}
                 ol class="works
                     group/ol
                     w-full md:w-3/5 md:shrink
                     flex flex-col
-                    text-lg/[1.25] lg:text-2xl/[1.25]
+                    text-base/[1.25] lg:text-2xl/[1.25]
                     tracking-wide font-light
                     " {
                     @for work in WORK_INDEX.works() {
@@ -105,8 +105,8 @@ pub fn page() -> Markup {
                                     block md:hidden xl:!block
                                     text-neutral-400 group-hover/li:!text-neutral-500 group-hover/ol:text-neutral-200
                                     dark:text-neutral-400 group-hover/li:dark:!text-neutral-300 group-hover/ol:dark:text-neutral-700
-                                    tabular-nums text-base
-                                    translate-y-[0.175rem]
+                                    tabular-nums text-xs
+                                    translate-y-[0.1rem] md:translate-y-[0.175rem]
                                     transition-colors duration-200 ease-out
                                     whitespace-nowrap
                                     " {
@@ -131,7 +131,7 @@ pub fn page() -> Markup {
                                     style={"background-color: " (work.accent_color) ";" } {}
                             }
                         }
-                        div class="external:preview-container hidden md:flex fixed left-4 lg:left-8 top-4 lg:top-8 bottom-4 lg:bottom-8 md:w-[512px] lg:w-[680px] pr-4 lg:pr-8 overflow-hidden flex-col items-center justify-center" {
+                        div class="external:preview-container hidden md:flex fixed left-4 lg:left-8 top-4 lg:top-8 bottom-4 lg:bottom-8 md:w-[576px] lg:w-[680px] pr-4 lg:pr-8 overflow-hidden flex-col items-center justify-center" {
                             div class={ "external:preview-backdrop opacity-0 absolute left-0 top-0 w-full h-full " (bg_background()) } {}
                             (Image::new(&work.cropped_preview_image)
                                 .class("external:preview-image w-full h-full block object-cover object-center rounded-md z-10"))
