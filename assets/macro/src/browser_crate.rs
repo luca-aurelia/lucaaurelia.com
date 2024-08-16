@@ -1,4 +1,4 @@
-use crate::caching::cache_macro_output;
+use crate::cache::cache_macro_output;
 use crate::parse_macro_arguments::*;
 use assets_runtime::{BrowserCrateAsset, JsAsset, WasmAsset};
 use paths::*;
@@ -15,7 +15,7 @@ pub fn include(input: TokenStream) -> TokenStream {
     let input = syn::parse_macro_input!(input as IncludeBrowserCrateInput);
     crate::logger::init_logger(input.debug);
 
-    let files_have_changed = crate::detect_file_changes::has_any_file_changed(
+    let files_have_changed = crate::file_change::has_any_file_changed(
         &input.path_to_browser_crate,
         "include_browser_crate",
     );

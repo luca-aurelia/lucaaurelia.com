@@ -1,9 +1,9 @@
 use proc_macro::TokenStream;
 
 mod browser_crate;
-mod caching;
-mod detect_file_changes;
+mod cache;
 mod file;
+mod file_change;
 mod font;
 mod images;
 mod logger;

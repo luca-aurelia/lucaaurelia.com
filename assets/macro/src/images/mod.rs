@@ -1,4 +1,4 @@
-use crate::caching::cache_macro_output;
+use crate::cache::cache_macro_output;
 use assets_runtime::ImageAsset;
 use build_time_image::*;
 use image::DynamicImage;
@@ -19,10 +19,8 @@ pub fn include(input: TokenStream) -> TokenStream {
     let input = syn::parse_macro_input!(input as IncludeImageInput);
     crate::logger::init_logger(input.debug);
 
-    let file_has_changed = crate::detect_file_changes::has_file_changed(
-        &input.absolute_path_to_image,
-        "include_image",
-    );
+    let file_has_changed =
+        crate::file_change::has_file_changed(&input.absolute_path_to_image, "include_image");
 
     let cache_name = {
         let path_to_image_starting_at_workspace_root = input
