@@ -29,10 +29,10 @@ pub fn page() -> Markup {
                     shrink-0
                     flex flex-col
                     md:fixed md:left-8 md:top-8 md:bottom-8 md:pr-8
-                    pb-16 md:py-0
+                    pb-4 md:pb-0
                     z-10
                     " {
-                    div class="about w-full h-full flex flex-col gap-10 justify-center items-start md:items-center" {
+                    div class="about w-full h-full flex flex-col justify-center items-start md:items-center" {
                         div class="about-text flex flex-col" {
                             div class="name flex flex-row items-center md:flex-col md:items-start" {
                                 div class="colors flex flex-row overflow-hidden rounded-[0.0625rem]" {
@@ -56,6 +56,10 @@ pub fn page() -> Markup {
                                 }
 
                             }
+                        }
+                        div class="mobile-image py-4 md:hidden" {
+                            (Image::new(&WORK_INDEX.most_light_speaks_sunish.image)
+                                .class("w-full block object-cover object-center rounded-md"))
                         }
                     }
                 }
@@ -129,7 +133,7 @@ pub fn page() -> Markup {
                         }
                         div class="external:preview-container hidden md:flex fixed left-4 lg:left-8 top-4 lg:top-8 bottom-4 lg:bottom-8 md:w-[512px] lg:w-[680px] pr-4 lg:pr-8 overflow-hidden flex-col items-center justify-center" {
                             div class={ "external:preview-backdrop opacity-0 absolute left-0 top-0 w-full h-full " (bg_background()) } {}
-                            (Image::new(&work.preview_image)
+                            (Image::new(&work.cropped_preview_image)
                                 .class("external:preview-image w-full h-full block object-cover object-center rounded-md z-10"))
                         }
                     }

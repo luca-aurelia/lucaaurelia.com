@@ -1551,6 +1551,10 @@ video {
   padding-bottom: 4rem;
 }
 
+.pb-4 {
+  padding-bottom: 1rem;
+}
+
 .pb-8 {
   padding-bottom: 2rem;
 }
@@ -2308,8 +2312,7 @@ video {
     align-items: center;
   }
 
-  .md\:py-0 {
-    padding-top: 0px;
+  .md\:pb-0 {
     padding-bottom: 0px;
   }
 

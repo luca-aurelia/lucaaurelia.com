@@ -51,7 +51,8 @@ impl WorkIndex {
 
 pub struct Work {
     pub name: &'static str,
-    pub preview_image: ImageAsset,
+    pub cropped_preview_image: ImageAsset,
+    pub image: ImageAsset,
     pub year: Year,
     pub month: Month,
     pub kind: Kind,
@@ -71,8 +72,13 @@ pub static WORK_INDEX: Lazy<WorkIndex> = Lazy::new(|| WorkIndex {
         month: Month::new(7),
         kind: Kind::Art,
         accent_color: "rgb(231, 143, 129)",
-        preview_image: assets::include_image!(
+        cropped_preview_image: assets::include_image!(
             path_to_image: "server/src/assets/images/most light speaks sunish preview.png",
+            alt: "",
+            placeholder: automatic_color,
+        ),
+        image: assets::include_image!(
+            path_to_image: "server/src/assets/images/most light speaks sunish.png",
             alt: "",
             placeholder: automatic_color,
         ),
@@ -83,8 +89,13 @@ pub static WORK_INDEX: Lazy<WorkIndex> = Lazy::new(|| WorkIndex {
         month: Month::new(5),
         kind: Kind::Art,
         accent_color: "rgb(127, 157, 201)",
-        preview_image: assets::include_image!(
+        cropped_preview_image: assets::include_image!(
             path_to_image: "server/src/assets/images/when sun and dirt preview.png",
+            alt: "",
+            placeholder: automatic_color,
+        ),
+        image: assets::include_image!(
+            path_to_image: "server/src/assets/images/when sun and dirt.png",
             alt: "",
             placeholder: automatic_color,
         ),
@@ -95,8 +106,13 @@ pub static WORK_INDEX: Lazy<WorkIndex> = Lazy::new(|| WorkIndex {
         month: Month::new(5),
         kind: Kind::SpecialProjects,
         accent_color: "rgb(224, 115, 78)",
-        preview_image: assets::include_image!(
+        cropped_preview_image: assets::include_image!(
             path_to_image: "server/src/assets/images/thistle bright morning preview.png",
+            alt: "",
+            placeholder: automatic_color,
+        ),
+        image: assets::include_image!(
+            path_to_image: "server/src/assets/images/thistle bright morning.png",
             alt: "",
             placeholder: automatic_color,
         ),
@@ -107,8 +123,13 @@ pub static WORK_INDEX: Lazy<WorkIndex> = Lazy::new(|| WorkIndex {
         month: Month::new(11),
         kind: Kind::Art,
         accent_color: "rgb(211, 157, 89)",
-        preview_image: assets::include_image!(
+        cropped_preview_image: assets::include_image!(
             path_to_image: "server/src/assets/images/into my bedroom quietness a bird is shouting preview.png",
+            alt: "",
+            placeholder: automatic_color,
+        ),
+        image: assets::include_image!(
+            path_to_image: "server/src/assets/images/into my bedroom quietness a bird is shouting.png",
             alt: "",
             placeholder: automatic_color,
         ),
@@ -119,8 +140,13 @@ pub static WORK_INDEX: Lazy<WorkIndex> = Lazy::new(|| WorkIndex {
         month: Month::new(07),
         kind: Kind::Art,
         accent_color: "rgb(178, 199, 199)",
-        preview_image: assets::include_image!(
+        cropped_preview_image: assets::include_image!(
             path_to_image: "server/src/assets/images/my eyes upon the sun upon my face preview.png",
+            alt: "",
+            placeholder: automatic_color,
+        ),
+        image: assets::include_image!(
+            path_to_image: "server/src/assets/images/my eyes upon the sun upon my face.png",
             alt: "",
             placeholder: automatic_color,
         ),
@@ -131,8 +157,13 @@ pub static WORK_INDEX: Lazy<WorkIndex> = Lazy::new(|| WorkIndex {
         month: Month::new(11),
         kind: Kind::Art,
         accent_color: "rgb(130, 151, 127)",
-        preview_image: assets::include_image!(
+        cropped_preview_image: assets::include_image!(
             path_to_image: "server/src/assets/images/the sun not setting turned to moss preview.png",
+            alt: "",
+            placeholder: automatic_color,
+        ),
+        image: assets::include_image!(
+            path_to_image: "server/src/assets/images/the sun not setting turned to moss.png",
             alt: "",
             placeholder: automatic_color,
         ),
@@ -143,8 +174,13 @@ pub static WORK_INDEX: Lazy<WorkIndex> = Lazy::new(|| WorkIndex {
         month: Month::new(10),
         kind: Kind::Art,
         accent_color: "rgb(119, 214, 210)",
-        preview_image: assets::include_image!(
+        cropped_preview_image: assets::include_image!(
             path_to_image: "server/src/assets/images/quiet and watching the clouds flock preview.png",
+            alt: "",
+            placeholder: automatic_color,
+        ),
+        image: assets::include_image!(
+            path_to_image: "server/src/assets/images/quiet and watching the clouds flock.png",
             alt: "",
             placeholder: automatic_color,
         ),
@@ -155,10 +191,15 @@ pub static WORK_INDEX: Lazy<WorkIndex> = Lazy::new(|| WorkIndex {
         month: Month::new(09),
         kind: Kind::Art,
         accent_color: "rgb(92, 42, 29)",
-        preview_image: assets::include_image!(
-        path_to_image: "server/src/assets/images/evening cracking like an egg preview.png",
-        alt: "",
-        placeholder: automatic_color,
+        cropped_preview_image: assets::include_image!(
+            path_to_image: "server/src/assets/images/evening cracking like an egg preview.png",
+            alt: "",
+            placeholder: automatic_color,
+        ),
+        image: assets::include_image!(
+            path_to_image: "server/src/assets/images/evening cracking like an egg.png",
+            alt: "",
+            placeholder: automatic_color,
         ),
     },
     taking_a_breath_from_the_night_sky: Work {
@@ -167,8 +208,13 @@ pub static WORK_INDEX: Lazy<WorkIndex> = Lazy::new(|| WorkIndex {
         month: Month::new(09),
         kind: Kind::Art,
         accent_color: "rgb(51, 46, 72)",
-        preview_image: assets::include_image!(
+        cropped_preview_image: assets::include_image!(
             path_to_image: "server/src/assets/images/taking a breath from the night sky preview.png",
+            alt: "",
+            placeholder: automatic_color,
+        ),
+        image: assets::include_image!(
+            path_to_image: "server/src/assets/images/taking a breath from the night sky.png",
             alt: "",
             placeholder: automatic_color,
         ),
@@ -179,10 +225,15 @@ pub static WORK_INDEX: Lazy<WorkIndex> = Lazy::new(|| WorkIndex {
         month: Month::new(09),
         kind: Kind::Art,
         accent_color: "rgb(177, 107, 90)",
-        preview_image: assets::include_image!(
-        path_to_image: "server/src/assets/images/three dimensions of birdsong preview.png",
-        alt: "",
-        placeholder: automatic_color,
+        cropped_preview_image: assets::include_image!(
+            path_to_image: "server/src/assets/images/three dimensions of birdsong preview.png",
+            alt: "",
+            placeholder: automatic_color,
+        ),
+        image: assets::include_image!(
+            path_to_image: "server/src/assets/images/three dimensions of birdsong.png",
+            alt: "",
+            placeholder: automatic_color,
         ),
     },
     digging_up_night_from_the_garden: Work {
@@ -191,8 +242,13 @@ pub static WORK_INDEX: Lazy<WorkIndex> = Lazy::new(|| WorkIndex {
         month: Month::new(07),
         kind: Kind::Art,
         accent_color: "rgb(198, 185, 227)",
-        preview_image: assets::include_image!(
+        cropped_preview_image: assets::include_image!(
             path_to_image: "server/src/assets/images/digging up night from the garden preview.png",
+            alt: "",
+            placeholder: automatic_color,
+        ),
+        image: assets::include_image!(
+            path_to_image: "server/src/assets/images/digging up night from the garden.png",
             alt: "",
             placeholder: automatic_color,
         ),
@@ -203,8 +259,13 @@ pub static WORK_INDEX: Lazy<WorkIndex> = Lazy::new(|| WorkIndex {
         month: Month::new(06),
         kind: Kind::Art,
         accent_color: "rgb(101, 142, 92)",
-        preview_image: assets::include_image!(
+        cropped_preview_image: assets::include_image!(
             path_to_image: "server/src/assets/images/green like no grass is green preview.png",
+            alt: "",
+            placeholder: automatic_color,
+        ),
+        image: assets::include_image!(
+            path_to_image: "server/src/assets/images/green like no grass is green.png",
             alt: "",
             placeholder: automatic_color,
         ),
@@ -215,8 +276,13 @@ pub static WORK_INDEX: Lazy<WorkIndex> = Lazy::new(|| WorkIndex {
         month: Month::new(06),
         kind: Kind::Art,
         accent_color: "rgb(239, 166, 173)",
-        preview_image: assets::include_image!(
+        cropped_preview_image: assets::include_image!(
             path_to_image: "server/src/assets/images/throwing sound into the valley preview.png",
+            alt: "",
+            placeholder: automatic_color,
+        ),
+        image: assets::include_image!(
+            path_to_image: "server/src/assets/images/throwing sound into the valley.png",
             alt: "",
             placeholder: automatic_color,
         ),
@@ -227,8 +293,13 @@ pub static WORK_INDEX: Lazy<WorkIndex> = Lazy::new(|| WorkIndex {
         month: Month::new(05),
         kind: Kind::Art,
         accent_color: "rgb(220, 219, 215)",
-        preview_image: assets::include_image!(
+        cropped_preview_image: assets::include_image!(
             path_to_image: "server/src/assets/images/metal tendons of mountains, metal skins of lakes preview.png",
+            alt: "",
+            placeholder: automatic_color,
+        ),
+        image: assets::include_image!(
+            path_to_image: "server/src/assets/images/metal tendons of mountains, metal skins of lakes.png",
             alt: "",
             placeholder: automatic_color,
         ),
@@ -239,10 +310,15 @@ pub static WORK_INDEX: Lazy<WorkIndex> = Lazy::new(|| WorkIndex {
         month: Month::new(11),
         kind: Kind::Art,
         accent_color: "rgb(127, 97, 53)",
-        preview_image: assets::include_image!(
-        path_to_image: "server/src/assets/images/glen of the birches preview.png",
-        alt: "",
-        placeholder: automatic_color,
+        cropped_preview_image: assets::include_image!(
+            path_to_image: "server/src/assets/images/glen of the birches preview.png",
+            alt: "",
+            placeholder: automatic_color,
+        ),
+        image: assets::include_image!(
+            path_to_image: "server/src/assets/images/glen of the birches.png",
+            alt: "",
+            placeholder: automatic_color,
         ),
     },
     walking_the_grounds_of_koya_mountain: Work {
@@ -251,8 +327,13 @@ pub static WORK_INDEX: Lazy<WorkIndex> = Lazy::new(|| WorkIndex {
         month: Month::new(09),
         kind: Kind::Art,
         accent_color: "rgb(120, 119, 115)",
-        preview_image: assets::include_image!(
+        cropped_preview_image: assets::include_image!(
             path_to_image: "server/src/assets/images/walking the grounds of kōya mountain preview.png",
+            alt: "",
+            placeholder: automatic_color,
+        ),
+        image: assets::include_image!(
+            path_to_image: "server/src/assets/images/walking the grounds of kōya mountain.png",
             alt: "",
             placeholder: automatic_color,
         ),
@@ -263,8 +344,13 @@ pub static WORK_INDEX: Lazy<WorkIndex> = Lazy::new(|| WorkIndex {
         month: Month::new(06),
         kind: Kind::Art,
         accent_color: "rgb(178, 104, 110)",
-        preview_image: assets::include_image!(
+        cropped_preview_image: assets::include_image!(
             path_to_image: "server/src/assets/images/a hill of seven colors preview.png",
+            alt: "",
+            placeholder: automatic_color,
+        ),
+        image: assets::include_image!(
+            path_to_image: "server/src/assets/images/a hill of seven colors.png",
             alt: "",
             placeholder: automatic_color,
         ),
@@ -275,8 +361,13 @@ pub static WORK_INDEX: Lazy<WorkIndex> = Lazy::new(|| WorkIndex {
         month: Month::new(04),
         kind: Kind::Art,
         accent_color: "rgb(239, 75, 134)",
-        preview_image: assets::include_image!(
+        cropped_preview_image: assets::include_image!(
             path_to_image: "server/src/assets/images/walls fall preview.png",
+            alt: "",
+            placeholder: automatic_color,
+        ),
+        image: assets::include_image!(
+            path_to_image: "server/src/assets/images/walls fall.png",
             alt: "",
             placeholder: automatic_color,
         ),
