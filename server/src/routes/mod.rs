@@ -103,6 +103,7 @@ pub fn page() -> Markup {
                             (Link::new()
                                 .href(Route::Work { name: work.name.clone() })
                                 .class("py-4 block w-full flex flex-row gap-6 items-center")
+                                .without_default_classes()
                                 .slot(html! {
                                     span class="work-date
                                         block md:hidden xl:!block
@@ -133,7 +134,7 @@ pub fn page() -> Markup {
                                         "
                                         style={"background-color: " (work.accent_color) ";" } {}
                                 })
-                                )
+                            )
                         }
                         div class="external:preview-container hidden md:flex fixed left-4 lg:left-8 top-4 lg:top-8 bottom-4 lg:bottom-8 md:w-[576px] lg:w-[680px] pr-4 lg:pr-8 overflow-hidden flex-col items-center justify-center" {
                             div class={ "external:preview-backdrop opacity-0 absolute left-0 top-0 w-full h-full " (bg_background()) } {}
