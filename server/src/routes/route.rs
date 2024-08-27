@@ -2,6 +2,7 @@ use super::*;
 use axum::extract::Request;
 use maud::Markup;
 use std::path::Path;
+use shared::work::Work;
 
 pub use shared::route::Route;
 
@@ -30,7 +31,10 @@ impl ServerSideRouteExtension for Route {
             }
             Route::Santoka => santoka::page(),
             Route::AllSantokaPoems => santoka::all::page(),
-            Route::Work => work::page(),
+            Route::Work { name } => {
+                let work = Work::from_name(name).expect("Unknown work");
+                work::page(work)
+            },
         }
     }
 

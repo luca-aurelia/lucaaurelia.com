@@ -50,7 +50,7 @@ impl Render for Link {
             default_classes = self.default_classes
         );
 
-        match self.href {
+        match &self.href {
             Some(href) => html! {
                 a
                     class=(class)

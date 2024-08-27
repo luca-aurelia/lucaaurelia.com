@@ -1,3 +1,5 @@
+use once_cell::sync::Lazy;
+
 pub static POEMS_JSON: &str = include_str!("../poems.json");
 pub static PUBLICATIONS_JSON: &str = include_str!("../publications.json");
 pub static TRANSLATORS_JSON: &str = include_str!("../translators.json");
@@ -13,6 +15,8 @@ pub use self::publication::*;
 
 mod translator;
 pub use self::translator::*;
+
+pub static DATASET: Lazy<Dataset> = Lazy::new(Dataset::new);
 
 #[cfg(test)]
 mod tests {

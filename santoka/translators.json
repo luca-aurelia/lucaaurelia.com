@@ -57,30 +57,38 @@
   },
   {
     "id": 15,
-    "name": "Stephen Addiss with Fumiko and Akira Yamamoto"
+    "name": "Stephen Addiss"
   },
   {
     "id": 16,
-    "name": "Paul Watsky"
+    "name": "Fumiko Yamamoto"
   },
   {
     "id": 17,
-    "name": "Alex Fyffe"
+    "name": "Akira Yamamoto"
   },
   {
     "id": 18,
-    "name": "John Stevens"
+    "name": "Paul Watsky"
   },
   {
     "id": 19,
-    "name": "Michael Hoffman"
+    "name": "Alex Fyffe"
   },
   {
     "id": 20,
-    "name": "Robin D. Gill"
+    "name": "John Stevens"
   },
   {
     "id": 21,
+    "name": "Michael Hoffman"
+  },
+  {
+    "id": 22,
+    "name": "Robin D. Gill"
+  },
+  {
+    "id": 23,
     "name": "J. Thomas Rimer"
   }
 ]

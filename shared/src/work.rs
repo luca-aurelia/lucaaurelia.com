@@ -1,8 +1,47 @@
+use serde::{Deserialize, Serialize};
 use assets::ImageAsset;
 use library_of_babel::date::Month;
 use library_of_babel::date::Year;
 use once_cell::sync::Lazy;
 
+pub struct Work {
+    pub name: WorkName,
+    pub cropped_preview_image: ImageAsset,
+    pub image: ImageAsset,
+    pub year: Year,
+    pub month: Month,
+    pub kind: Kind,
+    pub accent_color: &'static str,
+}
+
+enum Kind {
+    Art,
+    Writing,
+    SpecialProjects,
+}
+
+#[derive(Eq, Clone, PartialEq, Debug, Serialize, Deserialize)]
+pub struct WorkName(String);
+
+impl WorkName {
+    pub fn from_str(name_str: &str) -> WorkName {
+        WorkName(name_str.to_string())
+    }
+
+    pub fn url_safe(&self) -> String {
+        self.0.replace(" ", "-")
+    }
+
+    pub fn human_readable(&self) -> &String {
+        &self.0
+    }
+}
+
+
+// When adding a new work:
+// 1. Add it to the work index.
+// 2. Add it to the works array.
+// 3. Update the CARDINALITY value of our Sequence implementation below.
 pub struct WorkIndex {
     pub most_light_speaks_sunish: Work,
     pub when_sun_and_dirt: Work,
@@ -49,25 +88,69 @@ impl WorkIndex {
     }
 }
 
-pub struct Work {
-    pub name: &'static str,
-    pub cropped_preview_image: ImageAsset,
-    pub image: ImageAsset,
-    pub year: Year,
-    pub month: Month,
-    pub kind: Kind,
-    pub accent_color: &'static str,
+impl Work {
+    pub fn from_url_safe_str(url_safe_name: &str) -> Option<&Self> {
+        WORK_INDEX.works().into_iter().find(|work| &work.name.url_safe() == url_safe_name)
+    }
+
+    pub fn from_name(name: &WorkName) -> Option<&Work> {
+        WORK_INDEX.works().into_iter().find(|work| &work.name == name)
+    }
 }
 
-enum Kind {
-    Art,
-    Writing,
-    SpecialProjects,
+
+impl enum_iterator::Sequence for WorkName {
+    const CARDINALITY: usize = 18;
+
+    fn first() -> Option<Self> {
+        WORK_INDEX
+            .works()
+            .first()
+            .map(|work| work.name.clone())
+    }
+
+    fn last() -> Option<Self> {
+        WORK_INDEX.works()
+            .last()
+            .map(|work| work.name.clone())
+    }
+
+    fn previous(&self) -> Option<Self> {
+        let index = WORK_INDEX
+            .works()
+            .into_iter()
+            .position(|work| work.name == *self)
+            .expect("Failed to find work name.");
+
+        // If this was the first work name, there is no previous work name.
+        if index == 0 {
+            return None;
+        }
+
+        WORK_INDEX
+            .works()
+            .get(index - 1)
+            .map(|work| work.name.clone())
+    }
+
+    fn next(&self) -> Option<Self> {
+        let index = WORK_INDEX
+            .works()
+            .into_iter()
+            .position(|work| work.name == *self)
+            .expect("Failed to find work name.");
+
+        WORK_INDEX
+            .works()
+            .get(index + 1)
+            .map(|work| work.name.clone())
+    }
 }
+
 
 pub static WORK_INDEX: Lazy<WorkIndex> = Lazy::new(|| WorkIndex {
     most_light_speaks_sunish: Work {
-        name: "most light speaks sunish",
+        name: WorkName::from_str("most light speaks sunish"),
         year: Year::new(2024),
         month: Month::new(7),
         kind: Kind::Art,
@@ -84,7 +167,7 @@ pub static WORK_INDEX: Lazy<WorkIndex> = Lazy::new(|| WorkIndex {
         ),
     },
     when_sun_and_dirt: Work {
-        name: "when sun and dirt",
+        name: WorkName::from_str("when sun and dirt"),
         year: Year::new(2024),
         month: Month::new(5),
         kind: Kind::Art,
@@ -101,7 +184,7 @@ pub static WORK_INDEX: Lazy<WorkIndex> = Lazy::new(|| WorkIndex {
         ),
     },
     thistle_bright_morning: Work {
-        name: "thistle bright morning: haiku by taneda santōka",
+        name: WorkName::from_str("thistle bright morning: haiku by taneda santōka"),
         year: Year::new(2024),
         month: Month::new(5),
         kind: Kind::SpecialProjects,
@@ -118,7 +201,7 @@ pub static WORK_INDEX: Lazy<WorkIndex> = Lazy::new(|| WorkIndex {
         ),
     },
     into_my_bedroom_quietness_a_bird_is_shouting: Work {
-        name: "into my bedroom quietness a bird is shouting",
+        name: WorkName::from_str("into my bedroom quietness a bird is shouting"),
         year: Year::new(2023),
         month: Month::new(11),
         kind: Kind::Art,
@@ -135,7 +218,7 @@ pub static WORK_INDEX: Lazy<WorkIndex> = Lazy::new(|| WorkIndex {
         ),
     },
     my_eyes_upon_the_sun_upon_my_face: Work {
-        name: "my eyes upon the sun upon my face",
+        name: WorkName::from_str("my eyes upon the sun upon my face"),
         year: Year::new(2023),
         month: Month::new(07),
         kind: Kind::Art,
@@ -152,7 +235,7 @@ pub static WORK_INDEX: Lazy<WorkIndex> = Lazy::new(|| WorkIndex {
         ),
     },
     the_sun_not_setting_turned_to_moss: Work {
-        name: "the sun not setting turned to moss",
+        name: WorkName::from_str("the sun not setting turned to moss"),
         year: Year::new(2022),
         month: Month::new(11),
         kind: Kind::Art,
@@ -169,7 +252,7 @@ pub static WORK_INDEX: Lazy<WorkIndex> = Lazy::new(|| WorkIndex {
         ),
     },
     quiet_and_watching_the_clouds_flock: Work {
-        name: "quiet and watching the clouds flock",
+        name: WorkName::from_str("quiet and watching the clouds flock"),
         year: Year::new(2022),
         month: Month::new(10),
         kind: Kind::Art,
@@ -186,7 +269,7 @@ pub static WORK_INDEX: Lazy<WorkIndex> = Lazy::new(|| WorkIndex {
         ),
     },
     evening_cracking_like_an_egg: Work {
-        name: "evening cracking like an egg",
+        name: WorkName::from_str("evening cracking like an egg"),
         year: Year::new(2022),
         month: Month::new(09),
         kind: Kind::Art,
@@ -203,7 +286,7 @@ pub static WORK_INDEX: Lazy<WorkIndex> = Lazy::new(|| WorkIndex {
         ),
     },
     taking_a_breath_from_the_night_sky: Work {
-        name: "taking a breath from the night sky",
+        name: WorkName::from_str("taking a breath from the night sky"),
         year: Year::new(2022),
         month: Month::new(09),
         kind: Kind::Art,
@@ -220,7 +303,7 @@ pub static WORK_INDEX: Lazy<WorkIndex> = Lazy::new(|| WorkIndex {
         ),
     },
     three_dimensions_of_birdsong: Work {
-        name: "three dimensions of birdsong",
+        name: WorkName::from_str("three dimensions of birdsong"),
         year: Year::new(2022),
         month: Month::new(09),
         kind: Kind::Art,
@@ -237,7 +320,7 @@ pub static WORK_INDEX: Lazy<WorkIndex> = Lazy::new(|| WorkIndex {
         ),
     },
     digging_up_night_from_the_garden: Work {
-        name: "digging up night from the garden",
+        name: WorkName::from_str("digging up night from the garden"),
         year: Year::new(2022),
         month: Month::new(07),
         kind: Kind::Art,
@@ -254,7 +337,7 @@ pub static WORK_INDEX: Lazy<WorkIndex> = Lazy::new(|| WorkIndex {
         ),
     },
     green_like_no_grass_is_green: Work {
-        name: "green like no grass is green",
+        name: WorkName::from_str("green like no grass is green"),
         year: Year::new(2022),
         month: Month::new(06),
         kind: Kind::Art,
@@ -271,7 +354,7 @@ pub static WORK_INDEX: Lazy<WorkIndex> = Lazy::new(|| WorkIndex {
         ),
     },
     throwing_sound_into_the_valley: Work {
-        name: "throwing sound into the valley",
+        name: WorkName::from_str("throwing sound into the valley"),
         year: Year::new(2022),
         month: Month::new(06),
         kind: Kind::Art,
@@ -288,7 +371,7 @@ pub static WORK_INDEX: Lazy<WorkIndex> = Lazy::new(|| WorkIndex {
         ),
     },
     metal_tendons_of_mountains_metal_skins_of_lakes: Work {
-        name: "metal tendons of mountains, metal skins of lakes",
+        name: WorkName::from_str("metal tendons of mountains), metal skins of lakes"),
         year: Year::new(2022),
         month: Month::new(05),
         kind: Kind::Art,
@@ -305,7 +388,7 @@ pub static WORK_INDEX: Lazy<WorkIndex> = Lazy::new(|| WorkIndex {
         ),
     },
     glen_of_the_birches: Work {
-        name: "glen of the birches",
+        name: WorkName::from_str("glen of the birches"),
         year: Year::new(2021),
         month: Month::new(11),
         kind: Kind::Art,
@@ -322,7 +405,7 @@ pub static WORK_INDEX: Lazy<WorkIndex> = Lazy::new(|| WorkIndex {
         ),
     },
     walking_the_grounds_of_koya_mountain: Work {
-        name: "walking the grounds of kōya mountain",
+        name: WorkName::from_str("walking the grounds of kōya mountain"),
         year: Year::new(2021),
         month: Month::new(09),
         kind: Kind::Art,
@@ -339,7 +422,7 @@ pub static WORK_INDEX: Lazy<WorkIndex> = Lazy::new(|| WorkIndex {
         ),
     },
     a_hill_of_seven_colors: Work {
-        name: "a hill of seven colors",
+        name: WorkName::from_str("a hill of seven colors"),
         year: Year::new(2021),
         month: Month::new(06),
         kind: Kind::Art,
@@ -356,7 +439,7 @@ pub static WORK_INDEX: Lazy<WorkIndex> = Lazy::new(|| WorkIndex {
         ),
     },
     walls_fall: Work {
-        name: "walls fall",
+        name: WorkName::from_str("walls fall"),
         year: Year::new(2019),
         month: Month::new(04),
         kind: Kind::Art,

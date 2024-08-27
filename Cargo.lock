@@ -520,27 +520,18 @@ checksum = "11157ac094ffbdde99aa67b23417ebdd801842852b500e395a45a9c0aac03e4a"
 
 [[package]]
 name = "enum-iterator"
-version = "1.5.0"
+version = "2.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9fd242f399be1da0a5354aa462d57b4ab2b4ee0683cc552f7c007d2d12d36e94"
-dependencies = [
- "enum-iterator-derive",
-]
-
-[[package]]
-name = "enum-iterator"
-version = "2.0.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "600536cfe9e2da0820aa498e570f6b2b9223eec3ce2f835c8ae4861304fa4794"
+checksum = "c280b9e6b3ae19e152d8e31cf47f18389781e119d4013a2a2bb0180e5facc635"
 dependencies = [
  "enum-iterator-derive",
 ]
 
 [[package]]
 name = "enum-iterator-derive"
-version = "1.3.0"
+version = "1.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "03cdc46ec28bd728e67540c528013c6a10eb69a02eb31078a1bda695438cbfb8"
+checksum = "a1ab991c1362ac86c61ab6f556cff143daa22e5a15e4e189df818b2fd19fe65b"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -1240,7 +1231,7 @@ version = "0.1.0"
 dependencies = [
  "chrono",
  "csv",
- "enum-iterator 2.0.0",
+ "enum-iterator",
  "lazy_static",
  "paths",
  "regex",
@@ -1826,6 +1817,8 @@ dependencies = [
 name = "santoka"
 version = "1.0.2"
 dependencies = [
+ "enum-iterator",
+ "once_cell",
  "serde",
  "serde_json",
 ]
@@ -1926,6 +1919,7 @@ dependencies = [
  "number_to_words",
  "once_cell",
  "paths",
+ "santoka",
  "serde",
  "shared",
  "solar-calendar-events",
@@ -1949,12 +1943,15 @@ dependencies = [
 name = "shared"
 version = "0.1.0"
 dependencies = [
+ "assets",
  "base64",
- "enum-iterator 1.5.0",
+ "enum-iterator",
  "futures",
  "gloo",
+ "library_of_babel",
  "maud 0.25.0",
  "once_cell",
+ "santoka",
  "serde",
  "serde_json",
  "ts-rs",

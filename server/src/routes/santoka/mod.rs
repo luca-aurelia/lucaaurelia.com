@@ -1,14 +1,14 @@
 use crate::components::Logo;
 use crate::components::*;
 use crate::css_class_groups::*;
-use crate::library::work_index::WORK_INDEX;
+use shared::work::WORK_INDEX;
+use assets::LightDarkImageAsset;
 use maud::{html, Markup, Render};
+use once_cell::sync::Lazy;
 use shared::controllers::show_hide::ShowHide;
 use shared::controllers::show_if_scrolled::show_if_scrolled;
 use shared::route::Route;
-use shared::santoka_haiku_2023_06_26::*;
-use assets::LightDarkImageAsset;
-use once_cell::sync::Lazy;
+use ::santoka::*;
 
 pub mod all;
 pub mod non_preview_poems;
@@ -17,21 +17,19 @@ struct AssetIndex {
     hero_image: LightDarkImageAsset,
 }
 
-static ASSET_INDEX: Lazy<AssetIndex> = Lazy::new(|| {
-    AssetIndex {
-        hero_image: LightDarkImageAsset::new(
-            assets::include_image!(
-                path_to_image: "server/src/assets/images/hasui light.jpeg",
-                alt: "",
-                placeholder: automatic_color,
-            ),
-            assets::include_image!(
-                path_to_image: "server/src/assets/images/hasui dark.jpeg",
-                alt: "",
-                placeholder: automatic_color,
-            ),
+static ASSET_INDEX: Lazy<AssetIndex> = Lazy::new(|| AssetIndex {
+    hero_image: LightDarkImageAsset::new(
+        assets::include_image!(
+            path_to_image: "server/src/assets/images/hasui light.jpeg",
+            alt: "",
+            placeholder: automatic_color,
         ),
-    }
+        assets::include_image!(
+            path_to_image: "server/src/assets/images/hasui dark.jpeg",
+            alt: "",
+            placeholder: automatic_color,
+        ),
+    ),
 });
 
 pub fn page() -> Markup {
@@ -202,7 +200,7 @@ fn poetry_section(initial_poems_loaded: InitiallyLoad) -> Markup {
     // padding-top = 10rem - 10dvh
     html!(
         section id="poems" class="flex flex-col tracking-wide items-center gap-40 pt-[calc(10rem-10dvh)]" {
-            @for publication in DATABASE.publications_sorted_by_luca_ranking() {
+            @for publication in DATASET.publications_sorted_by_luca_ranking() {
                 (poems_and_publication(publication, initial_poems_loaded))
             }
         }
@@ -225,7 +223,7 @@ fn poems_and_publication(
 }
 
 fn publication_container(publication: &'static Publication, show_hide: &ShowHide) -> Markup {
-    let translator = DATABASE.translator(publication.translator_id);
+    let translator_names: Vec<_> = publication.translators().map(|translator| translator.name.as_str()).collect();
 
     html!(
         div
@@ -245,7 +243,7 @@ fn publication_container(publication: &'static Publication, show_hide: &ShowHide
                 " "
                 (body_text())} {
             p class="translator font-light lg:font-extralight" {
-                (translator.name)
+                (translator_names.join(", "))
             }
             p class="publication-name font-light lg:font-thin italic" {
                 (publication.name)

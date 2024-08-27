@@ -3,10 +3,10 @@ use crate::components::{Image, Layout, Link, Logo};
 use crate::css_class_groups::bg_background;
 use crate::extensions::VecExtension;
 use crate::library::seasons::{get_closest_upcoming_solstice_or_equinox, SunStationKind};
-use crate::library::work_index::WORK_INDEX;
 use maud::{html, Markup, PreEscaped, Render};
 use number_to_words::number_to_words;
 use shared::route::Route;
+use shared::work::WORK_INDEX;
 
 mod build_time;
 mod not_found;
@@ -100,36 +100,40 @@ pub fn page() -> Markup {
                                 {}
 
 
-                            a href="https://google.com" class="py-4 block w-full flex flex-row gap-6 items-center" {
-                                span class="work-date
-                                    block md:hidden xl:!block
-                                    text-neutral-400 group-hover/li:!text-neutral-500 group-hover/ol:text-neutral-200
-                                    dark:text-neutral-400 group-hover/li:dark:!text-neutral-300 group-hover/ol:dark:text-neutral-700
-                                    tabular-nums text-xs
-                                    translate-y-[0.1rem] md:translate-y-[0.175rem]
-                                    transition-colors duration-200 ease-out
-                                    whitespace-nowrap
-                                    " {
-                                    (work.year) " · " (work.month)
-                                }
-                                span class="work-name block
-                                    text-neutral-600 group-hover/li:!text-neutral-700 group-hover/ol:text-neutral-300
-                                    dark:text-neutral-200 group-hover/li:dark:!text-neutral-100 group-hover/ol:dark:text-neutral-500
-                                    transition-colors duration-200 ease-out
-                                    " {
-                                    (work.name)
-                                }
-                                div class="hover-indicator
-                                    hidden xl:block
-                                    absolute right-2
-                                    rounded-[0.125rem]
-                                    h-6 w-6
-                                    transition duration-200 ease-out
-                                    -translate-x-1 group-hover/li:translate-x-0
-                                    opacity-0 group-hover/li:opacity-100
-                                    "
-                                    style={"background-color: " (work.accent_color) ";" } {}
-                            }
+                            (Link::new()
+                                .href(Route::Work { name: work.name.clone() })
+                                .class("py-4 block w-full flex flex-row gap-6 items-center")
+                                .slot(html! {
+                                    span class="work-date
+                                        block md:hidden xl:!block
+                                        text-neutral-400 group-hover/li:!text-neutral-500 group-hover/ol:text-neutral-200
+                                        dark:text-neutral-400 group-hover/li:dark:!text-neutral-300 group-hover/ol:dark:text-neutral-700
+                                        tabular-nums text-xs
+                                        translate-y-[0.1rem] md:translate-y-[0.175rem]
+                                        transition-colors duration-200 ease-out
+                                        whitespace-nowrap
+                                        " {
+                                        (work.year) " · " (work.month)
+                                    }
+                                    span class="work-name block
+                                        text-neutral-600 group-hover/li:!text-neutral-700 group-hover/ol:text-neutral-300
+                                        dark:text-neutral-200 group-hover/li:dark:!text-neutral-100 group-hover/ol:dark:text-neutral-500
+                                        transition-colors duration-200 ease-out
+                                        " {
+                                        (work.name.human_readable())
+                                    }
+                                    div class="hover-indicator
+                                        hidden xl:block
+                                        absolute right-2
+                                        rounded-[0.125rem]
+                                        h-6 w-6
+                                        transition duration-200 ease-out
+                                        -translate-x-1 group-hover/li:translate-x-0
+                                        opacity-0 group-hover/li:opacity-100
+                                        "
+                                        style={"background-color: " (work.accent_color) ";" } {}
+                                })
+                                )
                         }
                         div class="external:preview-container hidden md:flex fixed left-4 lg:left-8 top-4 lg:top-8 bottom-4 lg:bottom-8 md:w-[576px] lg:w-[680px] pr-4 lg:pr-8 overflow-hidden flex-col items-center justify-center" {
                             div class={ "external:preview-backdrop opacity-0 absolute left-0 top-0 w-full h-full " (bg_background()) } {}

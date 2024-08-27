@@ -12,3 +12,16 @@ pub struct Poem {
 
 #[derive(Debug, Serialize, Deserialize, PartialEq, Clone, Copy)]
 pub struct PoemId(usize);
+
+impl Poem {
+    pub fn japanese_text_is_romaji(&self) -> bool {
+        match &self.japanese_text {
+            Some(japanese_text) => uses_romaji(japanese_text),
+            None => true,
+        }
+    }
+}
+
+fn uses_romaji(text: &str) -> bool {
+    text.chars().any(|c| c.is_ascii())
+}

@@ -1,9 +1,11 @@
-use super::santoka_haiku_2023_06_26::PublicationId;
+// use super::santoka_haiku_2023_06_26::PublicationId;
+use super::work::WorkName;
 use enum_iterator;
+use santoka::PublicationId;
 use serde::{Deserialize, Serialize};
 use std::fmt::Display;
 
-#[derive(Clone, Copy, enum_iterator::Sequence, Serialize, Deserialize, Debug)]
+#[derive(Clone, enum_iterator::Sequence, Serialize, Deserialize, Debug)]
 pub enum Route {
     BuildTime,
     Email,
@@ -13,7 +15,7 @@ pub enum Route {
     NonPreviewPoems { publication_id: PublicationId },
     Santoka,
     AllSantokaPoems,
-    Work,
+    Work { name: WorkName },
 }
 
 impl Route {
@@ -41,7 +43,10 @@ impl Display for Route {
             Route::NotFound => "/not-found".to_string(),
             Route::Santoka => "/santoka".to_string(),
             Route::AllSantokaPoems => "/santoka/all".to_string(),
-            Route::Work => "/work".to_string(),
+            Route::Work { name } => {
+                let url_safe_name = name.url_safe();
+                format!("/work/{}", url_safe_name).to_string()
+            }
         };
 
         write!(f, "{}", route_str)

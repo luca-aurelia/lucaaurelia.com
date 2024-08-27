@@ -11,6 +11,7 @@ paths = { path = "../paths" }
 shared = { path = "../shared", features = ["server"] }
 assets = { path = "../assets/mod" }
 library_of_babel = { path = "../library_of_babel" }
+santoka = { path = "../santoka" }
 maud = "0.26.0"
 build-time = "0.1.3"
 once_cell = "1.18.0"
