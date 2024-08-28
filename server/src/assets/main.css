@@ -53,3 +53,27 @@
 /* .work-link:hover + .work-preview-image-container .work-preview-image {
     @apply !shadow-lg;
 } */
+
+@media (min-width: theme(screens.sm)) and (max-width: theme(screens.lg)) {
+    .external\:responsive-hover-indicator-padding {
+        @apply pr-10;
+    }
+}
+
+@media (min-width: theme(screens.xl)) {
+    .external\:responsive-hover-indicator-padding {
+        @apply pr-10;
+    }
+}
+
+@media (min-width: theme(screens.sm)) and (max-width: theme(screens.lg)) {
+    .external\:responsive-display-block-for-hover-indicator {
+        @apply block;
+    }
+}
+
+@media (min-width: theme(screens.xl)) {
+    .external\:responsive-display-block-for-hover-indicator {
+        @apply block;
+    }
+}

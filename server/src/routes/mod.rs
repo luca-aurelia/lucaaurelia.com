@@ -1,7 +1,6 @@
 use crate::assets::processed_2023_haiku;
 use crate::components::{Image, Layout, Link, Logo};
 use crate::css_class_groups::bg_background;
-use crate::extensions::VecExtension;
 use crate::library::seasons::{get_closest_upcoming_solstice_or_equinox, SunStationKind};
 use maud::{html, Markup, PreEscaped, Render};
 use number_to_words::number_to_words;
@@ -22,53 +21,56 @@ pub fn page() -> Markup {
         html! {
             //
             main
-                class="w-full p-4 lg:p-8 flex flex-col md:flex-row" {
+                class="w-full p-4 lg:p-8 flex flex-col lg:flex-row" {
                 div class="
                     about-container
-                    w-full md:w-[576px] lg:w-[680px]
+                    w-full lg:w-[680px]
                     shrink-0
                     flex flex-col
-                    md:fixed md:left-8 md:top-8 md:bottom-8 md:pr-8
-                    pb-4 md:pb-0
+                    lg:fixed lg:left-8 lg:top-8 lg:bottom-8 lg:pr-8
+                    pb-4 lg:pb-0
                     z-10
                     " {
-                    div class="about w-full h-full flex flex-col justify-center items-start md:items-center" {
+                    div class="about w-full h-full flex flex-col justify-center items-start lg:items-center" {
                         div class="about-text flex flex-col" {
-                            div class="name flex flex-row items-center md:flex-col md:items-start" {
+                            div class="name flex flex-row items-center lg:flex-col lg:items-start" {
                                 div class="colors flex flex-row overflow-hidden rounded-[0.0625rem]" {
                                     div class="w-3 h-3 lg:w-4 lg:h-4" style="background-color: rgb(243, 133, 138);" {}
                                     div class="w-3 h-3 lg:w-4 lg:h-4" style="background-color: rgb(245, 161, 183);" {}
                                     div class="w-3 h-3 lg:w-4 lg:h-4" style="background-color: rgb(255, 206, 189);" {}
                                 }
-                                div class="spacer w-4 h-full md:w-full md:h-2 lg:h-4" {}
+                                div class="spacer w-4 h-full lg:w-full lg:h-2 lg:h-4" {}
                                 h1 class="text-2xl lg:text-4xl uppercase font-extralight text-neutral-700 dark:text-neutral-100 tracking-widest" {
                                     "Luca Aurelia"
                                 }
                             }
-                            div class="spacer hidden md:block w-full h-6 lg:h-10" {}
-                            div class="details hidden md:block" {
+                            div class="spacer hidden lg:block w-full h-6 lg:h-10" {}
+                            div class="details hidden lg:block" {
                                 p class="text-base/[1.25] lg:text-2xl font-extralight text-neutral-600 dark:text-neutral-300 tracking-wide" {
                                     "1990 — 20XX"
                                 }
-                                div class="spacer w-full h-1 md:h-4" {}
+                                div class="spacer w-full h-1 lg:h-4" {}
                                 p class="text-base/[1.25] lg:text-2xl italic lowercase font-extralight -translate-y-[0.25rem] text-neutral-600 dark:text-neutral-300 tracking-wide" {
                                     "trees tongue the sunny morning"
                                 }
 
                             }
                         }
-                        div class="mobile-image py-4 md:hidden" {
-                            (Image::new(&WORK_INDEX.most_light_speaks_sunish.image)
-                                .class("w-full block object-cover object-center rounded-md"))
+                        div class="mobile-image py-4 lg:hidden" {
+                            div class="image-size-constrainer sm:max-h-[384px] rounded-md overflow-hidden" {
+                                // We scale this up to 125% since the right side has a small white edge that makes
+                                // the image look uneven at 100%.
+                                (Image::new(&WORK_INDEX.most_light_speaks_sunish.image)
+                                    .class("w-full block object-cover object-center scale-125"))
+                            }
                         }
                     }
                 }
-                div class="about-placeholder hidden md:block md:w-[576px] lg:w-[680px] shrink-0 h-full" {}
+                div class="about-placeholder hidden lg:block lg:w-[680px] shrink-0 h-full" {}
                 ol class="works
                     group/ol
-                    w-full md:w-3/5 md:shrink
+                    w-full lg:w-3/5 lg:shrink
                     flex flex-col
-                    text-base/[1.25] lg:text-2xl/[1.25]
                     tracking-wide font-light
                     " {
                     @for work in WORK_INDEX.works() {
@@ -80,7 +82,6 @@ pub fn page() -> Markup {
                             -mb-px
                             external:container-for-delay-z-index-transition-on-unhover
                             select-none
-                            xl:pr-10
                             " {
                             // Fake border top and bottom that, unlike border, don't actually affect layout.
                             span class="fake-border-top
@@ -99,18 +100,17 @@ pub fn page() -> Markup {
                                 "
                                 {}
 
-
                             (Link::new()
                                 .href(Route::Work { name: work.name.clone() })
                                 .class("py-4 block w-full flex flex-row gap-6 items-center")
                                 .without_default_classes()
                                 .slot(html! {
                                     span class="work-date
-                                        block md:hidden xl:!block
+                                        block
                                         text-neutral-400 group-hover/li:!text-neutral-500 group-hover/ol:text-neutral-200
                                         dark:text-neutral-400 group-hover/li:dark:!text-neutral-300 group-hover/ol:dark:text-neutral-700
                                         tabular-nums text-xs
-                                        translate-y-[0.1rem] md:translate-y-[0.175rem]
+                                        translate-y-[0.1rem] lg:translate-y-[0.175rem]
                                         transition-colors duration-200 ease-out
                                         whitespace-nowrap
                                         " {
@@ -119,12 +119,14 @@ pub fn page() -> Markup {
                                     span class="work-name block
                                         text-neutral-600 group-hover/li:!text-neutral-700 group-hover/ol:text-neutral-300
                                         dark:text-neutral-200 group-hover/li:dark:!text-neutral-100 group-hover/ol:dark:text-neutral-500
+                                        text-base/[1.25] sm:text-2xl/[1.25]
                                         transition-colors duration-200 ease-out
+                                        external:responsive-hover-indicator-padding
                                         " {
                                         (work.name.human_readable())
                                     }
                                     div class="hover-indicator
-                                        hidden xl:block
+                                        hidden external:responsive-display-block-for-hover-indicator
                                         absolute right-2
                                         rounded-[0.125rem]
                                         h-6 w-6
@@ -136,7 +138,7 @@ pub fn page() -> Markup {
                                 })
                             )
                         }
-                        div class="external:preview-container hidden md:flex fixed left-4 lg:left-8 top-4 lg:top-8 bottom-4 lg:bottom-8 md:w-[576px] lg:w-[680px] pr-4 lg:pr-8 overflow-hidden flex-col items-center justify-center" {
+                        div class="external:preview-container hidden lg:flex fixed left-4 lg:left-8 top-4 lg:top-8 bottom-4 lg:bottom-8 lg:w-[680px] pr-4 lg:pr-8 overflow-hidden flex-col items-center justify-center" {
                             div class={ "external:preview-backdrop opacity-0 absolute left-0 top-0 w-full h-full " (bg_background()) } {}
                             (Image::new(&work.cropped_preview_image)
                                 .class("external:preview-image w-full h-full block object-cover object-center rounded-md z-10"))
