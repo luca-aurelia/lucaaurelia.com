@@ -1,5 +1,4 @@
-// use super::santoka_haiku_2023_06_26::PublicationId;
-use super::work::WorkName;
+use crate::work_id::WorkId;
 use enum_iterator;
 use santoka::PublicationId;
 use serde::{Deserialize, Serialize};
@@ -15,7 +14,7 @@ pub enum Route {
     NonPreviewPoems { publication_id: PublicationId },
     Santoka,
     AllSantokaPoems,
-    Work { name: WorkName },
+    Work { id: WorkId },
 }
 
 impl Route {
@@ -43,10 +42,7 @@ impl Display for Route {
             Route::NotFound => "/not-found".to_string(),
             Route::Santoka => "/santoka".to_string(),
             Route::AllSantokaPoems => "/santoka/all".to_string(),
-            Route::Work { name } => {
-                let url_safe_name = name.url_safe();
-                format!("/work/{}", url_safe_name).to_string()
-            }
+            Route::Work { id } => format!("/work/{}", id.url_slug()).to_string(),
         };
 
         write!(f, "{}", route_str)

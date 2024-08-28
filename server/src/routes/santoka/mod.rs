@@ -1,7 +1,6 @@
 use crate::components::Logo;
 use crate::components::*;
 use crate::css_class_groups::*;
-use shared::work::WORK_INDEX;
 use assets::LightDarkImageAsset;
 use maud::{html, Markup, Render};
 use once_cell::sync::Lazy;

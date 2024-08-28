@@ -4,7 +4,7 @@ pub mod controllers;
 pub mod extensions;
 pub mod route;
 // pub mod santoka_haiku_2023_06_26;
-pub mod work;
+pub mod work_id;
 
 // pub static message: &str = "Hello, shared!";
 

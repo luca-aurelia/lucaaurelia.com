@@ -1,8 +1,8 @@
 use super::*;
 use axum::extract::Request;
 use maud::Markup;
+use crate::library::work::Work;
 use std::path::Path;
-use shared::work::Work;
 
 pub use shared::route::Route;
 
@@ -31,10 +31,7 @@ impl ServerSideRouteExtension for Route {
             }
             Route::Santoka => santoka::page(),
             Route::AllSantokaPoems => santoka::all::page(),
-            Route::Work { name } => {
-                let work = Work::from_name(name).expect("Unknown work");
-                work::page(work)
-            },
+            Route::Work { id } => Work::from_id(*id).page()
         }
     }
 

@@ -6,8 +6,6 @@ use shared::route::Route;
 use tower_http::compression::CompressionLayer;
 use tower_http::services::ServeDir;
 
-// updated 10:49 pm
-
 mod assets;
 mod components;
 mod css_class_groups;
@@ -41,7 +39,7 @@ async fn start_server() {
         .route("/", get(handle_request)) // The wildcard "/*anything" syntax doesn't match the root route, so we have to register that one separately.
         .route("/*anything", get(handle_request))
         .route("/health-check", get(health_check))
-        .route("/robots.txt", get(routes::robots_txt::page)) // We can't make this a normal route because it's not HTML.
+        .route("/robots.txt", get(crate::routes::robots_txt::page)) // We can't make this a normal route because it's not HTML.
         .nest_service(
             &built_assets_browser_prefix,
             ServeDir::new(built_assets_dir),

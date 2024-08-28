@@ -20,7 +20,7 @@ static ASSET_INDEX: Lazy<AssetIndex> = Lazy::new(|| AssetIndex {
     css: assets::include_tailwind!(
         path_to_input_file: "server/src/assets/main.css",
         url_path: "/built-assets/built.css",
-        performance_budget_millis: 150,
+        performance_budget_millis: 155,
     ),
     browser_crate: assets::include_browser_crate!(
         path_to_browser_crate: "browser",

@@ -1,25 +1,23 @@
-use crate::assets::processed_2023_haiku;
-use crate::components::{Image, Layout, Link, Logo};
+use crate::components::{Image, Layout, Link};
 use crate::css_class_groups::bg_background;
 use crate::library::seasons::{get_closest_upcoming_solstice_or_equinox, SunStationKind};
-use maud::{html, Markup, PreEscaped, Render};
+use crate::library::work::{Work, WorkId};
+use maud::{html, Markup, Render};
 use number_to_words::number_to_words;
 use shared::route::Route;
-use shared::work::WORK_INDEX;
 
 mod build_time;
 mod not_found;
 pub mod robots_txt;
 pub mod route;
 mod santoka;
-mod work;
+pub mod works;
 
 pub fn page() -> Markup {
     let layout = Layout::new(
         "Luca Aurelia — Writer + Generative Artist",
         "The home page of artist and writer Luca Aurelia — creative coding, music, and scraps of poems like little polaroids made of words.",
         html! {
-            //
             main
                 class="w-full p-4 lg:p-8 flex flex-col lg:flex-row" {
                 div class="
@@ -60,7 +58,7 @@ pub fn page() -> Markup {
                             div class="image-size-constrainer sm:max-h-[384px] rounded-md overflow-hidden" {
                                 // We scale this up to 125% since the right side has a small white edge that makes
                                 // the image look uneven at 100%.
-                                (Image::new(&WORK_INDEX.most_light_speaks_sunish.image)
+                                (Image::new(&Work::from_id(WorkId::MostLightSpeaksSunish).image)
                                     .class("w-full block object-cover object-center scale-125"))
                             }
                         }
@@ -73,7 +71,7 @@ pub fn page() -> Markup {
                     flex flex-col
                     tracking-wide font-light
                     " {
-                    @for work in WORK_INDEX.works() {
+                    @for work in Work::all() {
                         li class="work-link
                             external:show-preview-on-hover
                             group/li
@@ -101,7 +99,7 @@ pub fn page() -> Markup {
                                 {}
 
                             (Link::new()
-                                .href(Route::Work { name: work.name.clone() })
+                                .href(Route::Work { id: work.id })
                                 .class("py-4 block w-full flex flex-row gap-6 items-center")
                                 .without_default_classes()
                                 .slot(html! {
@@ -123,7 +121,7 @@ pub fn page() -> Markup {
                                         transition-colors duration-200 ease-out
                                         external:responsive-hover-indicator-padding
                                         " {
-                                        (work.name.human_readable())
+                                        (work.name)
                                     }
                                     div class="hover-indicator
                                         hidden external:responsive-display-block-for-hover-indicator
