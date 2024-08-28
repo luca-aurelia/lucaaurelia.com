@@ -2,7 +2,6 @@ use proc_macro::TokenStream;
 use quote::{quote, ToTokens};
 use serde::{de::DeserializeOwned, Serialize};
 use std::fs;
-use syn::{parse_str, Item};
 
 pub fn cache_macro_output<OutputStruct: Serialize + DeserializeOwned + ToTokens>(
     macro_name: &str,

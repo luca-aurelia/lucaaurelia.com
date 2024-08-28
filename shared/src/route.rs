@@ -42,7 +42,7 @@ impl Display for Route {
             Route::NotFound => "/not-found".to_string(),
             Route::Santoka => "/santoka".to_string(),
             Route::AllSantokaPoems => "/santoka/all".to_string(),
-            Route::Work { id } => format!("/work/{}", id.url_slug()).to_string(),
+            Route::Work { id } => format!("/works/{}", id.url_slug()).to_string(),
         };
 
         write!(f, "{}", route_str)

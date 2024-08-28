@@ -12,7 +12,6 @@ pub struct BuildTimeImage {
     pub placeholder: Placeholder,
     pub width: u32,
     pub height: u32,
-    pub name_in_source_code: String,
     pub alt: String,
     pub mime_type: String,
 }
@@ -43,14 +42,6 @@ impl BuildTimeImage {
             .to_string_lossy()
             .to_string();
 
-        let name_in_source_code = file_stem.replace(
-            |character: char| {
-                let should_keep = character.is_alphanumeric() || character == '_';
-                !should_keep
-            },
-            "_",
-        );
-
         BuildTimeImage {
             path_starting_from_images_dir,
             absolute_path_to_original_image,
@@ -58,7 +49,6 @@ impl BuildTimeImage {
             placeholder,
             width,
             height,
-            name_in_source_code,
             alt,
             mime_type: assets_runtime::RESIZED_IMAGE_MIME_TYPE.to_string(),
         }

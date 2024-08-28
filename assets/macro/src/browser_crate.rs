@@ -3,7 +3,6 @@ use crate::parse_macro_arguments::*;
 use assets_runtime::{BrowserCrateAsset, JsAsset, WasmAsset};
 use paths::*;
 use proc_macro::TokenStream;
-use quote::quote;
 use std::path::PathBuf;
 use std::time::Duration;
 use syn::{

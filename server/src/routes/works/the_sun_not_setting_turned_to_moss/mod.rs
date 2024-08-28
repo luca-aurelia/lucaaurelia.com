@@ -1,6 +1,6 @@
+use crate::library::work::{Kind, Work, WorkId};
+use library_of_babel::date::{Month, Year};
 use maud::{html, Markup};
-use crate::library::work::{Work, Kind, WorkId};
-use library_of_babel::date::{Year, Month};
 use once_cell::sync::Lazy;
 
 pub static WORK: Lazy<Work> = Lazy::new(|| Work {
@@ -26,7 +26,7 @@ pub static WORK: Lazy<Work> = Lazy::new(|| Work {
 pub fn page() -> Markup {
     html! {
         h1 {
-            "most light speaks sunish"
+            "the sun not setting turned to moss"
         }
     }
 }

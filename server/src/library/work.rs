@@ -1,7 +1,5 @@
 use assets::ImageAsset;
-use library_of_babel::date::{Year, Month};
-use once_cell::sync::Lazy;
-use crate::routes;
+use library_of_babel::date::{Month, Year};
 use maud::Markup;
 
 pub use shared::work_id::WorkId;
@@ -34,19 +32,43 @@ impl Work {
             WorkId::MostLightSpeaksSunish => &crate::routes::works::most_light_speaks_sunish::WORK,
             WorkId::WhenSunAndDirt => &crate::routes::works::when_sun_and_dirt::WORK,
             WorkId::Santoka => &crate::routes::works::santoka::WORK,
-            WorkId::IntoMyBedroomQuietnessABirdIsShouting => &crate::routes::works::into_my_bedroom_quietness_a_bird_is_shouting::WORK,
-            WorkId::MyEyesUponTheSunUponMyFace => &crate::routes::works::my_eyes_upon_the_sun_upon_my_face::WORK,
-            WorkId::TheSunNotSettingTurnedToMoss => &crate::routes::works::the_sun_not_setting_turned_to_moss::WORK,
-            WorkId::QuietAndWatchingTheCloudsFlock => &crate::routes::works::quiet_and_watching_the_clouds_flock::WORK,
-            WorkId::EveningCrackingLikeAnEgg => &crate::routes::works::evening_cracking_like_an_egg::WORK,
-            WorkId::TakingABreathFromTheNightSky => &crate::routes::works::taking_a_breath_from_the_night_sky::WORK,
-            WorkId::ThreeDimensionsOfBirdsong => &crate::routes::works::three_dimensions_of_birdsong::WORK,
-            WorkId::DiggingUpNightFromTheGarden => &crate::routes::works::digging_up_night_from_the_garden::WORK,
-            WorkId::GreenLikeNoGrassIsGreen => &crate::routes::works::green_like_no_grass_is_green::WORK,
-            WorkId::ThrowingSoundIntoTheValley => &crate::routes::works::throwing_sound_into_the_valley::WORK,
-            WorkId::MetalTendonsOfMountainsMetalSkinsOfLakes => &crate::routes::works::metal_tendons_of_mountains_metal_skins_of_lakes::WORK,
+            WorkId::IntoMyBedroomQuietnessABirdIsShouting => {
+                &crate::routes::works::into_my_bedroom_quietness_a_bird_is_shouting::WORK
+            }
+            WorkId::MyEyesUponTheSunUponMyFace => {
+                &crate::routes::works::my_eyes_upon_the_sun_upon_my_face::WORK
+            }
+            WorkId::TheSunNotSettingTurnedToMoss => {
+                &crate::routes::works::the_sun_not_setting_turned_to_moss::WORK
+            }
+            WorkId::QuietAndWatchingTheCloudsFlock => {
+                &crate::routes::works::quiet_and_watching_the_clouds_flock::WORK
+            }
+            WorkId::EveningCrackingLikeAnEgg => {
+                &crate::routes::works::evening_cracking_like_an_egg::WORK
+            }
+            WorkId::TakingABreathFromTheNightSky => {
+                &crate::routes::works::taking_a_breath_from_the_night_sky::WORK
+            }
+            WorkId::ThreeDimensionsOfBirdsong => {
+                &crate::routes::works::three_dimensions_of_birdsong::WORK
+            }
+            WorkId::DiggingUpNightFromTheGarden => {
+                &crate::routes::works::digging_up_night_from_the_garden::WORK
+            }
+            WorkId::GreenLikeNoGrassIsGreen => {
+                &crate::routes::works::green_like_no_grass_is_green::WORK
+            }
+            WorkId::ThrowingSoundIntoTheValley => {
+                &crate::routes::works::throwing_sound_into_the_valley::WORK
+            }
+            WorkId::MetalTendonsOfMountainsMetalSkinsOfLakes => {
+                &crate::routes::works::metal_tendons_of_mountains_metal_skins_of_lakes::WORK
+            }
             WorkId::GlenOfTheBirches => &crate::routes::works::glen_of_the_birches::WORK,
-            WorkId::WalkingTheGroundsOfKoyaMountain => &crate::routes::works::walking_the_grounds_of_koya_mountain::WORK,
+            WorkId::WalkingTheGroundsOfKoyaMountain => {
+                &crate::routes::works::walking_the_grounds_of_koya_mountain::WORK
+            }
             WorkId::AHillOfSevenColors => &crate::routes::works::a_hill_of_seven_colors::WORK,
             WorkId::WallsFall => &crate::routes::works::walls_fall::WORK,
         }

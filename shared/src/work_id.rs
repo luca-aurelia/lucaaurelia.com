@@ -1,6 +1,5 @@
 use serde::{Deserialize, Serialize};
 
-// If you change this, also update WorkIndex in work.rs in the server crate.
 #[derive(Eq, Clone, Copy, PartialEq, Debug, Serialize, Deserialize, enum_iterator::Sequence)]
 pub enum WorkId {
     MostLightSpeaksSunish,

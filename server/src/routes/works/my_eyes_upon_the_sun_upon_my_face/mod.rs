@@ -26,7 +26,7 @@ pub static WORK: Lazy<Work> = Lazy::new(|| Work {
 pub fn page() -> Markup {
     html! {
         h1 {
-            "most light speaks sunish"
+            "my eyes upon the sun upon my face"
         }
     }
 }

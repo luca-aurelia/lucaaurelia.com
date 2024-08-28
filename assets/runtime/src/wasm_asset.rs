@@ -1,5 +1,5 @@
 use cfg_if::cfg_if;
-use paths::{built_assets_browser_prefix, output_file_path};
+use paths::built_assets_browser_prefix;
 use serde::{Deserialize, Serialize};
 use std::path::PathBuf;
 use std::time::Duration;
@@ -94,7 +94,7 @@ if #[cfg(feature = "build_time")] {
     }
 
     fn path_on_disk(wasm_asset: &WasmAsset) -> PathBuf {
-        output_file_path(&wasm_asset.url_path)
+        paths::output_file_path(&wasm_asset.url_path)
     }
 }
 }
