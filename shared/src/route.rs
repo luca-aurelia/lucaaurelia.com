@@ -9,11 +9,9 @@ pub enum Route {
     BuildTime,
     Email,
     Home,
-    // ImageGarden,
     NotFound,
-    NonPreviewPoems { publication_id: PublicationId },
-    Santoka,
-    AllSantokaPoems,
+    SantokaAllPoems,
+    SantokaNonPreviewPoems { publication_id: PublicationId },
     Work { id: WorkId },
 }
 
@@ -36,13 +34,15 @@ impl Display for Route {
             Route::Email => "mailto:luca@lucaaurelia.com".to_string(),
             Route::Home => "/".to_string(),
             // Route::ImageGarden => "/image-garden".to_string(),
-            Route::NonPreviewPoems { publication_id } => {
-                format!("/non-preview-poems/{}", publication_id)
-            }
             Route::NotFound => "/not-found".to_string(),
-            Route::Santoka => "/santoka".to_string(),
-            Route::AllSantokaPoems => "/santoka/all".to_string(),
-            Route::Work { id } => format!("/works/{}", id.url_slug()).to_string(),
+            Route::SantokaAllPoems => "/santoka/all".to_string(),
+            Route::SantokaNonPreviewPoems { publication_id } => {
+                format!("/santoka/publications/{}/non-preview-poems", publication_id)
+            }
+            Route::Work { id } => match id {
+                WorkId::Santoka => format!("/{}", id.url_slug()),
+                _ => format!("/works/{}", id.url_slug()),
+            },
         };
 
         write!(f, "{}", route_str)

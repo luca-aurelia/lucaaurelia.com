@@ -1,7 +1,7 @@
 use super::*;
+use crate::library::work::Work;
 use axum::extract::Request;
 use maud::Markup;
-use crate::library::work::Work;
 use std::path::Path;
 
 pub use shared::route::Route;
@@ -26,12 +26,11 @@ impl ServerSideRouteExtension for Route {
             Route::Home => crate::routes::page(),
             // Route::ImageGarden => image_garden::page(),
             Route::NotFound => not_found::page(),
-            Route::NonPreviewPoems { publication_id } => {
+            Route::SantokaAllPoems => santoka::all::page(),
+            Route::SantokaNonPreviewPoems { publication_id } => {
                 santoka::non_preview_poems::page(*publication_id)
             }
-            Route::Santoka => santoka::page(),
-            Route::AllSantokaPoems => santoka::all::page(),
-            Route::Work { id } => Work::from_id(*id).page()
+            Route::Work { id } => Work::from_id(*id).page(),
         }
     }
 

@@ -31,7 +31,7 @@ impl Work {
         match id {
             WorkId::MostLightSpeaksSunish => &crate::routes::works::most_light_speaks_sunish::WORK,
             WorkId::WhenSunAndDirt => &crate::routes::works::when_sun_and_dirt::WORK,
-            WorkId::Santoka => &crate::routes::works::santoka::WORK,
+            WorkId::Santoka => &crate::routes::santoka::WORK,
             WorkId::IntoMyBedroomQuietnessABirdIsShouting => {
                 &crate::routes::works::into_my_bedroom_quietness_a_bird_is_shouting::WORK
             }

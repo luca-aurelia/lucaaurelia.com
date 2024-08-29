@@ -1,16 +1,38 @@
 use crate::components::Logo;
 use crate::components::*;
 use crate::css_class_groups::*;
+use crate::library::work::{Kind, Work, WorkId};
+use ::santoka::*;
 use assets::LightDarkImageAsset;
+use library_of_babel::date::{Month, Year};
 use maud::{html, Markup, Render};
 use once_cell::sync::Lazy;
 use shared::controllers::show_hide::ShowHide;
 use shared::controllers::show_if_scrolled::show_if_scrolled;
 use shared::route::Route;
-use ::santoka::*;
 
 pub mod all;
 pub mod non_preview_poems;
+
+pub static WORK: Lazy<Work> = Lazy::new(|| Work {
+    name: "thistle bright morning: haiku by taneda santōka",
+    id: WorkId::Santoka,
+    year: Year::new(2024),
+    month: Month::new(5),
+    kind: Kind::SpecialProjects,
+    accent_color: "rgb(224, 115, 78)",
+    cropped_preview_image: assets::include_image!(
+        path_to_image: "server/src/assets/images/thistle bright morning preview.png",
+        alt: "",
+        placeholder: automatic_color,
+    ),
+    image: assets::include_image!(
+        path_to_image: "server/src/assets/images/thistle bright morning.png",
+        alt: "",
+        placeholder: automatic_color,
+    ),
+    page_fn: page,
+});
 
 struct AssetIndex {
     hero_image: LightDarkImageAsset,
@@ -222,7 +244,10 @@ fn poems_and_publication(
 }
 
 fn publication_container(publication: &'static Publication, show_hide: &ShowHide) -> Markup {
-    let translator_names: Vec<_> = publication.translators().map(|translator| translator.name.as_str()).collect();
+    let translator_names: Vec<_> = publication
+        .translators()
+        .map(|translator| translator.name.as_str())
+        .collect();
 
     html!(
         div
@@ -328,9 +353,10 @@ fn load_more_poems(publication: &'static Publication) -> Markup {
         return html! {};
     }
 
-    let replace_class = shared::controllers::replace::replace(Route::NonPreviewPoems {
+    let route = Route::SantokaNonPreviewPoems {
         publication_id: publication.id,
-    });
+    };
+    let replace_class = shared::controllers::replace::replace(route);
 
     html!(
         // bg-neutral-200 dark:bg-neutral-600
