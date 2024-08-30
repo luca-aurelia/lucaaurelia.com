@@ -12,7 +12,7 @@ pub struct Work {
     pub year: Year,
     pub month: Month,
     pub kind: Kind,
-    pub accent_color: &'static str,
+    pub palette: [&'static str; 3],
     pub page_fn: fn() -> Markup,
 }
 

@@ -9,7 +9,7 @@ pub static WORK: Lazy<Work> = Lazy::new(|| Work {
     year: Year::new(2022),
     month: Month::new(06),
     kind: Kind::Art,
-    accent_color: "rgb(239, 166, 173)",
+    palette: ["rgb(239, 166, 173)",  "rgb(239, 166, 173)",  "rgb(239, 166, 173)"],
     cropped_preview_image: assets::include_image!(
         path_to_image: "server/src/assets/images/throwing sound into the valley preview.png",
         alt: "",

@@ -9,7 +9,7 @@ pub static WORK: Lazy<Work> = Lazy::new(|| Work {
     year: Year::new(2022),
     month: Month::new(06),
     kind: Kind::Art,
-    accent_color: "rgb(101, 142, 92)",
+    palette: ["rgb(101, 142, 92)",  "rgb(101, 142, 92)",  "rgb(101, 142, 92)"],
     cropped_preview_image: assets::include_image!(
         path_to_image: "server/src/assets/images/green like no grass is green preview.png",
         alt: "",

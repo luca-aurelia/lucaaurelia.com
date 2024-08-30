@@ -9,7 +9,7 @@ pub static WORK: Lazy<Work> = Lazy::new(|| Work {
     year: Year::new(2023),
     month: Month::new(07),
     kind: Kind::Art,
-    accent_color: "rgb(178, 199, 199)",
+    palette: ["rgb(178, 199, 199)",  "rgb(178, 199, 199)",  "rgb(178, 199, 199)"],
     cropped_preview_image: assets::include_image!(
         path_to_image: "server/src/assets/images/my eyes upon the sun upon my face preview.png",
         alt: "",

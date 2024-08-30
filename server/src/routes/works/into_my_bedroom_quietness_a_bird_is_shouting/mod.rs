@@ -9,7 +9,7 @@ pub static WORK: Lazy<Work> = Lazy::new(|| Work {
     year: Year::new(2023),
     month: Month::new(11),
     kind: Kind::Art,
-    accent_color: "rgb(211, 157, 89)",
+    palette: ["rgb(211, 157, 89)",  "rgb(211, 157, 89)",  "rgb(211, 157, 89)"],
     cropped_preview_image: assets::include_image!(
         path_to_image: "server/src/assets/images/into my bedroom quietness a bird is shouting preview.png",
         alt: "",

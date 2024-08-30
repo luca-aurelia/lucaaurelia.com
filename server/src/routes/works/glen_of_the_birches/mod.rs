@@ -9,7 +9,7 @@ pub static WORK: Lazy<Work> = Lazy::new(|| Work {
     year: Year::new(2021),
     month: Month::new(11),
     kind: Kind::Art,
-    accent_color: "rgb(127, 97, 53)",
+    palette: ["rgb(127, 97, 53)",  "rgb(127, 97, 53)",  "rgb(127, 97, 53)"],
     cropped_preview_image: assets::include_image!(
         path_to_image: "server/src/assets/images/glen of the birches preview.png",
         alt: "",

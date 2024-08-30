@@ -20,7 +20,7 @@ pub static WORK: Lazy<Work> = Lazy::new(|| Work {
     year: Year::new(2024),
     month: Month::new(5),
     kind: Kind::SpecialProjects,
-    accent_color: "rgb(224, 115, 78)",
+    palette: ["rgb(224, 115, 78)", "rgb(224, 115, 78)", "rgb(224, 115, 78)"],
     cropped_preview_image: assets::include_image!(
         path_to_image: "server/src/assets/images/thistle bright morning preview.png",
         alt: "",
@@ -343,12 +343,20 @@ fn visible_poems_in_publication(
                 (poem(preview_poem))
             }
 
-            (load_more_poems(publication))
+            (load_more_poems(publication, initial_poems_loaded))
         }
     }
 }
 
-fn load_more_poems(publication: &'static Publication) -> Markup {
+fn load_more_poems(
+    publication: &'static Publication,
+    initial_poems_loaded: InitiallyLoad,
+) -> Markup {
+    if let InitiallyLoad::AllPoems = initial_poems_loaded {
+        // We don't need a "load more" button if we're already showing all the poems.
+        return html! {};
+    }
+
     if !publication.has_non_preview_poems() {
         return html! {};
     }
@@ -398,7 +406,7 @@ fn hidden_poems_in_publication(show_hide: &ShowHide) -> Markup {
                 (show_hide.hide_by_default())
                 " "
                 (show_hide.toggle())} {
-            "Click to show these poems."
+            "Tap to show these poems."
         }
     }
 }

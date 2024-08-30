@@ -9,7 +9,7 @@ pub static WORK: Lazy<Work> = Lazy::new(|| Work {
     year: Year::new(2022),
     month: Month::new(11),
     kind: Kind::Art,
-    accent_color: "rgb(130, 151, 127)",
+    palette: ["rgb(130, 151, 127)",  "rgb(130, 151, 127)",  "rgb(130, 151, 127)"],
     cropped_preview_image: assets::include_image!(
         path_to_image: "server/src/assets/images/the sun not setting turned to moss preview.png",
         alt: "",

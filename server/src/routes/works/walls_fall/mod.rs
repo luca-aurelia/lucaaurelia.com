@@ -9,7 +9,7 @@ pub static WORK: Lazy<Work> = Lazy::new(|| Work {
     year: Year::new(2019),
     month: Month::new(04),
     kind: Kind::Art,
-    accent_color: "rgb(239, 75, 134)",
+    palette: ["rgb(239, 75, 134)",  "rgb(239, 75, 134)",  "rgb(239, 75, 134)"],
     cropped_preview_image: assets::include_image!(
         path_to_image: "server/src/assets/images/walls fall preview.png",
         alt: "",

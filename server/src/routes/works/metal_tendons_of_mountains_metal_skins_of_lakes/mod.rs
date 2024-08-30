@@ -9,7 +9,7 @@ pub static WORK: Lazy<Work> = Lazy::new(|| Work {
     year: Year::new(2022),
     month: Month::new(05),
     kind: Kind::Art,
-    accent_color: "rgb(220, 219, 215)",
+    palette: ["rgb(220, 219, 215)",  "rgb(220, 219, 215)",  "rgb(220, 219, 215)"],
     cropped_preview_image: assets::include_image!(
         path_to_image: "server/src/assets/images/metal tendons of mountains, metal skins of lakes preview.png",
         alt: "",

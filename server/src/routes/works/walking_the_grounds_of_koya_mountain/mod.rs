@@ -9,7 +9,7 @@ pub static WORK: Lazy<Work> = Lazy::new(|| Work {
     year: Year::new(2021),
     month: Month::new(09),
     kind: Kind::Art,
-    accent_color: "rgb(120, 119, 115)",
+    palette: ["rgb(120, 119, 115)",  "rgb(120, 119, 115)",  "rgb(120, 119, 115)"],
     cropped_preview_image: assets::include_image!(
         path_to_image: "server/src/assets/images/walking the grounds of kōya mountain preview.png",
         alt: "",

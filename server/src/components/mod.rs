@@ -1,3 +1,6 @@
+pub mod color_blocks;
+pub use self::color_blocks::*;
+
 pub mod hero_content;
 pub use self::hero_content::*;
 
@@ -18,6 +21,9 @@ pub use self::light_dark_image::*;
 
 mod logo;
 pub use self::logo::*;
+
+mod nav;
+pub use self::nav::*;
 
 pub mod stylesheet;
 pub use self::stylesheet::*;
