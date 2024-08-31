@@ -24,7 +24,7 @@ pub enum FileChange {
 
 pub fn has_any_file_changed<P: AsRef<Path>>(dir: P, cache_file_name: &str) -> bool {
     let changed_files = list_changed_files(dir, cache_file_name);
-    changed_files.len() > 0
+    !changed_files.is_empty()
 }
 
 // TODO: Eventually garbage collect the cache since the current implementation lets it

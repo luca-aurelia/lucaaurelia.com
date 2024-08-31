@@ -23,7 +23,7 @@ static ASSET_INDEX: Lazy<AssetIndex> = Lazy::new(|| AssetIndex {
         performance_budget_millis: 155,
     ),
     browser_crate: assets::include_browser_crate!(
-        path_to_browser_crate: "browser",
+        path_to_browser_crate_from_workspace_root: "browser",
         js_url_path: "/built-assets/browser.js",
         js_performance_budget_millis: 150,
         wasm_url_path: "/built-assets/browser_bg.wasm",

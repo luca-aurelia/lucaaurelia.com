@@ -2,7 +2,7 @@ use crate::cache::cache_macro_output;
 use crate::parse_macro_arguments::*;
 use assets_runtime::{BrowserCrateAsset, JsAsset, WasmAsset};
 use paths::*;
-use proc_macro::TokenStream;
+use proc_macro2::TokenStream;
 use std::path::PathBuf;
 use std::time::Duration;
 use syn::{
@@ -11,11 +11,13 @@ use syn::{
 };
 
 pub fn include(input: TokenStream) -> TokenStream {
-    let input = syn::parse_macro_input!(input as IncludeBrowserCrateInput);
+    let input: IncludeBrowserCrateInput =
+        syn::parse2(input).expect("Error parsing input as IncludeBrowserCrateInput.");
     crate::logger::init_logger(input.debug);
 
+    let absolute_path_to_browser_crate = workspace_root_dir().join(&input.path_to_browser_crate_from_workspace_root);
     let files_have_changed = crate::file_change::has_any_file_changed(
-        &input.path_to_browser_crate,
+        &absolute_path_to_browser_crate,
         "include_browser_crate",
     );
 
@@ -54,9 +56,7 @@ fn uncached_include(input: IncludeBrowserCrateInput) -> Result<BrowserCrateAsset
             &wasm_pack_output.path_to_built_js
         );
         log::error!("{}", error_message);
-        let error: TokenStream = syn::Error::new(input.span, error_message)
-            .to_compile_error()
-            .into();
+        let error: TokenStream = syn::Error::new(input.span, error_message).to_compile_error();
         return Err(error);
     }
     std::fs::rename(&wasm_pack_output.path_to_built_js, &final_path_to_built_js)
@@ -117,7 +117,7 @@ fn run_wasm_pack(input: &IncludeBrowserCrateInput) -> Result<WasmPackOutput, Tok
         wasm_pack_args.push("--dev");
     }
 
-    let browser_crate = workspace_root_dir().join(&input.path_to_browser_crate);
+    let browser_crate = workspace_root_dir().join(&input.path_to_browser_crate_from_workspace_root);
     let browser_crate_str = browser_crate.to_str().unwrap();
     log::info!("Looking for browser crate at {}.", browser_crate_str);
     if !browser_crate.exists() {
@@ -202,8 +202,8 @@ fn overwrite_js_with_minified(path_to_js: PathBuf) -> String {
     minified_string
 }
 
-struct IncludeBrowserCrateInput {
-    path_to_browser_crate: PathBuf,
+pub struct IncludeBrowserCrateInput {
+    path_to_browser_crate_from_workspace_root: PathBuf,
 
     js_url_path: PathBuf,
     js_performance_budget: Duration,
@@ -224,7 +224,7 @@ impl Parse for IncludeBrowserCrateInput {
         let error_message = r#"Please make sure to pass arguments to include_browser_crate! like this:
 
 include_browser_crate!(
-    path_to_browser_crate: \"browser\",
+    path_to_browser_crate_from_workspace_root: \"browser\",
     js_url_path: \"browser.js\",
     js_performance_budget: 200,
     wasm_url_path: \"browser_bg.wasm\",
@@ -235,9 +235,10 @@ include_browser_crate!(
 "#;
         let error = syn::Error::new(input.span(), error_message);
 
-        let path_to_browser_crate =
-            parse_named_string_argument("path_to_browser_crate", &input).ok_or(error.clone())?;
-        // eprintln!("path_to_browser_crate: {:?}", path_to_browser_crate);
+        let path_to_browser_crate_from_workspace_root =
+            parse_named_string_argument("path_to_browser_crate_from_workspace_root", &input)
+                .ok_or(error.clone())?;
+        // eprintln!("path_to_browser_crate_from_workspace_root: {:?}", path_to_browser_crate_from_workspace_root);
 
         let js_url_path = parse_url_path_argument("js_url_path", &input)
             .map_err(|err| err.into_syn_error(input_span))?;
@@ -272,7 +273,9 @@ include_browser_crate!(
         // eprintln!("debug: {:?}", debug);
 
         Ok(IncludeBrowserCrateInput {
-            path_to_browser_crate: PathBuf::from(path_to_browser_crate),
+            path_to_browser_crate_from_workspace_root: PathBuf::from(
+                path_to_browser_crate_from_workspace_root,
+            ),
             js_url_path: PathBuf::from(js_url_path),
             js_performance_budget,
             wasm_url_path: PathBuf::from(wasm_url_path),
@@ -281,5 +284,24 @@ include_browser_crate!(
             debug,
             span: input_span,
         })
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use quote::quote;
+
+    #[test]
+    fn test_include() {
+        let input = quote! {
+            path_to_browser_crate_from_workspace_root: "browser",
+            js_url_path: "/built-assets/browser.js",
+            js_performance_budget_millis: 150,
+            wasm_url_path: "/built-assets/browser_bg.wasm",
+            wasm_performance_budget_millis: 310,
+            production: true,
+        };
+        let output = include(input);
     }
 }

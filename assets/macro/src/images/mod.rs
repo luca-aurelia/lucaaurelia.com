@@ -3,8 +3,8 @@ use assets_runtime::ImageAsset;
 use build_time_image::*;
 use image::DynamicImage;
 use image_asset_extension::*;
-use include_image_input::*;
-use proc_macro::TokenStream;
+pub use include_image_input::*;
+use proc_macro2::TokenStream;
 use quote::quote;
 use std::path::Path;
 
@@ -16,7 +16,8 @@ mod include_image_input;
 mod include_images_in_folder_input;
 
 pub fn include(input: TokenStream) -> TokenStream {
-    let input = syn::parse_macro_input!(input as IncludeImageInput);
+    let input: IncludeImageInput =
+        syn::parse2(input).expect("Error parsing input as IncludeImageInput.");
     crate::logger::init_logger(input.debug);
 
     let file_has_changed =

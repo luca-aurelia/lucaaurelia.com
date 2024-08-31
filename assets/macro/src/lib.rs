@@ -18,12 +18,12 @@ pub fn include_tailwind(input: TokenStream) -> TokenStream {
 
 #[proc_macro]
 pub fn include_browser_crate(input: TokenStream) -> TokenStream {
-    browser_crate::include(input)
+    browser_crate::include(input.into()).into()
 }
 
 #[proc_macro]
 pub fn include_image(input: TokenStream) -> TokenStream {
-    images::include(input)
+    images::include(input.into()).into()
 }
 
 #[proc_macro]

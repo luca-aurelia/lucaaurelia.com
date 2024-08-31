@@ -1,6 +1,6 @@
-use crate::components::{Image, Layout, Link, ColorBlocks, Nav};
+use crate::components::{ColorBlocks, Image, Layout, Link, Nav};
 use crate::css_class_groups::bg_background;
-use crate::library::work::{Work, WorkId};
+use crate::library::work::Work;
 use maud::{html, Markup, Render};
 use shared::route::Route;
 
@@ -24,7 +24,7 @@ pub fn page() -> Markup {
 fn page_html() -> Markup {
     html! {
         main
-            class="w-full p-4 lg:p-8 pt-0 flex flex-col lg:flex-row" {
+            class="w-full p-4 md:p-8 lg:p-12 flex flex-col lg:flex-row" {
             (about())
             (works())
         }
@@ -32,7 +32,7 @@ fn page_html() -> Markup {
 }
 
 fn about() -> Markup {
-    let most_light_speaks_sunish = &crate::routes::works::most_light_speaks_sunish::WORK ;
+    let most_light_speaks_sunish = &crate::routes::works::most_light_speaks_sunish::WORK;
     html! {
         (Nav::new().class("block lg:hidden"))
         div class="about-placeholder hidden lg:block lg:w-[680px] shrink-0 h-full" {}
@@ -40,8 +40,8 @@ fn about() -> Markup {
             about-container
             w-full lg:w-[680px]
             flex flex-col
-            lg:fixed lg:left-8 lg:top-8 lg:bottom-8 lg:pr-12
-            pb-8 lg:pb-0
+            lg:fixed md:left-8 lg:left-12 lg:top-12 lg:bottom-12 lg:pr-12
+            pb-12 lg:pb-0
             z-10
             " {
             div class="about w-full h-full flex flex-col justify-center items-start lg:items-start" {
@@ -57,7 +57,7 @@ fn about() -> Markup {
                             span {
                                 "Haiku "
                             }
-                            span class="-translate-y-[4px]" {
+                            span class="inline-block -translate-y-[4px]" {
                                 "+"
                             }
                             br;
@@ -172,7 +172,7 @@ fn work_li(work: &Work) -> Markup {
                 })
             )
         }
-        div class="external:preview-container hidden lg:flex fixed left-4 lg:left-8 top-4 lg:top-8 bottom-4 lg:bottom-8 lg:w-[680px] pr-4 lg:pr-8 overflow-hidden flex-col items-center justify-center" {
+        div class="external:preview-container hidden lg:flex fixed left-4 lg:left-12 top-4 lg:top-12 bottom-4 lg:bottom-12 lg:w-[680px] pr-4 lg:pr-12 overflow-hidden flex-col items-center justify-center" {
             div class={ "external:preview-backdrop opacity-0 absolute left-0 top-0 w-full h-full " (bg_background()) } {}
             (Image::new(&work.cropped_preview_image)
                 .class("external:preview-image w-full h-full block object-cover object-center rounded-md z-10"))

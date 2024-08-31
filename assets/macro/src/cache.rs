@@ -1,4 +1,4 @@
-use proc_macro::TokenStream;
+use proc_macro2::TokenStream;
 use quote::{quote, ToTokens};
 use serde::{de::DeserializeOwned, Serialize};
 use std::fs;
@@ -25,7 +25,7 @@ pub fn cache_macro_output<OutputStruct: Serialize + DeserializeOwned + ToTokens>
                     #output
                 };
 
-                tokens.into()
+                tokens
             }
             Err(error) => error,
         },
@@ -61,5 +61,5 @@ fn get_cached_output<OutputStruct: Serialize + DeserializeOwned + ToTokens>(
         #deserialized
     };
 
-    Some(tokens.into())
+    Some(tokens)
 }
