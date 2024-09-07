@@ -23,7 +23,7 @@ impl Render for Nav {
     fn render(&self) -> Markup {
         let link_class = "text-xl md:text-2xl uppercase font-extralight text-neutral-700 dark:text-neutral-100 tracking-widest whitespace-nowrap";
         html! {
-            nav class={"w-full pb-4 md:pb-8 lg:pb-12 " (self.class)} {
+            nav class={"w-full pb-4 md:pb-8 xl:pb-12 " (self.class)} {
                 div class="name flex flex-row justify-between" {
                     (Link::new()
                         .href(Route::Home)

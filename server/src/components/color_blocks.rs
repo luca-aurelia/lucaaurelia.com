@@ -27,7 +27,7 @@ impl ColorBlocks {
 
 impl Render for ColorBlocks {
     fn render(&self) -> Markup {
-        let block_class = "w-3 h-3 lg:w-4 lg:h-4";
+        let block_class = "w-3 h-3 xl:w-4 xl:h-4";
 
         html! {
             div class="color-blocks flex flex-row overflow-hidden rounded-[0.0625rem] shrink-0" {

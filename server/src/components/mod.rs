@@ -27,3 +27,6 @@ pub use self::nav::*;
 
 pub mod stylesheet;
 pub use self::stylesheet::*;
+
+pub mod work_page;
+pub use self::work_page::*;

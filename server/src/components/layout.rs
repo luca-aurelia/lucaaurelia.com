@@ -66,7 +66,8 @@ pub struct Layout {
     title: &'static str,
     description: &'static str,
     open_graph_image: &'static ImageAsset,
-    include_body_classes: bool,
+    use_default_body_classes: bool,
+    selection_classes: String,
     slot: Markup,
 }
 
@@ -76,7 +77,8 @@ impl Layout {
             title,
             description,
             open_graph_image: &ASSET_INDEX.open_graph_image,
-            include_body_classes: true,
+            use_default_body_classes: true,
+            selection_classes: "selection:bg-neutral-500 selection:text-neutral-100 dark:selection:bg-neutral-300 dark:selection:text-neutral-700".to_string(),
             slot,
         }
     }
@@ -86,19 +88,24 @@ impl Layout {
         self
     }
 
-    pub fn include_body_classes(mut self, include_body_classes: bool) -> Self {
-        self.include_body_classes = include_body_classes;
+    pub fn use_default_body_classes(mut self, default_body_classes: bool) -> Self {
+        self.use_default_body_classes = default_body_classes;
+        self
+    }
+
+    pub fn selection_classes(mut self, selection_classes: String) -> Self {
+        self.selection_classes = selection_classes;
         self
     }
 }
 
 impl Render for Layout {
     fn render(&self) -> Markup {
-        let body_classes = if self.include_body_classes {
-            format!(
-                "flex flex-col items-center selection:bg-neutral-200 dark:selection:bg-neutral-700/75 {}",
-                bg_background()
-            )
+        //
+        let body_classes = if self.use_default_body_classes {
+            let bg_background = bg_background();
+            let selection_classes = &self.selection_classes;
+            format!("flex flex-col items-center {bg_background} {selection_classes}")
         } else {
             String::new()
         };

@@ -28,10 +28,6 @@ const config = {
       fontSize: {},
       spacing: {},
       colors: {
-        cerulean: "rgba(169, 232, 252, 1)", // Sky blue.
-        cloud: "rgba(245, 245, 245, 0)", // Fully transparent white.
-        twilight: "rgba(96, 76, 126, 1)", // A dusky purple.
-        midnight: "hsl(270.35deg 21.52% 14.21%)", // An even darker, less saturated purple.
         // midnight: 'rgba(38,38,38,0)' // Fully transparent black.
       },
     },
