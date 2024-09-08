@@ -19,4 +19,8 @@ impl Line {
     pub fn is_section_separator(&self) -> bool {
         self.text.trim() == "---"
     }
+
+    pub fn is_comment(&self) -> bool {
+        self.text_without_comments.starts_with("//")
+    }
 }

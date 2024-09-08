@@ -1,5 +1,3 @@
-use chrono::NaiveDate;
-
 use super::line::Line;
 use super::normalized_string::NormalizedString;
 use super::schema::{ExpectedType, FieldDefinition, Schema};
@@ -62,16 +60,16 @@ impl Metadata {
             .collect();
 
         if required_fields_that_are_missing.is_empty() {
-            Valid::Yes
-        } else {
-            let owned_missing_fields: Vec<_> = required_fields_that_are_missing
-                .into_iter()
-                .cloned()
-                .collect();
+            return Valid::Yes;
+        }
 
-            Valid::No {
-                missing_fields: owned_missing_fields,
-            }
+        let owned_missing_fields: Vec<_> = required_fields_that_are_missing
+            .into_iter()
+            .cloned()
+            .collect();
+
+        Valid::No {
+            missing_fields: owned_missing_fields,
         }
     }
 
@@ -96,28 +94,6 @@ impl Metadata {
                 Some(parsed)
             }
             ExpectedType::U64 => value.trim().parse::<u64>().map(FieldValue::U64).ok(),
-            ExpectedType::YyyyMmDd => {
-                let cleaned = {
-                    let cleaned = value.trim();
-                    let cleaned = match cleaned.strip_prefix("[[") {
-                        Some(cleaned) => cleaned,
-                        None => cleaned,
-                    };
-                    let cleaned = match cleaned.strip_suffix("]]") {
-                        Some(cleaned) => cleaned,
-                        None => cleaned,
-                    };
-                    cleaned
-                };
-
-                let mut split = cleaned.split('.');
-                let year = split.next()?.parse::<i32>().ok()?;
-                let month = split.next()?.parse::<u32>().ok()?;
-                let day = split.next()?.parse::<u32>().ok()?;
-
-                let date = NaiveDate::from_ymd_opt(year, month, day)?;
-                Some(FieldValue::YyyyMmDd(date))
-            }
         }
     }
 }
@@ -130,7 +106,6 @@ impl Default for Metadata {
 
 #[derive(Debug, Clone)]
 pub enum FieldValue {
-    YyyyMmDd(NaiveDate),
     String(String),
     U64(u64),
     Link {

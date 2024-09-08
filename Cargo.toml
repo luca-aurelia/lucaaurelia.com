@@ -43,3 +43,147 @@ opt-level = 3
 opt-level = 3
 [profile.bench.package.image]
 opt-level = 3
+
+# Always build the image crate with optimizations enabled, even in dev, test, and benchmark mode.
+[profile.dev.package.assets]
+opt-level = 3
+[profile.test.package.assets]
+opt-level = 3
+[profile.bench.package.assets]
+opt-level = 3
+
+# Always build the image crate with optimizations enabled, even in dev, test, and benchmark mode.
+[profile.dev.package.assets_macro]
+opt-level = 3
+[profile.test.package.assets_macro]
+opt-level = 3
+[profile.bench.package.assets_macro]
+opt-level = 3
+
+# Always build the image crate with optimizations enabled, even in dev, test, and benchmark mode.
+[profile.dev.package.assets_runtime]
+opt-level = 3
+[profile.test.package.assets_runtime]
+opt-level = 3
+[profile.bench.package.assets_runtime]
+opt-level = 3
+
+# Always build the image crate with optimizations enabled, even in dev, test, and benchmark mode.
+[profile.dev.package.proc-macro2]
+opt-level = 3
+[profile.test.package.proc-macro2]
+opt-level = 3
+[profile.bench.package.proc-macro2]
+opt-level = 3
+
+# Always build the image crate with optimizations enabled, even in dev, test, and benchmark mode.
+[profile.dev.package.quote]
+opt-level = 3
+[profile.test.package.quote]
+opt-level = 3
+[profile.bench.package.quote]
+opt-level = 3
+
+# Always build the image crate with optimizations enabled, even in dev, test, and benchmark mode.
+[profile.dev.package.syn]
+opt-level = 3
+[profile.test.package.syn]
+opt-level = 3
+[profile.bench.package.syn]
+opt-level = 3
+
+# Always build the image crate with optimizations enabled, even in dev, test, and benchmark mode.
+[profile.dev.package.rayon]
+opt-level = 3
+[profile.test.package.rayon]
+opt-level = 3
+[profile.bench.package.rayon]
+opt-level = 3
+
+# Always build the image crate with optimizations enabled, even in dev, test, and benchmark mode.
+[profile.dev.package.minify-js]
+opt-level = 3
+[profile.test.package.minify-js]
+opt-level = 3
+[profile.bench.package.minify-js]
+opt-level = 3
+
+# Always build the image crate with optimizations enabled, even in dev, test, and benchmark mode.
+[profile.dev.package.fs4]
+opt-level = 3
+[profile.test.package.fs4]
+opt-level = 3
+[profile.bench.package.fs4]
+opt-level = 3
+
+# Always build the image crate with optimizations enabled, even in dev, test, and benchmark mode.
+[profile.dev.package.walkdir]
+opt-level = 3
+[profile.test.package.walkdir]
+opt-level = 3
+[profile.bench.package.walkdir]
+opt-level = 3
+
+# Always build the image crate with optimizations enabled, even in dev, test, and benchmark mode.
+[profile.dev.package.base64]
+opt-level = 3
+[profile.test.package.base64]
+opt-level = 3
+[profile.bench.package.base64]
+opt-level = 3
+
+# Always build the image crate with optimizations enabled, even in dev, test, and benchmark mode.
+[profile.dev.package.uuid]
+opt-level = 3
+[profile.test.package.uuid]
+opt-level = 3
+[profile.bench.package.uuid]
+opt-level = 3
+
+# Always build the image crate with optimizations enabled, even in dev, test, and benchmark mode.
+[profile.dev.package.tailwind_cli]
+opt-level = 3
+[profile.test.package.tailwind_cli]
+opt-level = 3
+[profile.bench.package.tailwind_cli]
+opt-level = 3
+
+# Always build the image crate with optimizations enabled, even in dev, test, and benchmark mode.
+[profile.dev.package.wasm_pack_cli]
+opt-level = 3
+[profile.test.package.wasm_pack_cli]
+opt-level = 3
+[profile.bench.package.wasm_pack_cli]
+opt-level = 3
+
+# Always build the image crate with optimizations enabled, even in dev, test, and benchmark mode.
+[profile.dev.package.serde]
+opt-level = 3
+[profile.test.package.serde]
+opt-level = 3
+[profile.bench.package.serde]
+opt-level = 3
+
+# Always build the image crate with optimizations enabled, even in dev, test, and benchmark mode.
+[profile.dev.package.tokio]
+opt-level = 3
+[profile.test.package.tokio]
+opt-level = 3
+[profile.bench.package.tokio]
+opt-level = 3
+
+# Always build the image crate with optimizations enabled, even in dev, test, and benchmark mode.
+[profile.dev.package.sha2]
+opt-level = 3
+[profile.test.package.sha2]
+opt-level = 3
+[profile.bench.package.sha2]
+opt-level = 3
+
+# Always build the image crate with optimizations enabled, even in dev, test, and benchmark mode.
+[profile.dev.package.serde_json]
+opt-level = 3
+[profile.test.package.serde_json]
+opt-level = 3
+[profile.bench.package.serde_json]
+opt-level = 3

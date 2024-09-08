@@ -21,7 +21,7 @@ async fn main() {
     match task {
         Task::StartServer => start_server().await,
         Task::SaveObsidianHtmlViews => save_obsidian_html_views(),
-        Task::TestLeaflet => library_of_babel::test_leaflet(),
+        Task::TestSunful => library_of_babel::test_sunful(),
     }
 }
 
@@ -72,17 +72,17 @@ fn parse_task_from_cli_args() -> Task {
     let maybe_arg = std::env::args().nth(1);
     match maybe_arg.as_deref() {
         Some("start-server") => Task::StartServer,
+        None => Task::StartServer,
         Some("save-obsidian-html-views") => Task::SaveObsidianHtmlViews,
-        Some("test-leaflet") => Task::TestLeaflet,
+        Some("test-sunful") => Task::TestSunful,
         Some(arg) => {
             panic!("Unkown argument: {arg}");
         }
-        None => Task::StartServer,
     }
 }
 
 enum Task {
     StartServer,
     SaveObsidianHtmlViews,
-    TestLeaflet,
+    TestSunful,
 }

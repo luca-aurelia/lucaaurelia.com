@@ -5,8 +5,8 @@ use obsidian::*;
 
 pub mod date;
 pub mod extensions;
-pub mod leaflet;
 pub mod obsidian;
+pub mod sunful;
 mod years;
 
 // pub fn main() {
@@ -20,7 +20,7 @@ mod years;
 // }
 
 pub use years::year_2023::convert_2023_haiku_to_csv;
-pub use years::year_2024::test_leaflet;
+pub use years::year_2024::test_sunful;
 
 pub fn move_people_into_people_folder(vault: &mut Vault) {
     let people_topic_id = vault

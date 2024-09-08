@@ -8,28 +8,31 @@ pub struct Schema {
     pub expected_fields: Vec<FieldDefinition>,
 }
 
+const SCHEMA_LANGUAGE: &str = "sunful-schema";
+
 impl Schema {
-    pub fn from_raw_section(raw_section: &RawSection) -> Result<Self, ParseError> {
-        if !raw_section
+    pub fn contains_schema_definition(raw_section: &RawSection) -> bool {
+        let code_block_opening = format!("```{}", SCHEMA_LANGUAGE);
+        raw_section
             .text
             .to_lowercase()
-            .contains("this is a leaflet schema")
-        {
-            return Err(ParseError::FirstSectionIsNotSchema);
+            .contains(&code_block_opening)
+    }
+
+    pub fn from_raw_section(raw_section: &RawSection) -> Result<Self, ParseError> {
+        if !Self::contains_schema_definition(raw_section) {
+            return Err(ParseError::NoSchemaDefinition);
         }
+
+        let schema_lines = raw_section
+            .find_code_block(SCHEMA_LANGUAGE)
+            .ok_or(ParseError::NoSchemaDefinition)?;
 
         type FieldDefinitions = Vec<FieldDefinition>;
 
-        let expected_fields = raw_section
-            .lines
-            .iter()
-            .filter(|line| !line.text_without_comments.trim().is_empty())
-            .filter(|line| {
-                !line
-                    .text_without_comments
-                    .to_lowercase()
-                    .contains("this is a leaflet schema")
-            }) // Ignore the line declaring this section as a Leaflet schema.
+        let expected_fields = schema_lines
+            .into_iter()
+            .filter(|line| !line.is_comment())
             .map(FieldDefinition::from_line)
             .collect::<Result<FieldDefinitions, ParseError>>()?;
 
@@ -82,7 +85,6 @@ impl FieldDefinition {
 
 #[derive(Debug, Clone, enum_iterator::Sequence)]
 pub enum ExpectedType {
-    YyyyMmDd,
     String,
     U64,
     Link,
@@ -91,7 +93,6 @@ pub enum ExpectedType {
 impl ExpectedType {
     fn as_str(&self) -> &'static str {
         match self {
-            ExpectedType::YyyyMmDd => "yyyy.mm.dd",
             ExpectedType::String => "string",
             ExpectedType::U64 => "u64",
             ExpectedType::Link => "link",
@@ -106,7 +107,7 @@ fn parse_type_that_might_be_optional(
     let optional = "optional ";
 
     let (type_text, required) = match type_text_maybe_with_prefix.strip_prefix(optional) {
-        Some(inner_type) => (inner_type, Required::No),
+        Some(without_prefix) => (without_prefix, Required::No),
         None => (type_text_maybe_with_prefix, Required::Yes),
     };
 

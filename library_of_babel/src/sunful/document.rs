@@ -15,9 +15,16 @@ impl Document {
     pub fn from_str(vault: &Vault, document_text: String) -> Result<Self, ParseError> {
         let mut raw_sections = get_raw_sections(document_text)
             .into_iter()
-            .filter(|raw_section| raw_section.is_a_leaflet_section());
+            .into_iter()
+            // Skip everything before the first schema section.
+            .skip_while(|raw_section| {
+                let is_schema_section = Schema::contains_schema_definition(raw_section);
+                !is_schema_section
+            });
 
-        let schema_raw_section = raw_sections.next().ok_or(ParseError::NoLeafletSections)?;
+        let schema_raw_section = raw_sections
+            .next()
+            .ok_or(ParseError::NoSunfulSectionsAfterSchema)?;
         dbg!(&schema_raw_section);
         let schema = Schema::from_raw_section(&schema_raw_section)?;
 

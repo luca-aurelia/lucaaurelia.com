@@ -33,16 +33,16 @@ impl Section {
         for line in raw_section.lines {
             match metadata.try_add_field(vault, schema, &line) {
                 LineWas::ValidMetadataField => continue,
-                LineWas::Empty => {
-                    save_paragraph(&metadata, paragraph_lines);
-                    paragraph_lines = vec![];
-                }
                 LineWas::OtherText => match metadata.is_valid(schema) {
                     Valid::Yes => paragraph_lines.push(line),
                     Valid::No { missing_fields } => {
                         return Err(ParseError::missing_required_fields(line, missing_fields));
                     }
                 },
+                LineWas::Empty => {
+                    save_paragraph(&metadata, paragraph_lines);
+                    paragraph_lines = vec![];
+                }
             }
         }
 

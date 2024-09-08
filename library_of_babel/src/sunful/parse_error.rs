@@ -2,9 +2,9 @@ use super::{line::Line, schema::FieldDefinition};
 
 #[derive(Debug)]
 pub enum ParseError {
-    /// The whole document was made up of section separators ("---") and skipped sections ("this isn't leaflet").
-    NoLeafletSections,
-    FirstSectionIsNotSchema,
+    /// There were no Sunful sections after the schema.
+    NoSunfulSectionsAfterSchema,
+    NoSchemaDefinition,
     FieldDefinitionMissingName {
         line: Line,
     },

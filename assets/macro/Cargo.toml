@@ -13,10 +13,6 @@ proc-macro = true
 name = "assets_macro"
 path = "src/test.rs"
 
-[profile.dev.package."*"]
-opt-level = 3
-debug = false
-
 [dependencies]
 paths = { path = "../../paths" }
 assets_runtime = { path = "../runtime", features = ["build_time"] }
