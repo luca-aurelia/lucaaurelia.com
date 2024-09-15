@@ -23,4 +23,8 @@ impl Line {
     pub fn is_comment(&self) -> bool {
         self.text_without_comments.starts_with("//")
     }
+
+    pub fn is_empty(&self) -> bool {
+        self.text_without_comments.is_empty()
+    }
 }

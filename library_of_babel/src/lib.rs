@@ -1,26 +1,13 @@
-#![allow(non_upper_case_globals)]
-
 use date::*;
 use obsidian::*;
+pub use years::year_2023::convert_2023_haiku_to_csv;
+pub use years::year_2024::test_sunful;
 
 pub mod date;
 pub mod extensions;
 pub mod obsidian;
 pub mod sunful;
 mod years;
-
-// pub fn main() {
-//     years::year_2023::convert_2023_haiku_to_csv();
-// let vault_path = "/Users/photon-garden/library-of-babel";
-// let vault_path = "/Users/photon-garden/obsidian-dev";
-
-// let mut vault = Vault::load_from_disk(vault_path);
-// move_people_into_people_folder(&mut vault);
-// create_dates_for_year(&mut vault, 2024);
-// }
-
-pub use years::year_2023::convert_2023_haiku_to_csv;
-pub use years::year_2024::test_sunful;
 
 pub fn move_people_into_people_folder(vault: &mut Vault) {
     let people_topic_id = vault

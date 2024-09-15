@@ -12,7 +12,7 @@ pub struct Document {
 }
 
 impl Document {
-    pub fn from_str(vault: &Vault, document_text: String) -> Result<Self, ParseError> {
+    pub fn from_string(vault: &Vault, document_text: String) -> Result<Self, ParseError> {
         let mut raw_sections = get_raw_sections(document_text)
             .into_iter()
             .into_iter()
@@ -25,8 +25,8 @@ impl Document {
         let schema_raw_section = raw_sections
             .next()
             .ok_or(ParseError::NoSunfulSectionsAfterSchema)?;
-        dbg!(&schema_raw_section);
         let schema = Schema::from_raw_section(&schema_raw_section)?;
+        dbg!(&schema);
 
         type Sections = Vec<Section>;
         let sections = raw_sections

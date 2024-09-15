@@ -35,7 +35,15 @@ pub fn files_in_vault(vault_path: String) -> impl Iterator<Item = File> {
         // We copy public files from my Obsidian vault into the built assets folder
         // so they're available at https://photon.garden. But we don't want to
         // treat them as part of the vault since they're duplicates.
-        .filter_entry(|entry| !is_hidden(entry) && !is_in_built_assets_folder(entry))
+        // We also omit anything in target/ or node_modules/ since those are
+        // build artifacts and dependencies.
+        .filter_entry(|entry| {
+            let path = entry.path().to_string_lossy();
+            !is_hidden(entry)
+                && !is_in_built_assets_folder(entry)
+                && !path.contains("target/")
+                && !path.contains("node_modules/")
+        })
         .filter_map(|entry| entry.ok())
         .filter(|entry| entry.file_type().is_file())
         .map(move |entry| File::from_dir_entry(&vault_path, &entry))

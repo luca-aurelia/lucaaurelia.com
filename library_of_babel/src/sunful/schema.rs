@@ -24,15 +24,18 @@ impl Schema {
             return Err(ParseError::NoSchemaDefinition);
         }
 
+        dbg!(&raw_section);
         let schema_lines = raw_section
             .find_code_block(SCHEMA_LANGUAGE)
             .ok_or(ParseError::NoSchemaDefinition)?;
+        dbg!(&schema_lines);
 
         type FieldDefinitions = Vec<FieldDefinition>;
 
         let expected_fields = schema_lines
             .into_iter()
             .filter(|line| !line.is_comment())
+            .filter(|line| !line.is_empty())
             .map(FieldDefinition::from_line)
             .collect::<Result<FieldDefinitions, ParseError>>()?;
 

@@ -26,15 +26,21 @@ impl RawSection {
     pub fn find_code_block(&self, language: &str) -> Option<&[Line]> {
         let code_block_start = format!("```{}", language);
         let code_block_end = "```";
+
         let code_block_start_index = self
             .lines
             .iter()
-            .position(|line| line.text.contains(&code_block_start))?;
+            .position(|line| line.text.trim() == code_block_start)?;
+        dbg!(code_block_start_index);
+
         let code_block_end_index = self.lines[code_block_start_index..]
             .iter()
-            .position(|line| line.text.contains(code_block_end))
+            .position(|line| line.text.trim() == code_block_end)
             .map(|index| code_block_start_index + index)?;
-        let code_block = &self.lines[code_block_start_index..code_block_end_index];
+        dbg!(code_block_end_index);
+
+        // We start the slice at code_block_start_index + 1 to exclude the starting line (```lang).
+        let code_block = &self.lines[(code_block_start_index + 1)..code_block_end_index];
         Some(code_block)
     }
 }
