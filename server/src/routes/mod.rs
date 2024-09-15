@@ -1,6 +1,7 @@
 use crate::components::{ColorBlocks, Image, Layout, Link, Nav};
 use crate::css_class_groups::bg_background;
 use crate::library::work::Work;
+use crate::library::breakpoint::Breakpoint;
 use maud::{html, Markup, Render};
 use shared::route::Route;
 
@@ -41,13 +42,13 @@ fn about() -> Markup {
             w-full lg:w-[680px]
             flex flex-col
             lg:fixed md:left-8 lg:left-12 lg:top-12 lg:bottom-12 lg:pr-12
-            pb-12 lg:pb-0
+            pb-6 sm:pb-8 md:pb-12 lg:pb-0
             z-10
             " {
             div class="about w-full h-full flex flex-col justify-center items-start lg:items-start" {
                 div class="about-text hidden lg:flex flex-col" {
                     div class="name flex flex-col items-start" {
-                        (ColorBlocks::new(&most_light_speaks_sunish.palette))
+                        (ColorBlocks::new(&most_light_speaks_sunish.palette).size_breakpoint(Breakpoint::Md))
                         div class="spacer w-full h-4 shrink-0" {}
                         h1 class="text-2xl lg:text-6xl uppercase font-extralight text-neutral-700 dark:text-neutral-100 tracking-widest" {
                             "Luca Aurelia"

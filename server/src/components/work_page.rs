@@ -67,7 +67,7 @@ fn name_section(work: &Work, haiku: [&'static str; 3], name_slot: &Markup) -> Ma
             md:pr-20
             z-10
             " {
-            div class="name w-full h-full flex flex-col justify-center items-start" {
+            div class="name w-full h-full flex flex-col justify-center items-start relative" {
                 div class="name-text flex flex-col" {
                     div class="name flex flex-col items-start" {
                         (ColorBlocks::new(&work.palette))

@@ -4,10 +4,11 @@ use chrono::{Datelike, NaiveDate};
 use once_cell::sync::Lazy;
 
 type Year = i32;
+type DistanceInDays = i64;
 
 static SUN_STATIONS: Lazy<HashMap<Year, SunStationsForYear>> = Lazy::new(load_sun_stations);
 
-pub fn get_closest_upcoming_solstice_or_equinox() -> SunStationWithDate {
+pub fn get_closest_upcoming_solstice_or_equinox() -> (SunStationWithDate, DistanceInDays) {
     let today = chrono::Local::now().date_naive();
 
     let this_year = today.year();
@@ -21,14 +22,14 @@ pub fn get_closest_upcoming_solstice_or_equinox() -> SunStationWithDate {
     ]
     .concat();
 
-    let (closest_future_sun_station, _distance_in_days) = all_sun_stations
+    let (closest_future_sun_station, distance_in_days) = all_sun_stations
         .into_iter()
         .map(|sun_station| (sun_station, sun_station.distance_in_days_from(today)))
         .filter(|(_sun_station, distance_in_days)| distance_in_days >= &0) // Only consider future sun stations.
         .min_by_key(|(_sun_station, distance_in_days)| *distance_in_days)
         .unwrap();
 
-    closest_future_sun_station.clone()
+    (closest_future_sun_station.clone(), distance_in_days)
 }
 
 struct SunStationsForYear {
