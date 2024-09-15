@@ -27,7 +27,7 @@ static ASSET_INDEX: Lazy<AssetIndex> = Lazy::new(|| AssetIndex {
         js_url_path: "/built-assets/browser.js",
         js_performance_budget_millis: 150,
         wasm_url_path: "/built-assets/browser_bg.wasm",
-        wasm_performance_budget_millis: 310,
+        wasm_performance_budget_millis: 350,
         production: true,
     ),
     favicon: assets::include_file!(
