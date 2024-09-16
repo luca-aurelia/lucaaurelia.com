@@ -5,7 +5,7 @@
 
 Translations of 668 of [Taneda Santōka](https://en.wikipedia.org/wiki/Sant%C5%8Dka_Taneda)'s free-verse haiku, including excellent translations by [Hiroaki Satō](<https://en.wikipedia.org/wiki/Hiroaki_Sato_(translator)>), [Scott Watson](https://www.instagram.com/swbotl), and [Cid Corman](https://en.wikipedia.org/wiki/Cid_Corman).
 
-Available as JSON for easy parsing, or in the [Leaflet.md]() format for viewing in Markdown-friendly apps like [Obsidian](https://obsidian.md/).
+Available as JSON for easy parsing, or in the [Sunful.md]() format for viewing in Markdown-friendly apps like [Obsidian](https://obsidian.md/).
 
 You can explore the poems in the dataset at [lucaaurelia.com/santoka](https://lucaaurelia.com/santoka).
 
@@ -77,11 +77,11 @@ cargo add santoka
 Parsing JSON is straightforward in most languages. Here's a JavaScript example:
 
 ```javascript
-import fs from "fs";
+import fs from 'fs'
 
-const poemsJson = fs.readFileSync("./santoka/poems.json");
-const poems = JSON.parse(poemsJson);
-console.log(poems);
+const poemsJson = fs.readFileSync('./santoka/poems.json')
+const poems = JSON.parse(poemsJson)
+console.log(poems)
 ```
 
 If you're using Rust, the `santoka` crate takes care of parsing for you:

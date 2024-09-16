@@ -25,11 +25,23 @@ impl Route {
             .find(|route| route.to_string() == path)
             .unwrap_or(Route::NotFound)
     }
+
+    pub fn is_page(&self) -> bool {
+        match self {
+            Route::BuildTime => false,
+            Route::Email => false,
+            Route::Home => true,
+            Route::NotFound => true,
+            Route::SantokaAllPoems => true,
+            Route::SantokaNonPreviewPoems { publication_id: _ } => true,
+            Route::Work { id: _ } => true,
+        }
+    }
 }
 
 impl Display for Route {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let route_str = match self {
+        let route_string = match self {
             Route::BuildTime => "/build-time".to_string(),
             Route::Email => "mailto:luca@lucaaurelia.com".to_string(),
             Route::Home => "/".to_string(),
@@ -45,6 +57,6 @@ impl Display for Route {
             },
         };
 
-        write!(f, "{}", route_str)
+        write!(f, "{}", route_string)
     }
 }

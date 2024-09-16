@@ -20,6 +20,11 @@ async fn main() {
 
     match task {
         Task::StartServer => start_server().await,
+        Task::SaveStaticHtml => {
+            for route in Route::all() {
+                route.save_html_if_page();
+            }
+        }
         Task::SaveObsidianHtmlViews => save_obsidian_html_views(),
         Task::TestSunful => library_of_babel::test_sunful(),
     }
@@ -73,6 +78,7 @@ fn parse_task_from_cli_args() -> Task {
     match maybe_arg.as_deref() {
         Some("start-server") => Task::StartServer,
         None => Task::StartServer,
+        Some("save-static-html") => Task::SaveStaticHtml,
         Some("save-obsidian-html-views") => Task::SaveObsidianHtmlViews,
         Some("test-sunful") => Task::TestSunful,
         Some(arg) => {
@@ -85,4 +91,5 @@ enum Task {
     StartServer,
     SaveObsidianHtmlViews,
     TestSunful,
+    SaveStaticHtml,
 }

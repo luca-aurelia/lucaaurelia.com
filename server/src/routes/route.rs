@@ -10,7 +10,7 @@ pub trait ServerSideRouteExtension {
     fn from_request(req: &Request) -> Self;
     fn html(&self) -> Markup;
     /// For static site generation.
-    fn save(&self, path: &Path);
+    fn save_html_if_page(&self);
 }
 
 impl ServerSideRouteExtension for Route {
@@ -34,9 +34,16 @@ impl ServerSideRouteExtension for Route {
         }
     }
 
-    fn save(&self, path: &Path) {
+    fn save_html_if_page(&self) {
+        if !self.is_page() {
+            return;
+        }
+
         let html_string = self.html().into_string();
-        std::fs::write(path, html_string).unwrap();
+        let path_starting_from_built_assets_dir = self.to_string();
+        let path = paths::built_assets_dir().join(path_starting_from_built_assets_dir);
+        dbg!(&path);
+        std::fs::write(path, html_string).expect("Failed to write HTML file.");
     }
 }
 

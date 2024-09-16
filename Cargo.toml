@@ -10,7 +10,7 @@ members = [
     "santoka",
     "wasm_pack_cli",
     "tailwind_cli",
-    "run_binary",
+    "run_binary", "onion",
 ]
 exclude = [
     # If we add the browser crate to the workspace, building causes
