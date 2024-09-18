@@ -51,13 +51,16 @@ impl Render for Link {
         );
 
         match &self.href {
-            Some(href) => html! {
-                a
-                    class=(class)
-                    href=(href) {
-                    (self.slot)
+            Some(href) => {
+                dbg!(&href.to_string());
+                html! {
+                    a
+                        class=(class)
+                        href=(href) {
+                        (self.slot)
+                    }
                 }
-            },
+            }
             None => html! {
                 button
                     class=(class) {

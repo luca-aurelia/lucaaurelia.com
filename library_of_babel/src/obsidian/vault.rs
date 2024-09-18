@@ -14,13 +14,13 @@ pub struct Vault {
 
 impl Vault {
     pub fn production_vault() -> Vault {
-        let path = paths::production_vault_path();
+        let path = paths::production_obsidian_vault_path();
         let path = path.to_string_lossy().to_string();
         Vault::load_from_disk(path)
     }
 
     pub fn development_vault() -> Vault {
-        let path = paths::development_vault_path();
+        let path = paths::development_obsidian_vault_path();
         let path = path.to_string_lossy().to_string();
         Vault::load_from_disk(path)
     }

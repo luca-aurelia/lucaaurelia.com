@@ -1,0 +1,11 @@
+[package]
+name = "money_and_business_2024"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+paths = { path = "../paths" }
+csv = "1.3.0"
+jiff = { version = "0.1.13", features = ["serde"] }
+serde = { version = "1.0.210", features = ["derive"] }
+camino = "1.1.9"

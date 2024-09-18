@@ -94,7 +94,7 @@ if #[cfg(feature = "build_time")] {
     }
 
     fn path_on_disk(wasm_asset: &WasmAsset) -> PathBuf {
-        paths::output_file_path(&wasm_asset.url_path)
+        paths::built_asset_file_path(&wasm_asset.url_path)
     }
 }
 }

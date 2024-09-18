@@ -15,7 +15,8 @@ pub fn include(input: TokenStream) -> TokenStream {
         syn::parse2(input).expect("Error parsing input as IncludeBrowserCrateInput.");
     crate::logger::init_logger(input.debug);
 
-    let absolute_path_to_browser_crate = workspace_root_dir().join(&input.path_to_browser_crate_from_workspace_root);
+    let absolute_path_to_browser_crate =
+        workspace_root_dir().join(&input.path_to_browser_crate_from_workspace_root);
     let files_have_changed = crate::file_change::has_any_file_changed(
         &absolute_path_to_browser_crate,
         "include_browser_crate",
@@ -28,8 +29,8 @@ pub fn include(input: TokenStream) -> TokenStream {
 }
 
 fn uncached_include(input: IncludeBrowserCrateInput) -> Result<BrowserCrateAsset, TokenStream> {
-    let final_path_to_built_wasm = output_file_path(&input.wasm_url_path);
-    let final_path_to_built_js = output_file_path(&input.js_url_path);
+    let final_path_to_built_wasm = built_asset_file_path(&input.wasm_url_path);
+    let final_path_to_built_js = built_asset_file_path(&input.js_url_path);
 
     let maybe_wasm_pack_output = run_wasm_pack(&input);
     let wasm_pack_output = match maybe_wasm_pack_output {

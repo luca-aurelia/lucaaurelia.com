@@ -1,7 +1,8 @@
-use std::{
-    path::{Path, PathBuf},
-    str::FromStr,
-};
+mod crate_wrappers;
+
+use camino::Utf8PathBuf;
+use crate_wrappers::path::PathBufExtension;
+use std::path::{Path, PathBuf};
 
 pub fn workspace_root_dir() -> PathBuf {
     let cargo_workspace_dir = std::env!("CARGO_WORKSPACE_DIR");
@@ -12,20 +13,20 @@ pub fn assets_dir() -> PathBuf {
     workspace_root_dir().join("assets")
 }
 
-pub fn built_assets_dir() -> PathBuf {
-    assets_dir().join(built_assets_dir_name())
+pub fn built_dir() -> Utf8PathBuf {
+    workspace_root_dir().into_utf8_path_buf().join("built")
 }
 
-pub fn output_file_path(url_path: &Path) -> PathBuf {
+pub fn built_assets_dir() -> PathBuf {
+    built_dir().into_std_path_buf().join("built-assets")
+}
+
+pub fn built_asset_file_path(url_path: &Path) -> PathBuf {
     let url_path_without_prefix = url_path
         .strip_prefix(built_assets_browser_prefix())
         .unwrap();
 
     built_assets_dir().join(url_path_without_prefix)
-}
-
-pub fn built_assets_dir_name() -> &'static str {
-    "built"
 }
 
 pub fn assets_macros_dir() -> PathBuf {
@@ -39,7 +40,7 @@ pub fn target_dir() -> PathBuf {
 /// When loading assets in the browser, URL paths should
 /// start with this prefix.
 ///
-/// For example, if you have an asset at `assets/built/built.css`,
+/// For example, if you have an asset at `built/assets/built.css`,
 /// then the URL path to that asset in the browser should be
 /// `/built-assets/built.css`.
 pub fn built_assets_browser_prefix() -> PathBuf {
@@ -70,16 +71,26 @@ pub fn built_image_path(path_starting_from_images_dir: &Path) -> PathBuf {
     built_assets_dir().join(path_starting_from_images_dir)
 }
 
-pub fn production_vault_path() -> PathBuf {
-    PathBuf::from_str("/Users/photon-garden/library-of-babel").unwrap()
+pub fn production_obsidian_vault_path() -> PathBuf {
+    home_dir().join("library-of-babel").into_std_path_buf()
 }
 
-pub fn development_vault_path() -> PathBuf {
-    PathBuf::from_str("/Users/photon-garden/library-of-babel").unwrap()
+pub fn development_obsidian_vault_path() -> PathBuf {
+    home_dir().join("obsidian-dev").into_std_path_buf()
+}
+
+pub fn path_to_obsidian_transactions_folder(year: i16) -> Utf8PathBuf {
+    production_obsidian_vault_path()
+        .into_utf8_path_buf()
+        .join("Money and business")
+        .join(year.to_string())
+        .join("Transactions")
 }
 
 pub fn css_snippets_dir() -> PathBuf {
-    production_vault_path().join(".obsidian").join("snippets")
+    production_obsidian_vault_path()
+        .join(".obsidian")
+        .join("snippets")
 }
 
 pub fn path_to_detect_file_changes_cache(file_name: &str) -> PathBuf {
@@ -93,4 +104,12 @@ pub fn cached_macro_output_path(macro_name: &str) -> PathBuf {
     target_dir()
         .join("cached_macro_outputs")
         .join(format!("{}.rs", macro_name))
+}
+
+pub fn downloads_dir() -> Utf8PathBuf {
+    home_dir().join("downloads")
+}
+
+fn home_dir() -> Utf8PathBuf {
+    Utf8PathBuf::from("/Users/photon-garden")
 }

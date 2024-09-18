@@ -78,7 +78,7 @@ impl Layout {
             description,
             open_graph_image: &ASSET_INDEX.open_graph_image,
             use_default_body_classes: true,
-            selection_classes: "selection:bg-neutral-500 selection:text-neutral-100 dark:selection:bg-neutral-300 dark:selection:text-neutral-700".to_string(),
+            selection_classes: "selection:bg-neutral-700 selection:text-neutral-100 dark:selection:bg-neutral-300 dark:selection:text-neutral-700".to_string(),
             slot,
         }
     }

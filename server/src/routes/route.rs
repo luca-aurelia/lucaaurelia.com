@@ -2,7 +2,6 @@ use super::*;
 use crate::library::work::Work;
 use axum::extract::Request;
 use maud::Markup;
-use std::path::Path;
 
 pub use shared::route::Route;
 
@@ -39,11 +38,18 @@ impl ServerSideRouteExtension for Route {
             return;
         }
 
+        let mut segments = self.segments();
+        segments.push("index.html".to_string());
+
+        let mut path = paths::built_dir();
+        path.extend(segments);
+
+        if let Some(parent) = path.parent() {
+            std::fs::create_dir_all(parent).expect("Error creating metadata directory");
+        }
+
         let html_string = self.html().into_string();
-        let path_starting_from_built_assets_dir = self.to_string();
-        let path = paths::built_assets_dir().join(path_starting_from_built_assets_dir);
-        dbg!(&path);
-        std::fs::write(path, html_string).expect("Failed to write HTML file.");
+        std::fs::write(path, html_string).expect("Failed to write HTML file");
     }
 }
 
