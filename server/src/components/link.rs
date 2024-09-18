@@ -52,7 +52,6 @@ impl Render for Link {
 
         match &self.href {
             Some(href) => {
-                dbg!(&href.to_string());
                 html! {
                     a
                         class=(class)

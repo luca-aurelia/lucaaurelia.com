@@ -1,6 +1,6 @@
-use maud::{html, Render, Markup};
-use crate::components::{ColorBlocks, Image, Layout, Nav};
+use crate::components::{ColorBlocks, Image, Layout, Loading, Nav};
 use crate::library::work::Work;
+use maud::{html, Markup, Render};
 
 pub struct WorkPage {
     work: &'static Work,
@@ -32,11 +32,7 @@ impl WorkPage {
 impl Render for WorkPage {
     fn render(&self) -> maud::Markup {
         let html = page_html(self.work, self.haiku, &self.name_slot);
-        let layout = Layout::new(
-            self.work.name,
-            self.description,
-            html,
-        );
+        let layout = Layout::new(self.work.name, self.description, html);
         layout.render()
     }
 }
@@ -111,7 +107,9 @@ fn work_section(work: &Work) -> Markup {
             tracking-wide font-light
             " {
             (Image::new(&work.image)
-                .class("max-w-full max-h-full block rounded-md object-contain"))
+                .class("max-w-full max-h-full block rounded-md object-contain")
+                .loading(Loading::Eager)
+            )
         }
     }
 }

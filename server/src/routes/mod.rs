@@ -1,7 +1,7 @@
-use crate::components::{ColorBlocks, Image, Layout, Link, Nav};
+use crate::components::{ColorBlocks, Image, Layout, Link, Loading, Nav};
 use crate::css_class_groups::bg_background;
-use crate::library::work::Work;
 use crate::library::breakpoint::Breakpoint;
+use crate::library::work::Work;
 use maud::{html, Markup, Render};
 use shared::route::Route;
 
@@ -84,7 +84,9 @@ fn about() -> Markup {
                         // We scale this up to 125% since the right side has a small white edge that makes
                         // the image look uneven at 100%.
                         (Image::new(&most_light_speaks_sunish.image)
-                            .class("w-full block object-cover object-center scale-125"))
+                            .class("w-full block object-cover object-center scale-125")
+                            .loading(Loading::Eager)
+                        )
                     }
                 }
             }
