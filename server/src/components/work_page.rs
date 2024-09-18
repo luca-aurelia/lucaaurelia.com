@@ -1,4 +1,4 @@
-use crate::components::{ColorBlocks, Image, Layout, Loading, Nav};
+use crate::components::{ColorBlocks, Image, Layout, Nav};
 use crate::library::work::Work;
 use maud::{html, Markup, Render};
 
@@ -108,7 +108,6 @@ fn work_section(work: &Work) -> Markup {
             " {
             (Image::new(&work.image)
                 .class("max-w-full max-h-full block rounded-md object-contain")
-                .loading(Loading::Eager)
             )
         }
     }

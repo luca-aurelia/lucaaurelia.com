@@ -1,4 +1,4 @@
-use crate::components::{ColorBlocks, Image, Layout, Link, Loading, Nav};
+use crate::components::{ColorBlocks, Image, Layout, Link, Nav};
 use crate::css_class_groups::bg_background;
 use crate::library::breakpoint::Breakpoint;
 use crate::library::work::Work;
@@ -85,7 +85,6 @@ fn about() -> Markup {
                         // the image look uneven at 100%.
                         (Image::new(&most_light_speaks_sunish.image)
                             .class("w-full block object-cover object-center scale-125")
-                            .loading(Loading::Eager)
                         )
                     }
                 }
